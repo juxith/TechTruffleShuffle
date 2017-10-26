@@ -50,6 +50,7 @@
     <Compile Include="ITruffleShuffleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TechTruffleRepositoryFactory.cs" />
+    <Compile Include="TechTruffleShuffleEntities.cs" />
     <Compile Include="TruffleShuffleRepositoryEF.cs" />
     <Compile Include="TruffleShuffleRepositoryMock.cs" />
   </ItemGroup>
