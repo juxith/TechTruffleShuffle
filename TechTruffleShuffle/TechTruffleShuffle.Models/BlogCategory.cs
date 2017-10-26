@@ -8,7 +8,7 @@ namespace TechTruffleShuffle.Models
 {
     public class BlogCategory
     {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int BlogCategoryId { get; set; }
+        public string BlogCategoryName { get; set; }
     }
 }

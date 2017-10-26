@@ -20,6 +20,8 @@ namespace TechTruffleShuffle.Models
         public bool IsStaticPage { get; set; }
         public bool IsRemoved { get; set; }
 
+        public ICollection<Hashtag> Hashtags { get; set; }
+
         public virtual Author Author { get; set; }
         public virtual BlogCategory BlogCategory { get; set; }
         public virtual BlogStatus BlogStatus { get; set; }

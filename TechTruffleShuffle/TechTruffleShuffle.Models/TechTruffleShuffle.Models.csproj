@@ -43,7 +43,6 @@
     <Compile Include="Author.cs" />
     <Compile Include="BlogPost.cs" />
     <Compile Include="BlogCategory.cs" />
-    <Compile Include="BlogHashtag.cs" />
     <Compile Include="BlogStatus.cs" />
     <Compile Include="Hashtag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

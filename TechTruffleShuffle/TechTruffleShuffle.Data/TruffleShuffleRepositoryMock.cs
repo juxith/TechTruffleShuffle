@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace TechTruffleShuffle.Data
 {
-    public class TruffleShuffleRepositoryMock : DbContext
+    public class TruffleShuffleRepositoryMock 
     {
-        public TruffleShuffleRepositoryMock() : base ("TechTruffleShuffle")
-        {
-
-        }
+      
     }
 }

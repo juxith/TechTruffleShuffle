@@ -10,5 +10,7 @@ namespace TechTruffleShuffle.Models
     {
         public int HashtagId { get; set; }
         public string HashtagName { get; set; }
+
+        public ICollection<BlogPost> BlogPosts { get; set; }
     }
 }
