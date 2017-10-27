@@ -13,7 +13,11 @@ namespace TechTruffleShuffle.Data
         List<BlogPost> GetAllRemovedPosts(bool isRemoved);
         List<BlogPost> GetAllPublishedPosts(int blogStatusId);
         List<BlogPost> GetAllFeaturedPosts(bool isFeatured);
+<<<<<<< HEAD
         List<BlogPost> GetBlogPostById(int blogpostId);
+=======
+        BlogPost GetBlogPostById(int blogpostId);
+>>>>>>> 973019289c5cfd795c45f7d898746cf2f2dbafd8
         List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags);
         List<BlogPost> GetAllPublishedPostsByCategory(string category);
         List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart);

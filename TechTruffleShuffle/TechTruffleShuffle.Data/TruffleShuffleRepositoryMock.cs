@@ -107,7 +107,7 @@ namespace TechTruffleShuffle.Data
                 },
                 new BlogStatus
                 {
-                    BlogStatusId = 1,
+                    BlogStatusId = 3,
                     BlogStatusDescription = "Published"
                 },
             };
@@ -117,6 +117,54 @@ namespace TechTruffleShuffle.Data
                 new BlogPost
                 {
                     BlogPostId = 1,
+                    Title = "Judy the Ruby Master",
+                    AuthorId = 3,
+                    BlogContent = "Judy took us on a tour of her newest Ruby project, teaching us how to get down the yellow brick road to success.",
+                    EventDate = new DateTime(2017, 11, 31),
+                    DateStart = new DateTime(2017, 12, 01),
+                    DateEnd = new DateTime(2018, 01, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 1,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    IsRemoved = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList()
+                },
+                new BlogPost
+                {
+                    BlogPostId = 2,
+                    Title = "Guide to Getting the Job",
+                    AuthorId = 2,
+                    BlogContent = "Smile... But only if you've brushed your teeth.",
+                    EventDate = new DateTime(2017, 11, 31),
+                    DateStart = new DateTime(2017, 12, 01),
+                    DateEnd = new DateTime(2018, 01, 01),
+                    BlogCategoryId = 3,
+                    BlogStatusId = 3,
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    IsRemoved = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList()
+                },
+                new BlogPost
+                {
+                    BlogPostId = 3,
+                    Title = "Tech Beers and Cheers",
+                    AuthorId = 1,
+                    BlogContent = "Want to meet other people in the tech industry? Like Beer? This is the perfect meetup for you!",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 11, 01),
+                    DateEnd = new DateTime(2018, 11, 15),
+                    BlogCategoryId = 2,
+                    BlogStatusId = 2,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    IsRemoved = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList()
+                },
+                new BlogPost
+                {
+                    BlogPostId = 4,
                     Title = "Judy the Ruby Master",
                     AuthorId = 1,
                     BlogContent = "Judy took us on a tour of her newest Ruby app, teaching us how to get down the yellow brick road to success.",
@@ -128,34 +176,38 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList()
                 }
             };
         }
 
         public void CreatePendingPostAuthor(BlogPost newPostToPend)
         {
-            throw new NotImplementedException();
+            if (_blogposts.Any())
+            {
+                newPostToPend.BlogPostId = _blogposts.Max(b => b.BlogPostId) + 1;
+            }
+            else
+            {
+                newPostToPend.BlogPostId = 1;
+            }
+
+            _blogposts.Add(newPostToPend);
         }
 
-        public void CreatePublishPostAdmin(BlogPost newPostToPublish)
+        public void DeleteBlogPost(int postId)
         {
-            throw new NotImplementedException();
+            _blogposts.RemoveAll(b => b.BlogPostId == postId);
         }
 
-        public void DeleteDraft(int postId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeletePost(int postId)
+        public void EditBlogPost(int postId)
         {
             throw new NotImplementedException();
         }
 
         public List<BlogPost> GetAllDrafts(int blogStatusId)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.BlogStatusId == 1).ToList();
         }
 
         public List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId)
@@ -165,12 +217,12 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllFeaturedPosts(bool isFeatured)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsFeatured == true).ToList();
         }
 
         public List<BlogPost> GetAllPendingPosts(int blogStatusId)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.BlogStatusId == 2).ToList();
         }
 
         public List<BlogPost> GetAllPendingPostsByOneAuthor(int blogStatusId, int authorId)
@@ -180,42 +232,47 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllPosts()
         {
-            throw new NotImplementedException();
+            return _blogposts;
         }
 
         public List<BlogPost> GetAllPublishedPosts(int blogStatusId)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.BlogStatusId == 3).ToList();
         }
 
         public List<BlogPost> GetAllPublishedPostsByAuthor(string authorName)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.Author.FirstName.Contains(authorName) || b.Author.LastName.Contains(authorName)).ToList();
         }
 
         public List<BlogPost> GetAllPublishedPostsByCategory(string category)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.BlogStatusId == 3 && b.BlogCategory.BlogCategoryName == category).ToList();
         }
 
         public List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.DateStart == dateStart).ToList();
         }
 
         public List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.Hashtags == hashtags).ToList();
         }
 
         public List<BlogPost> GetAllRemovedPosts(bool isRemoved)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsRemoved == true).ToList();
         }
 
         public List<BlogPost> GetAllStaticPages(bool isStatic)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsStaticPage == true).ToList();
+        }
+
+        public BlogPost GetBlogPostById(int blogpostId)
+        {
+            return _blogposts.SingleOrDefault(b => b.BlogPostId == blogpostId);
         }
 
         public BlogPost GetPublishedPostsByTitle(string title)
