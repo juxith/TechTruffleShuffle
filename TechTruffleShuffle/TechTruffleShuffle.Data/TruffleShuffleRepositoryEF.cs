@@ -44,7 +44,7 @@ namespace TechTruffleShuffle.Data
                 return getAllDrafts.ToList();
             }
         }
-     
+
         public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
         {
             using (var ctx = new TechTruffleShuffleEntities())
