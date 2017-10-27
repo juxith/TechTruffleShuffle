@@ -183,99 +183,90 @@ namespace TechTruffleShuffle.Data
 
         public void CreatePendingPostAuthor(BlogPost newPostToPend)
         {
-            if (_blogposts.Any())
-            {
-                newPostToPend.BlogPostId = _blogposts.Max(b => b.BlogPostId) + 1;
-            }
-            else
-            {
-                newPostToPend.BlogPostId = 1;
-            }
-
-            _blogposts.Add(newPostToPend);
+            throw new NotImplementedException();
         }
 
         public void DeleteBlogPost(int postId)
         {
-            _blogposts.RemoveAll(b => b.BlogPostId == postId);
+            throw new NotImplementedException();
         }
 
-        public void EditBlogPost(int postId)
+        public void EditBlogPost(BlogPost updatedBlogPost)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllDrafts(int blogStatusId)
-        {
-            return _blogposts.Where(b => b.BlogStatusId == 1).ToList();
-        }
-
-        public List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllDrafts()
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllFeaturedPosts(bool isFeatured)
+        public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
         {
-            return _blogposts.Where(b => b.IsFeatured == true).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPendingPosts(int blogStatusId)
+        public List<BlogPost> GetAllFeaturedPosts()
         {
-            return _blogposts.Where(b => b.BlogStatusId == 2).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPendingPostsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllPendingPosts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId)
         {
             throw new NotImplementedException();
         }
 
         public List<BlogPost> GetAllPosts()
         {
-            return _blogposts;
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPosts(int blogStatusId)
+        public List<BlogPost> GetAllPublishedPosts()
         {
-            return _blogposts.Where(b => b.BlogStatusId == 3).ToList();
+            throw new NotImplementedException();
         }
 
         public List<BlogPost> GetAllPublishedPostsByAuthor(string authorName)
         {
-            return _blogposts.Where(b => b.Author.FirstName.Contains(authorName) || b.Author.LastName.Contains(authorName)).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByCategory(string category)
+        public List<BlogPost> GetAllPublishedPostsByCategory(int blogCategoryId)
         {
-            return _blogposts.Where(b => b.BlogStatusId == 3 && b.BlogCategory.BlogCategoryName == category).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart)
+        public List<BlogPost> GetAllPublishedPostsByDate(string dateStart)
         {
-            return _blogposts.Where(b => b.DateStart == dateStart).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags)
+        public List<BlogPost> GetAllPublishedPostsByHashtag(string hashtags)
         {
-            return _blogposts.Where(b => b.Hashtags == hashtags).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllRemovedPosts(bool isRemoved)
+        public List<BlogPost> GetAllRemovedPosts()
         {
-            return _blogposts.Where(b => b.IsRemoved == true).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllStaticPages(bool isStatic)
+        public List<BlogPost> GetAllStaticPages()
         {
-            return _blogposts.Where(b => b.IsStaticPage == true).ToList();
+            throw new NotImplementedException();
         }
 
         public BlogPost GetBlogPostById(int blogpostId)
         {
-            return _blogposts.SingleOrDefault(b => b.BlogPostId == blogpostId);
+            throw new NotImplementedException();
         }
 
-        public BlogPost GetPublishedPostsByTitle(string title)
+        public List<BlogPost> GetPublishedPostsByTitle(string title)
         {
             throw new NotImplementedException();
         }
