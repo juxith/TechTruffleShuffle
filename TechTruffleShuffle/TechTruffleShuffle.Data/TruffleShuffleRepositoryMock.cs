@@ -256,22 +256,21 @@ namespace TechTruffleShuffle.Data
             publishedBlogposts = publishedBlogposts.Where(p => p.Hashtags.Any(h => h.HashtagName.Contains(hashtags)));
 
             return publishedBlogposts.ToList();
-
         }
 
         public List<BlogPost> GetAllRemovedPosts()
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsRemoved == true).ToList();
         }
 
         public List<BlogPost> GetAllStaticPages()
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsStaticPage == true).ToList();
         }
 
         public BlogPost GetBlogPostById(int blogpostId)
         {
-            throw new NotImplementedException();
+            return _blogposts.SingleOrDefault(b => b.BlogPostId == blogpostId);
         }
 
         public List<BlogPost> GetPublishedPostsByTitle(string title)
