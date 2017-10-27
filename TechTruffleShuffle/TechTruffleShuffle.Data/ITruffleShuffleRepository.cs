@@ -13,6 +13,7 @@ namespace TechTruffleShuffle.Data
         List<BlogPost> GetAllRemovedPosts(bool isRemoved);
         List<BlogPost> GetAllPublishedPosts(int blogStatusId);
         List<BlogPost> GetAllFeaturedPosts(bool isFeatured);
+        BlogPost GetBlogPostById(int blogpostId);
         List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags);
         List<BlogPost> GetAllPublishedPostsByCategory(string category);
         List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart);
@@ -23,12 +24,9 @@ namespace TechTruffleShuffle.Data
         List<BlogPost> GetAllDrafts(int blogStatusId);
         List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId);
         List<BlogPost> GetAllStaticPages(bool isStatic);
-        void CreatePublishPostAdmin(BlogPost newPostToPublish);
+        //void CreatePublishPostAdmin(BlogPost newPostToPublish);
         void CreatePendingPostAuthor(BlogPost newPostToPend);
-        void DeletePost(int postId);
-        void DeleteDraft(int postId);
-
-
-
+        void EditBlogPost(int postId);
+        void DeleteBlogPost(int postId);
     }
 }
