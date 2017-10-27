@@ -7,13 +7,13 @@ namespace TechTruffleShuffle.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class reinit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(reinit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710261946052_init"; }
+            get { return "201710271925502_reinit"; }
         }
         
         string IMigrationMetadata.Source
