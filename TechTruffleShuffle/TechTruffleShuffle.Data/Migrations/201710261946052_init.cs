@@ -33,7 +33,7 @@ namespace TechTruffleShuffle.Data.Migrations
                         BlogPostId = c.Int(nullable: false, identity: true),
                         Title = c.String(),
                         AuthorId = c.Int(nullable: false),
-                        Description = c.String(),
+                        BlogContent = c.String(),
                         DateStart = c.DateTime(nullable: false),
                         DateEnd = c.DateTime(nullable: false),
                         BlogCategoryId = c.Int(nullable: false),
