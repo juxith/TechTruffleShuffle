@@ -9,8 +9,6 @@ namespace TechTruffleShuffle.Data
 {
     public class TruffleShuffleRepositoryEF : ITruffleShuffleRepository
     {
-        TechTruffleShuffleEntities ctx = new TechTruffleShuffleEntities();
-
         public void CreatePendingPostAuthor(BlogPost newPostToPend)
         {
             throw new NotImplementedException();
@@ -19,38 +17,34 @@ namespace TechTruffleShuffle.Data
         public void DeleteBlogPost(int postId)
         {
             throw new NotImplementedException();
-            //using (ctx)
-            //{
-
-            //};
         }
 
-        public void EditBlogPost(int postId)
+        public void EditBlogPost(BlogPost updatedBlogPost)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllDrafts(int blogStatusId)
+        public List<BlogPost> GetAllDrafts()
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllFeaturedPosts(bool isFeatured)
+        public List<BlogPost> GetAllFeaturedPosts()
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPendingPosts(int blogStatusId)
+        public List<BlogPost> GetAllPendingPosts()
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPendingPostsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId)
         {
             throw new NotImplementedException();
         }
@@ -58,13 +52,9 @@ namespace TechTruffleShuffle.Data
         public List<BlogPost> GetAllPosts()
         {
             throw new NotImplementedException();
-            //using (ctx)
-            //{
-            //    return ctx.BlogPost.ToList();
-            //}
         }
 
-        public List<BlogPost> GetAllPublishedPosts(int blogStatusId)
+        public List<BlogPost> GetAllPublishedPosts()
         {
             throw new NotImplementedException();
         }
@@ -74,27 +64,27 @@ namespace TechTruffleShuffle.Data
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByCategory(string category)
+        public List<BlogPost> GetAllPublishedPostsByCategory(int blogCategoryId)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart)
+        public List<BlogPost> GetAllPublishedPostsByDate(string dateStart)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags)
+        public List<BlogPost> GetAllPublishedPostsByHashtag(string hashtags)
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllRemovedPosts(bool isRemoved)
+        public List<BlogPost> GetAllRemovedPosts()
         {
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetAllStaticPages(bool isStatic)
+        public List<BlogPost> GetAllStaticPages()
         {
             throw new NotImplementedException();
         }
@@ -104,7 +94,7 @@ namespace TechTruffleShuffle.Data
             throw new NotImplementedException();
         }
 
-        public BlogPost GetPublishedPostsByTitle(string title)
+        public List<BlogPost> GetPublishedPostsByTitle(string title)
         {
             throw new NotImplementedException();
         }
