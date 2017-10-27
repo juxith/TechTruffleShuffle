@@ -9,7 +9,7 @@ using TechTruffleShuffle.Models;
 
 namespace TechTruffleShuffle.Data
 {
-    public class TechTruffleShuffleEntities : DbContext
+    public class TechTruffleShuffleEntities : ApplicationDbContext
     {
         public TechTruffleShuffleEntities() : base("TechTruffleShuffle")
         {
