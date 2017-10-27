@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TechTruffleShuffle.UI.Startup))]
-namespace TechTruffleShuffle.UI
+[assembly: OwinStartupAttribute(typeof(TechTruffleShuffle.Data.Startup))]
+namespace TechTruffleShuffle.Data
 {
     public partial class Startup
     {

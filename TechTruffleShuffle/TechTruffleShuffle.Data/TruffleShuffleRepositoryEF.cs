@@ -18,10 +18,11 @@ namespace TechTruffleShuffle.Data
 
         public void DeleteBlogPost(int postId)
         {
-            using (ctx)
-            {
+            throw new NotImplementedException();
+            //using (ctx)
+            //{
 
-            };
+            //};
         }
 
         public void EditBlogPost(int postId)
@@ -56,10 +57,11 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllPosts()
         {
-            using (ctx)
-            {
-                return ctx.BlogPost.ToList();
-            }
+            throw new NotImplementedException();
+            //using (ctx)
+            //{
+            //    return ctx.BlogPost.ToList();
+            //}
         }
 
         public List<BlogPost> GetAllPublishedPosts(int blogStatusId)
@@ -97,7 +99,7 @@ namespace TechTruffleShuffle.Data
             throw new NotImplementedException();
         }
 
-        public List<BlogPost> GetBlogPostById(int blogpostId)
+        public BlogPost GetBlogPostById(int blogpostId)
         {
             throw new NotImplementedException();
         }
