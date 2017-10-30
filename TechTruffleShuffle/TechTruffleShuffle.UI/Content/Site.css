@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#adminEditBlogPostBtn{
+    margin-right : 100px;
+}
+
+#adminDeleteBlogPostBtn {
+    margin-right: 100px;
+}

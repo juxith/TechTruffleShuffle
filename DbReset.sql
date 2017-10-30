@@ -12,17 +12,17 @@ Begin
 	Delete from BlogStatus;
 	Delete from BlogCategories;
 	Delete from Hashtags;
-	Delete from Authors;
+	Delete from ApplicationUsers;
 	Delete from BlogPosts;
 	Delete from HashTagBlogPosts;
 
-	DBCC CHECKIDENT ('Authors', reseed, 1)
-	Set Identity_Insert Authors on;
-		insert into Authors(AuthorId, FirstName, LastName)
-		Values(1, 'Judy', 'Thao'),
-		(2, 'Lindsey', 'Parlow'),
-		(3, 'Aj', 'Rohde')
-	Set Identity_Insert Authors off;
+	DBCC CHECKIDENT ('ApplicationUsers', reseed, 1)
+	Set Identity_Insert ApplicationUsers on;
+		insert into ApplicationUsers(Id, FirstName, LastName)
+		Values('helloworld', 'Judy', 'Thao'),
+		('helloworld1', 'Lindsey', 'Parlow'),
+		('helloworld2', 'Aj', 'Rohde')
+	Set Identity_Insert ApplicationUsers off;
 
 	DBCC CHECKIDENT ('Hashtags', reseed, 1)
 	Set Identity_Insert Hashtags on;

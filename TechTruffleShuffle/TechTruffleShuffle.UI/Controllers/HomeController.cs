@@ -26,5 +26,21 @@ namespace TechTruffleShuffle.UI.Controllers
 
             return View();
         }
+
+        public ActionResult Blogs()
+        {
+            ViewBag.Message = "Our blog page.";
+
+            return View();
+        }
+
+        public ActionResult CreateBlog()
+        {
+            ViewBag.Message = "Create Page";
+
+            return View();
+        }
+
+
     }
 }
