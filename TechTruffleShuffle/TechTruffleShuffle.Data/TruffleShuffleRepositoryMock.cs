@@ -181,7 +181,7 @@ namespace TechTruffleShuffle.Data
             };
         }
 
-        public void CreatePendingPostAuthor(BlogPost newPostToPend)
+        public void CreateNewBlogPost(BlogPost newPost)
         {
             throw new NotImplementedException();
         }

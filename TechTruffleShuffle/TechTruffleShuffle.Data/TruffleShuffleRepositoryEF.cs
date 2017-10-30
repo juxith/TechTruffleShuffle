@@ -9,11 +9,11 @@ namespace TechTruffleShuffle.Data
 {
     public class TruffleShuffleRepositoryEF : ITruffleShuffleRepository
     {
-        public void CreatePendingPostAuthor(BlogPost newPostToPend)
+        public void CreateNewBlogPost(BlogPost newPost)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                ctx.BlogPost.Add(newPostToPend);
+                ctx.BlogPost.Add(newPost);
             }
         }
 

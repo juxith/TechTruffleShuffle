@@ -26,8 +26,6 @@ namespace TechTruffleShuffle.Data
         public DbSet<BlogPost> BlogPost { get; set; }
         public DbSet<BlogStatus> BlogStatus { get; set; }
 
-
-
         public DbSet<Hashtag> Hashtag { get; set; }
     }
 }
