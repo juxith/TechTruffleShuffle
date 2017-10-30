@@ -29,10 +29,10 @@ namespace TechTruffleShuffle.Tests
             }
         }
 
-        [Test]
-        public void EFCanLoadBlogPosts()
-        {
+        //[Test]
+        //public void EFCanLoadBlogPosts()
+        //{
 
-        }
+        //}
     }
 }

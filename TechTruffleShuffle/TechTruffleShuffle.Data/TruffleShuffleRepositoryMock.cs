@@ -133,7 +133,11 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList(),
+
+                    Author = _authors[2],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[0]
                 },
                 new BlogPost
                 {
@@ -149,7 +153,11 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = true,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList(),
+
+                    Author = _authors[1],
+                    BlogCategory = _blogcategories[2],
+                    BlogStatus = _blogstatuses[2]
                 },
                 new BlogPost
                 {
@@ -165,7 +173,11 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList(),
+
+                    Author = _authors[0],
+                    BlogCategory = _blogcategories[1],
+                    BlogStatus = _blogstatuses[1]
                 },
                 new BlogPost
                 {
@@ -183,7 +195,9 @@ namespace TechTruffleShuffle.Data
                     IsRemoved = true,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList(),
 
-                    Author = _authors[0]
+                    Author = _authors[0],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[0]
                 }
             };
         }
