@@ -10,7 +10,7 @@ namespace TechTruffleShuffle.Data
 {
     public class TruffleShuffleRepositoryMock : ITruffleShuffleRepository
     {
-        private static List<Author> _authors;
+        private static List<ApplicationUser> _appUsers;
         private static List<BlogCategory> _blogcategories;
         private static List<Hashtag> _hashtags;
         private static List<BlogStatus> _blogstatuses;
@@ -23,23 +23,24 @@ namespace TechTruffleShuffle.Data
 
         public static void LoadLists()
         {
-            _authors = new List<Author>()
+            _appUsers = new List<ApplicationUser>()
+
             {
-                new Author
+                new ApplicationUser
                 {
-                    AuthorId = 1,
+                    Id = "user1",
                     FirstName = "Judy",
                     LastName = "Thao"
                 },
-                new Author
+                new ApplicationUser
                 {
-                    AuthorId = 2,
+                    Id = "user2",
                     FirstName = "AJ",
                     LastName = "Rohde"
                 },
-                new Author
+                new ApplicationUser
                 {
-                    AuthorId = 3,
+                    Id = "user3",
                     FirstName = "Lindsey",
                     LastName = "Parlow"
                 },
@@ -123,7 +124,6 @@ namespace TechTruffleShuffle.Data
                 {
                     BlogPostId = 1,
                     Title = "Judy the Ruby Master",
-                    AuthorId = 3,
                     BlogContent = "Judy took us on a tour of her newest Ruby project, teaching us how to get down the yellow brick road to success.",
                     EventDate = new DateTime(2017, 11, 30),
                     DateStart = new DateTime(2017, 12, 01),
@@ -133,13 +133,16 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[0]
                 },
                 new BlogPost
                 {
                     BlogPostId = 2,
                     Title = "Guide to Getting the Job",
-                    AuthorId = 2,
                     BlogContent = "Smile... But only if you've brushed your teeth.",
                     EventDate = new DateTime(2017, 11, 30),
                     DateStart = new DateTime(2017, 12, 01),
@@ -149,13 +152,16 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = true,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList(),
+
+                    User = _appUsers[0],
+                    BlogCategory = _blogcategories[2],
+                    BlogStatus = _blogstatuses[2]
                 },
                 new BlogPost
                 {
                     BlogPostId = 3,
                     Title = "Tech Beers and Cheers",
-                    AuthorId = 1,
                     BlogContent = "Want to meet other people in the tech industry? Like Beer? This is the perfect meetup for you!",
                     EventDate = new DateTime(2017, 10, 31),
                     DateStart = new DateTime(2017, 11, 01),
@@ -165,13 +171,16 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = false,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[1],
+                    BlogStatus = _blogstatuses[1]
                 },
                 new BlogPost
                 {
                     BlogPostId = 4,
                     Title = "Let's Get Together and Code",
-                    AuthorId = 1,
                     BlogContent = "People got together. People did some coding.",
                     EventDate = new DateTime(2017, 8, 31),
                     DateStart = new DateTime(2017, 9, 01),
@@ -183,7 +192,10 @@ namespace TechTruffleShuffle.Data
                     IsRemoved = true,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList(),
 
-                    Author = _authors[0]
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[0]
+
                 }
             };
         }
@@ -218,9 +230,10 @@ namespace TechTruffleShuffle.Data
             return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Draft").ToList();
         }
 
-        public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
+        public List<BlogPost> GetAllDraftsByOneAuthor(string userName)
         {
-            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Draft" && b.AuthorId == authorId).ToList();
+
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
         }
 
         public List<BlogPost> GetAllFeaturedPosts()
@@ -233,9 +246,9 @@ namespace TechTruffleShuffle.Data
             return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending").ToList();
         }
 
-        public List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId)
+        public List<BlogPost> GetAllPendingPostsByOneAuthor(string userName)
         {
-            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" && b.AuthorId == authorId).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
         }
 
         public List<BlogPost> GetAllPosts()
@@ -248,9 +261,9 @@ namespace TechTruffleShuffle.Data
             return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published").ToList();
         }
         
-        public List<BlogPost> GetAllPublishedPostsByAuthor(string authorName)
+        public List<BlogPost> GetAllPublishedPostsByAuthor(string userName)
         {
-            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && b.Author.FirstName.Contains(authorName) || b.BlogStatusId == 3 && b.Author.LastName.Contains(authorName)).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
         }
 
         public List<BlogPost> GetAllPublishedPostsByCategory(int blogCategoryId)

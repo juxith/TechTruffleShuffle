@@ -21,7 +21,7 @@ namespace TechTruffleShuffle.Data
 
         }
         
-        public DbSet<Author> Author { get; set; }
+        
         public DbSet<BlogCategory> BlogCategory { get; set; }
         public DbSet<BlogPost> BlogPost { get; set; }
         public DbSet<BlogStatus> BlogStatus { get; set; }
