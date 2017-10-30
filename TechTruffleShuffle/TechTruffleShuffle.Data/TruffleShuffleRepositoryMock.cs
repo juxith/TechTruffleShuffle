@@ -220,7 +220,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllDraftsByOneAuthor(string userName)
         {
-            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Draft" && (b.User.FirstName.Contains(userName)||b.User.LastName.Contains(userName))).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + b.User.LastName).Contains(userName))).ToList();
         }
 
         public List<BlogPost> GetAllFeaturedPosts()
