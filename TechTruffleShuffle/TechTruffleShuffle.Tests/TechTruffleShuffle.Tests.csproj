@@ -56,6 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TechTruffleShuffle.Data\TechTruffleShuffle.Data.csproj">
       <Project>{f83193e2-221f-490f-902a-cceefdbd282d}</Project>
       <Name>TechTruffleShuffle.Data</Name>
@@ -64,13 +71,6 @@
       <Project>{64aa6f4c-3b5a-43ee-a375-d643f6b7079d}</Project>
       <Name>TechTruffleShuffle.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
