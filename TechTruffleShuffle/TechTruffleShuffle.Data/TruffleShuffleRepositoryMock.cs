@@ -18,6 +18,11 @@ namespace TechTruffleShuffle.Data
 
         static TruffleShuffleRepositoryMock()
         {
+            LoadLists();
+        }
+
+        public static void LoadLists()
+        {
             _authors = new List<Author>()
             {
                 new Author
@@ -176,19 +181,30 @@ namespace TechTruffleShuffle.Data
                     IsFeatured = false,
                     IsStaticPage = false,
                     IsRemoved = true,
-                    Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList()
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList(),
+
+                    Author = _authors[0]
                 }
             };
         }
 
-        public void CreatePendingPostAuthor(BlogPost newPostToPend)
+        public void CreateNewBlogPost(BlogPost newPost)
         {
-            throw new NotImplementedException();
+            if(_blogposts.Any())
+            {
+                newPost.BlogPostId = _blogposts.Max(b => b.BlogPostId) + 1;
+            }
+            else
+            {
+                newPost.BlogPostId = 1;
+            }
+
+            _blogposts.Add(newPost);
         }
 
         public void DeleteBlogPost(int postId)
         {
-            throw new NotImplementedException();
+            _blogposts.RemoveAll(b => b.BlogPostId == postId);
         }
 
         public void EditBlogPost(BlogPost updatedBlogPost)
@@ -209,7 +225,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllFeaturedPosts()
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.IsFeatured == true).ToList();
         }
 
         public List<BlogPost> GetAllPendingPosts()
@@ -224,7 +240,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllPosts()
         {
-            throw new NotImplementedException();
+            return _blogposts;
         }
 
         public List<BlogPost> GetAllPublishedPosts()

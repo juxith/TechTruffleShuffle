@@ -25,7 +25,7 @@ namespace TechTruffleShuffle.Data
         List<BlogPost> GetAllDraftsByOneAuthor(int authorId);
         List<BlogPost> GetAllStaticPages();
         //void CreatePublishPostAdmin(BlogPost newPostToPublish);
-        void CreatePendingPostAuthor(BlogPost newPostToPend);
+        void CreateNewBlogPost(BlogPost newPost);
         void EditBlogPost(BlogPost updatedBlogPost);
         void DeleteBlogPost(int postId);
     }
