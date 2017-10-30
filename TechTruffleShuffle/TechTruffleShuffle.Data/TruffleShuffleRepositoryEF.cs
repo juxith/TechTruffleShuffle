@@ -9,104 +9,173 @@ namespace TechTruffleShuffle.Data
 {
     public class TruffleShuffleRepositoryEF : ITruffleShuffleRepository
     {
-        TechTruffleShuffleEntities ctx = new TechTruffleShuffleEntities();
-
-        public void CreatePendingPostAuthor(BlogPost newPostToPend)
+        public void CreateNewBlogPost(BlogPost newPost)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                ctx.BlogPost.Add(newPost);
+            }
         }
 
         public void DeleteBlogPost(int postId)
         {
-            throw new NotImplementedException();
-            //using (ctx)
-            //{
-
-            //};
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var deleteThis = ctx.BlogPost.SingleOrDefault(i => i.BlogPostId == postId);
+                ctx.BlogPost.Remove(deleteThis);
+            };
         }
 
-        public void EditBlogPost(int postId)
+        public void EditBlogPost(BlogPost updatedBlogPost)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var editThis = ctx.BlogPost.SingleOrDefault(s => s.BlogPostId == updatedBlogPost.BlogPostId);
+                ctx.BlogPost.Remove(editThis);
+                ctx.BlogPost.Add(updatedBlogPost);
+            }
         }
 
-        public List<BlogPost> GetAllDrafts(int blogStatusId)
+        public List<BlogPost> GetAllDrafts()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getAllDrafts = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Draft");
+                return getAllDrafts.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getDraftsByAuthor = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(a => a.AuthorId == authorId);
+                return getDraftsByAuthor.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllFeaturedPosts(bool isFeatured)
+        public List<BlogPost> GetAllFeaturedPosts()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var isFeaturedPost = ctx.BlogPost.Where(i => i.IsFeatured == true);
+
+                return isFeaturedPost.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPendingPosts(int blogStatusId)
+        public List<BlogPost> GetAllPendingPosts()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPendingPosts = ctx.BlogPost.Where(p => p.BlogStatus.BlogStatusDescription == "Pending");
+
+                return getPendingPosts.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPendingPostsByOneAuthor(int blogStatusId, int authorId)
+        public List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPendingByAuthor = ctx.BlogPost.Where(a => a.AuthorId == authorId).Where(s => s.BlogStatus.BlogStatusDescription == "Pending");
+
+                return getPendingByAuthor.ToList();
+            }
         }
 
         public List<BlogPost> GetAllPosts()
         {
-            throw new NotImplementedException();
-            //using (ctx)
-            //{
-            //    return ctx.BlogPost.ToList();
-            //}
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                return ctx.BlogPost.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPublishedPosts(int blogStatusId)
+        public List<BlogPost> GetAllPublishedPosts()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPublishedPosts = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Published");
+                return getPublishedPosts.ToList();
+            }
         }
 
         public List<BlogPost> GetAllPublishedPostsByAuthor(string authorName)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPublishedPostsByAuthor = ctx.BlogPost.Where(s => s.BlogStatusId == 3).Where(a => a.Author.FirstName.Contains(authorName) || a.Author.LastName.Contains(authorName));
+                return getPublishedPostsByAuthor.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPublishedPostsByCategory(string category)
+        public List<BlogPost> GetAllPublishedPostsByCategory(int blogCategoryId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPublishedPostsByCategory = ctx.BlogPost.Where(c => c.BlogCategoryId == blogCategoryId).Where(s => s.BlogStatus.BlogStatusDescription == "Published");
+                return getPublishedPostsByCategory.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart)
+        public List<BlogPost> GetAllPublishedPostsByDate(string dateStart)
         {
-            throw new NotImplementedException();
+            DateTime thisDate = new DateTime();
+            DateTime.TryParse(dateStart, out thisDate);
+
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPublishedPostByDate = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Published").Where(d => d.DateStart == thisDate);
+                return getPublishedPostByDate.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags)
+        public List<BlogPost> GetAllPublishedPostsByHashtag(string hashtags)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getCollectionOfHashtags = ctx.BlogPost.Where(n => n.BlogStatus.BlogStatusDescription == "Published");
+                getCollectionOfHashtags = getCollectionOfHashtags.Where(p => p.Hashtags.Any(t => t.HashtagName.Contains(hashtags)));
+
+                return getCollectionOfHashtags.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllRemovedPosts(bool isRemoved)
+        public List<BlogPost> GetAllRemovedPosts()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getRemovedPosts = ctx.BlogPost.Where(i => i.IsRemoved == true);
+                return getRemovedPosts.ToList();
+            }
         }
 
-        public List<BlogPost> GetAllStaticPages(bool isStatic)
+        public List<BlogPost> GetAllStaticPages()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getStaticPages = ctx.BlogPost.Where(i => i.IsStaticPage == true);
+                return getStaticPages.ToList();
+            }
         }
 
         public BlogPost GetBlogPostById(int blogpostId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getThisPost = ctx.BlogPost.SingleOrDefault(i => i.BlogPostId == blogpostId);
+                return getThisPost;
+            }
         }
 
-        public BlogPost GetPublishedPostsByTitle(string title)
+        public List<BlogPost> GetPublishedPostsByTitle(string title)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getPublishedByTitle = ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Published").Where(t => t.Title.Contains(title));
+                return getPublishedByTitle.ToList();
+            }
         }
     }
 }

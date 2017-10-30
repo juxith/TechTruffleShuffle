@@ -10,23 +10,23 @@ namespace TechTruffleShuffle.Data
     public interface ITruffleShuffleRepository
     {
         List<BlogPost> GetAllPosts();
-        List<BlogPost> GetAllRemovedPosts(bool isRemoved);
-        List<BlogPost> GetAllPublishedPosts(int blogStatusId);
-        List<BlogPost> GetAllFeaturedPosts(bool isFeatured);
+        List<BlogPost> GetAllRemovedPosts();
+        List<BlogPost> GetAllPublishedPosts();
+        List<BlogPost> GetAllFeaturedPosts();
         BlogPost GetBlogPostById(int blogpostId);
-        List<BlogPost> GetAllPublishedPostsByHashtag(Hashtag hashtags);
-        List<BlogPost> GetAllPublishedPostsByCategory(string category);
-        List<BlogPost> GetAllPublishedPostsByDate(DateTime dateStart);
+        List<BlogPost> GetAllPublishedPostsByHashtag(string hashtags);
+        List<BlogPost> GetAllPublishedPostsByCategory(int blogCategoryId);
+        List<BlogPost> GetAllPublishedPostsByDate(string dateStart);
         List<BlogPost> GetAllPublishedPostsByAuthor(string authorName);
-        BlogPost GetPublishedPostsByTitle(string title);
-        List<BlogPost> GetAllPendingPosts(int blogStatusId);
-        List<BlogPost> GetAllPendingPostsByOneAuthor(int blogStatusId, int authorId);
-        List<BlogPost> GetAllDrafts(int blogStatusId);
-        List<BlogPost> GetAllDraftsByOneAuthor(int blogStatusId, int authorId);
-        List<BlogPost> GetAllStaticPages(bool isStatic);
+        List<BlogPost> GetPublishedPostsByTitle(string title);
+        List<BlogPost> GetAllPendingPosts();
+        List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId);
+        List<BlogPost> GetAllDrafts();
+        List<BlogPost> GetAllDraftsByOneAuthor(int authorId);
+        List<BlogPost> GetAllStaticPages();
         //void CreatePublishPostAdmin(BlogPost newPostToPublish);
-        void CreatePendingPostAuthor(BlogPost newPostToPend);
-        void EditBlogPost(int postId);
+        void CreateNewBlogPost(BlogPost newPost);
+        void EditBlogPost(BlogPost updatedBlogPost);
         void DeleteBlogPost(int postId);
     }
 }

@@ -15,10 +15,10 @@ namespace TechTruffleShuffle.Data
 
             switch (mode)
             {
-                case "SampleData":
+                case "Mock":
                     return new TruffleShuffleRepositoryMock();
-                //case "EntityFramework":
-                //    return new TruffleShuffleRepositoryEF();
+                case "EF":
+                    return new TruffleShuffleRepositoryEF();
                 default:
                     throw new Exception("Mode value in app config is not valid.");
             }
