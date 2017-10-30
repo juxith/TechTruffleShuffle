@@ -26,7 +26,7 @@ namespace TechTruffleShuffle.Tests
             var blogPosts = repo.GetAllPosts();
 
             Assert.AreEqual(4, blogPosts.Count);
-            Assert.AreEqual(1, blogPosts[2].AuthorId);
+            //Assert.AreEqual(1, blogPosts[2].Id);
             Assert.AreEqual(2, blogPosts[2].BlogCategoryId);
             Assert.AreEqual(2, blogPosts[2].BlogStatusId);
             Assert.IsFalse(blogPosts[2].IsFeatured);
@@ -43,7 +43,7 @@ namespace TechTruffleShuffle.Tests
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
+            //newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -70,7 +70,7 @@ namespace TechTruffleShuffle.Tests
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
+            //newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -102,7 +102,7 @@ namespace TechTruffleShuffle.Tests
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
+            //newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -117,7 +117,7 @@ namespace TechTruffleShuffle.Tests
             repo.CreateNewBlogPost(newBlogPost);
 
             newBlogPost.Title = "Hey, This Post Was Updated!";
-            newBlogPost.AuthorId = 3;
+            //newBlogPost.AuthorId = 3;
             newBlogPost.BlogContent = "Code, Code, Talk. Code, Code, Talk. Brilliant!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 03);

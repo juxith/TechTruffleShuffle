@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TechTruffleShuffle.Data
 {
-    class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole
     {
     }
 }

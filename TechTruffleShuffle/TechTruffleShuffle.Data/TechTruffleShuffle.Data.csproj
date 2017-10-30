@@ -80,8 +80,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationRole.cs" />
-    <Compile Include="ApplicationUser.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ITruffleShuffleRepository.cs" />
