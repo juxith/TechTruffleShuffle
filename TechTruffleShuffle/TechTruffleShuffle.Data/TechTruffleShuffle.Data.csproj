@@ -83,9 +83,9 @@
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ITruffleShuffleRepository.cs" />
-    <Compile Include="Migrations\201710271925502_reinit.cs" />
-    <Compile Include="Migrations\201710271925502_reinit.Designer.cs">
-      <DependentUpon>201710271925502_reinit.cs</DependentUpon>
+    <Compile Include="Migrations\201710301941427_init.cs" />
+    <Compile Include="Migrations\201710301941427_init.Designer.cs">
+      <DependentUpon>201710301941427_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,8 +110,8 @@
     <Folder Include="Repos\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710271925502_reinit.resx">
-      <DependentUpon>201710271925502_reinit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710301941427_init.resx">
+      <DependentUpon>201710301941427_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
