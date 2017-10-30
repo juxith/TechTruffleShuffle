@@ -45,14 +45,15 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public List<BlogPost> GetAllDraftsByOneAuthor(int authorId)
+        public List<BlogPost> GetAllDraftsByOneAuthor(string userName)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getDraftsByAuthor = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(a => a.AuthorId == authorId);
+                var getDraftsByAuthor = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(a => a.User.FirstName.Contains(userName)||a.User.LastName.Contains(userName));
                 return getDraftsByAuthor.ToList();
             }
         }
+
 
         public List<BlogPost> GetAllFeaturedPosts()
         {
@@ -74,11 +75,11 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public List<BlogPost> GetAllPendingPostsByOneAuthor(int authorId)
+        public List<BlogPost> GetAllPendingPostsByOneAuthor(string userName)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPendingByAuthor = ctx.BlogPost.Where(a => a.AuthorId == authorId).Where(s => s.BlogStatus.BlogStatusDescription == "Pending");
+                var getPendingByAuthor = ctx.BlogPost.Where(u=>u.User.FirstName.Contains(userName)||u.User.LastName.Contains(userName)).Where(s => s.BlogStatus.BlogStatusDescription == "Pending");
 
                 return getPendingByAuthor.ToList();
             }
@@ -101,11 +102,11 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public List<BlogPost> GetAllPublishedPostsByAuthor(string authorName)
+        public List<BlogPost> GetAllPublishedPostsByAuthor(string userName)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPublishedPostsByAuthor = ctx.BlogPost.Where(s => s.BlogStatusId == 3).Where(a => a.Author.FirstName.Contains(authorName) || a.Author.LastName.Contains(authorName));
+                var getPublishedPostsByAuthor = ctx.BlogPost.Where(s => s.BlogStatusId == 3).Where(u=>u.User.LastName.Contains(userName) ||u.User.FirstName.Contains(userName));
                 return getPublishedPostsByAuthor.ToList();
             }
         }

@@ -26,7 +26,6 @@ namespace TechTruffleShuffle.Tests
             var blogPosts = repo.GetAllPosts();
 
             Assert.AreEqual(4, blogPosts.Count);
-            Assert.AreEqual(1, blogPosts[2].AuthorId);
             Assert.AreEqual(2, blogPosts[2].BlogCategoryId);
             Assert.AreEqual(2, blogPosts[2].BlogStatusId);
             Assert.IsFalse(blogPosts[2].IsFeatured);
@@ -43,7 +42,6 @@ namespace TechTruffleShuffle.Tests
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -69,7 +67,6 @@ namespace TechTruffleShuffle.Tests
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -97,11 +94,9 @@ namespace TechTruffleShuffle.Tests
         {
             var repo = TechTruffleRepositoryFactory.Create();
 
-            //add a blogpost first so I can try editing it in next step
             BlogPost newBlogPost = new BlogPost();
 
             newBlogPost.Title = "Hey, This New Post!";
-            newBlogPost.AuthorId = 2;
             newBlogPost.BlogContent = "Code and Talk and Code and Talk and Code and Talk. Success!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 01);
@@ -116,7 +111,6 @@ namespace TechTruffleShuffle.Tests
             repo.CreateNewBlogPost(newBlogPost);
 
             newBlogPost.Title = "Hey, This Post Was Updated!";
-            newBlogPost.AuthorId = 3;
             newBlogPost.BlogContent = "Code, Code, Talk. Code, Code, Talk. Brilliant!";
             newBlogPost.EventDate = new DateTime(2017, 10, 30);
             newBlogPost.DateStart = new DateTime(2017, 11, 03);
@@ -154,7 +148,7 @@ namespace TechTruffleShuffle.Tests
         {
             var repo = TechTruffleRepositoryFactory.Create();
 
-            var drafts = repo.GetAllDraftsByOneAuthor(3);
+            var drafts = repo.GetAllDraftsByOneAuthor("Lindsey");
 
             Assert.AreEqual(1, drafts.Count);
             Assert.AreEqual(1, drafts[0].BlogPostId);
@@ -190,13 +184,13 @@ namespace TechTruffleShuffle.Tests
         {
             var repo = TechTruffleRepositoryFactory.Create();
 
-            var pendingPosts = repo.GetAllPendingPostsByOneAuthor(1);
+            var pendingPosts = repo.GetAllPendingPostsByOneAuthor("AJ");
 
             Assert.AreEqual(1, pendingPosts.Count);
             Assert.AreEqual(3, pendingPosts[0].BlogPostId);
             Assert.AreEqual("Tech Beers and Cheers", pendingPosts[0].Title);
 
-            var pendingPosts2 = repo.GetAllPendingPostsByOneAuthor(2);
+            var pendingPosts2 = repo.GetAllPendingPostsByOneAuthor("Judy");
 
             Assert.AreEqual(0, pendingPosts2.Count);
         }
@@ -213,11 +207,17 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual("Guide to Getting the Job", publishedPosts[0].Title);
         }
 
-        //[Test]
-        //public void CanGetAllPublishedPostsByAuthor()
-        //{
+        [Test]
+        public void CanGetAllPublishedPostsByAuthor()
+        {
+            var repo = TechTruffleRepositoryFactory.Create();
 
-        //}
+            var publishedPostsByOneAuthor = repo.GetAllPublishedPostsByAuthor("Judy Thao");
+
+            Assert.AreEqual(1, publishedPostsByOneAuthor.Count);
+            Assert.AreEqual(2, publishedPostsByOneAuthor[0].BlogPostId);
+            Assert.AreEqual("Guide to Getting the Job", publishedPostsByOneAuthor[0].Title);
+        }
 
         [Test]
         public void CanGetAllPublishedPostsByCategory()
@@ -251,11 +251,17 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual(0, publishedPostsbyDate2.Count);
         }
 
-        //[Test]
-        //public void CanGetAllPublishedPostsByHashtag()
-        //{
+        [Test]
+        public void CanGetAllPublishedPostsByHashtag()
+        {
+            var repo = TechTruffleRepositoryFactory.Create();
 
-        //}
+            var publishedPosts = repo.GetAllPublishedPostsByHashtag("#InItToWinIt");
+
+            Assert.AreEqual(1, publishedPosts.Count);
+            Assert.AreEqual(2, publishedPosts[0].BlogPostId);
+            Assert.AreEqual("Guide to Getting the Job", publishedPosts[0].Title);
+        }
 
         [Test]
         public void CanGetAllRemovedPosts()
@@ -279,20 +285,36 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual(0, staticPage.Count);
         }
 
-        //[Test]
-        //public void CanGetBlogPostById()
-        //{
-        //    var repo = TechTruffleRepositoryFactory.Create();
+        [Test]
+        public void CanGetBlogPostById()
+        {
+            var repo = TechTruffleRepositoryFactory.Create();
 
-        //    var blogs = repo.GetBlogPostById(2);
+            var blogsById = repo.GetBlogPostById(3);
 
-        //    Assert.AreEqual(1, )
-        //}
+            Assert.AreEqual("Tech Beers and Cheers", blogsById.Title);
+            Assert.AreEqual("AJ", blogsById.User.FirstName);
+            Assert.AreEqual("Rohde", blogsById.User.LastName);
+        }
 
-        //[Test]
-        //public void CanGetPublishedPostsByTitle()
-        //{
+        [Test]
+        public void CanGetPublishedPostsByTitle()
+        {
+            var repo = TechTruffleRepositoryFactory.Create();
 
-        //}
+            var publishedPosts = repo.GetPublishedPostsByTitle("Judy the Ruby Master");
+
+            Assert.AreEqual(1, publishedPosts.Count);
+            Assert.AreEqual("Lindsey", publishedPosts[0].User.FirstName);
+            Assert.AreEqual("Parlow", publishedPosts[0].User.LastName);
+            Assert.AreEqual(1, publishedPosts[0].BlogPostId);
+
+            var publishedPosts2 = repo.GetPublishedPostsByTitle("the");
+
+            Assert.AreEqual(3, publishedPosts2.Count);
+            Assert.AreEqual("Lindsey", publishedPosts[0].User.FirstName);
+            Assert.AreEqual("Parlow", publishedPosts[0].User.LastName);
+            Assert.AreEqual(1, publishedPosts[0].BlogPostId);
+        }
     }
 }

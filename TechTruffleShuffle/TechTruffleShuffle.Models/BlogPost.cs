@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTruffleShuffle.Data;
 
 namespace TechTruffleShuffle.Models
 {
@@ -10,7 +11,6 @@ namespace TechTruffleShuffle.Models
     {
         public int BlogPostId { get; set; }
         public string Title { get; set; }
-        public int AuthorId { get; set; }
         public string BlogContent { get; set; }
         public DateTime EventDate { get; set; }
         public DateTime DateStart { get; set; }
@@ -23,7 +23,7 @@ namespace TechTruffleShuffle.Models
 
         public ICollection<Hashtag> Hashtags { get; set; }
 
-        public virtual Author Author { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public virtual BlogCategory BlogCategory { get; set; }
         public virtual BlogStatus BlogStatus { get; set; }
     }
