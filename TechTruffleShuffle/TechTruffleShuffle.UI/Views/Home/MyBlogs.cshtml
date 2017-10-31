@@ -1,0 +1,23 @@
+﻿
+@{
+	ViewBag.Title = "My Blogs";
+}
+
+<div class="container" align="left">
+	<h2>My Blogs</h2>
+	<p>
+		<button class="btn btn-primary" id="search-blog-button">Search</button>
+		<select alight="right" id="searchCategoryDropList" required>
+			<option value="" disabled="disabled" selected="selected">Search </option>
+			<option value="allMyPosts">All Posts</option>
+			<option value="myPublishedPosts">Published Posts</option>
+			<option value="myPendingPosts">Pending Posts</option>
+			<option value="myDrafts">Drafts</option>
+		</select>
+	</p>
+</div>
+<div class="container" align="right">
+	<!--each blog post should come up with these buttons when they load. They may have to add these buttons when they list-->
+	<p><button class="btn btn-warning" id="editMyDraftBtn">Edit Draft</button></p>
+	<p><button class="btn btn-warning" id="deleteMyDraftBtn">Delete Draft</button></p>
+</div>

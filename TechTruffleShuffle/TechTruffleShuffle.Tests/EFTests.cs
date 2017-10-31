@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TechTruffleShuffle.Data;
 using TechTruffleShuffle.Models;
 
+
 namespace TechTruffleShuffle.Tests
 {
     [TestFixture]
@@ -325,6 +326,5 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual("Parlow", publishedPosts[0].User.LastName);
             Assert.AreEqual(1, publishedPosts[0].BlogPostId);
         }
-
     }
 }

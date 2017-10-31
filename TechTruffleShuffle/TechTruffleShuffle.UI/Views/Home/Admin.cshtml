@@ -1,0 +1,30 @@
+﻿
+@{
+	ViewBag.Title = "Admin";
+}
+
+<div class="container" align="left">
+	<h2>Admin</h2>
+	<p>
+		<button class="btn btn-primary" id="search-blog-button">Search</button>
+		<select alight="right" id="searchCategoryDropList" required>
+			<option value="" disabled="disabled" selected="selected">Post Type</option>
+			<option value="allAuthorPosts">All Posts</option>
+			<option value="AuthorPublishedPosts">Published Posts</option>
+			<option value="AuthorPendingPosts">Pending Posts</option>
+		</select>
+		<select alight="right" id="filterCategoryDropList">
+			<option value="" selected="selected">Search By</option>
+			<option value="blogTitle">Title</option>
+			<option value="blogDatePosted">DatePosted</option>
+			<option value="blogAuthorName">Author Name </option>
+			<option value="blogHashtag">#Hashtag</option>
+		</select>
+		<input type="text" />
+	</p>
+</div>
+<div class="container" align="right">
+	<!--each blog post should come up with these buttons when they load. They may have to add these buttons when they list-->
+	<p><button class="btn btn-danger" id="editAuthorPostBtn">Edit Blog Post</button></p>
+	<p><button class="btn btn-danger" id="deleteAuthorPostBtn">Delete Blog Post</button></p>
+</div>
