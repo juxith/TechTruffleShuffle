@@ -64,7 +64,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
         
         //same here
-        [Route("blogs/isFeatured/true")]
+        [Route("blogs/featured")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllFeaturedPosts()
         {
