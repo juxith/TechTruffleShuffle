@@ -7,6 +7,11 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '#blogtextarea'
+        });
+    </script>
 
 </head>
 <body>
@@ -27,8 +32,7 @@
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Create Blog", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Drafts Blogs", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("C Blog", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("My Blogs", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
