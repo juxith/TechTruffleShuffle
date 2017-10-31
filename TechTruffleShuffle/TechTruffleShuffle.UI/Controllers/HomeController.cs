@@ -41,6 +41,18 @@ namespace TechTruffleShuffle.UI.Controllers
             return View();
         }
 
+        public ActionResult MyBlogs()
+        {
+            ViewBag.Message = "My Blogs";
 
+            return View();
+        }
+
+        public ActionResult Admin()
+        {
+            ViewBag.Message = "Admin";
+
+            return View();
+        }
     }
 }

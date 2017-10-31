@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TechTruffleShuffle.Data;
 using TechTruffleShuffle.Models;
 
+
 namespace TechTruffleShuffle.Tests
 {
     [TestFixture]
@@ -303,6 +304,5 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual(1, publishedPosts.Count);
             Assert.AreEqual(2, publishedPosts[0].BlogPostId);
         }
-
     }
 }

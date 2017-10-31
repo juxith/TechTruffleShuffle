@@ -32,17 +32,26 @@ namespace TechTruffleShuffle.Data.Migrations
                 roleMgr.Create(new ApplicationRole() { Name = "author" });  
             }
 
-             var authorUser = new ApplicationUser()
-             {
-                 UserName = "authorUser"
+            var authorUser = new ApplicationUser()
+            {
+                UserName = "JudyThao",
+                FirstName = "Judy",
+                LastName = "Thao",
+                Email = "juxith23@gmail.com",
+                EmailConfirmed = true    
              };
 
-             var user = new ApplicationUser()
-             {
-                 UserName = "adminUser"
-             };
 
-            if(!userMgr.Users.Any(u => u.UserName == "authorUser"))
+            var user = new ApplicationUser()
+            {
+                UserName = "LindseyParlow",
+                FirstName = "Lindsey",
+                LastName = "Parlow",
+                Email = "lindsey.parlow@gmail.com",
+                EmailConfirmed = true
+            };
+
+            if(!userMgr.Users.Any(u => u.UserName == "JudyThao"))
             {
                 userMgr.Create(authorUser, "testing123");
 
@@ -51,7 +60,7 @@ namespace TechTruffleShuffle.Data.Migrations
                 userMgr.AddToRole(authorUser.Id, "author");
             }
 
-            if (!userMgr.Users.Any(u => u.UserName == "adminUser"))
+            if (!userMgr.Users.Any(u => u.UserName == "LindseyParlow"))
             {
                 userMgr.Create(user, "testing123");
 
