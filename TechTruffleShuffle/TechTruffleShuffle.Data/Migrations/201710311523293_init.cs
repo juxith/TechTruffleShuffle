@@ -7,8 +7,58 @@ namespace TechTruffleShuffle.Data.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.BlogPosts", "AuthorId", "dbo.Authors");
-            DropIndex("dbo.BlogPosts", new[] { "AuthorId" });
+            CreateTable(
+                "dbo.BlogCategories",
+                c => new
+                    {
+                        BlogCategoryId = c.Int(nullable: false, identity: true),
+                        BlogCategoryName = c.String(),
+                    })
+                .PrimaryKey(t => t.BlogCategoryId);
+            
+            CreateTable(
+                "dbo.BlogPosts",
+                c => new
+                    {
+                        BlogPostId = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        BlogContent = c.String(),
+                        EventDate = c.DateTime(nullable: false),
+                        DateStart = c.DateTime(nullable: false),
+                        DateEnd = c.DateTime(nullable: false),
+                        BlogCategoryId = c.Int(nullable: false),
+                        BlogStatusId = c.Int(nullable: false),
+                        IsFeatured = c.Boolean(nullable: false),
+                        IsStaticPage = c.Boolean(nullable: false),
+                        IsRemoved = c.Boolean(nullable: false),
+                        User_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.BlogPostId)
+                .ForeignKey("dbo.BlogCategories", t => t.BlogCategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.BlogStatus", t => t.BlogStatusId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.BlogCategoryId)
+                .Index(t => t.BlogStatusId)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.BlogStatus",
+                c => new
+                    {
+                        BlogStatusId = c.Int(nullable: false, identity: true),
+                        BlogStatusDescription = c.String(),
+                    })
+                .PrimaryKey(t => t.BlogStatusId);
+            
+            CreateTable(
+                "dbo.Hashtags",
+                c => new
+                    {
+                        HashtagId = c.Int(nullable: false, identity: true),
+                        HashtagName = c.String(),
+                    })
+                .PrimaryKey(t => t.HashtagId);
+            
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
@@ -80,35 +130,34 @@ namespace TechTruffleShuffle.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            AddColumn("dbo.BlogPosts", "BlogContent", c => c.String());
-            AddColumn("dbo.BlogPosts", "EventDate", c => c.DateTime(nullable: false));
-            AddColumn("dbo.BlogPosts", "User_Id", c => c.String(maxLength: 128));
-            CreateIndex("dbo.BlogPosts", "User_Id");
-            AddForeignKey("dbo.BlogPosts", "User_Id", "dbo.AspNetUsers", "Id");
-            DropColumn("dbo.BlogPosts", "AuthorId");
-            DropColumn("dbo.BlogPosts", "Description");
-            DropTable("dbo.Authors");
+            CreateTable(
+                "dbo.HashtagBlogPosts",
+                c => new
+                    {
+                        Hashtag_HashtagId = c.Int(nullable: false),
+                        BlogPost_BlogPostId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Hashtag_HashtagId, t.BlogPost_BlogPostId })
+                .ForeignKey("dbo.Hashtags", t => t.Hashtag_HashtagId, cascadeDelete: true)
+                .ForeignKey("dbo.BlogPosts", t => t.BlogPost_BlogPostId, cascadeDelete: true)
+                .Index(t => t.Hashtag_HashtagId)
+                .Index(t => t.BlogPost_BlogPostId);
+            
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.Authors",
-                c => new
-                    {
-                        AuthorId = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                    })
-                .PrimaryKey(t => t.AuthorId);
-            
-            AddColumn("dbo.BlogPosts", "Description", c => c.String());
-            AddColumn("dbo.BlogPosts", "AuthorId", c => c.Int(nullable: false));
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.BlogPosts", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.HashtagBlogPosts", "BlogPost_BlogPostId", "dbo.BlogPosts");
+            DropForeignKey("dbo.HashtagBlogPosts", "Hashtag_HashtagId", "dbo.Hashtags");
+            DropForeignKey("dbo.BlogPosts", "BlogStatusId", "dbo.BlogStatus");
+            DropForeignKey("dbo.BlogPosts", "BlogCategoryId", "dbo.BlogCategories");
+            DropIndex("dbo.HashtagBlogPosts", new[] { "BlogPost_BlogPostId" });
+            DropIndex("dbo.HashtagBlogPosts", new[] { "Hashtag_HashtagId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -116,16 +165,18 @@ namespace TechTruffleShuffle.Data.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.BlogPosts", new[] { "User_Id" });
-            DropColumn("dbo.BlogPosts", "User_Id");
-            DropColumn("dbo.BlogPosts", "EventDate");
-            DropColumn("dbo.BlogPosts", "BlogContent");
+            DropIndex("dbo.BlogPosts", new[] { "BlogStatusId" });
+            DropIndex("dbo.BlogPosts", new[] { "BlogCategoryId" });
+            DropTable("dbo.HashtagBlogPosts");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            CreateIndex("dbo.BlogPosts", "AuthorId");
-            AddForeignKey("dbo.BlogPosts", "AuthorId", "dbo.Authors", "AuthorId", cascadeDelete: true);
+            DropTable("dbo.Hashtags");
+            DropTable("dbo.BlogStatus");
+            DropTable("dbo.BlogPosts");
+            DropTable("dbo.BlogCategories");
         }
     }
 }

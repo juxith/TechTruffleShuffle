@@ -13,7 +13,7 @@ namespace TechTruffleShuffle.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710301941427_init"; }
+            get { return "201710311523293_init"; }
         }
         
         string IMigrationMetadata.Source
