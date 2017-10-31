@@ -14,6 +14,7 @@ namespace TechTruffleShuffle.Data
             using (var ctx = new TechTruffleShuffleEntities())
             {
                 ctx.BlogPost.Add(newPost);
+                ctx.SaveChanges();
             }
         }
 

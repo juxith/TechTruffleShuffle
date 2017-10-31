@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Entity;
 using TechTruffleShuffle.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TechTruffleShuffle.Data
 {
-    public class TechTruffleShuffleEntities : ApplicationDbContext
+    public class TechTruffleShuffleEntities : IdentityDbContext<ApplicationUser>
     {
         public static TechTruffleShuffleEntities Create()
         {
