@@ -24,6 +24,7 @@ namespace TechTruffleShuffle.Data
             {
                 var deleteThis = ctx.BlogPost.SingleOrDefault(i => i.BlogPostId == postId);
                 ctx.BlogPost.Remove(deleteThis);
+                ctx.SaveChanges();
             };
         }
 
@@ -32,8 +33,18 @@ namespace TechTruffleShuffle.Data
             using (var ctx = new TechTruffleShuffleEntities())
             {
                 var editThis = ctx.BlogPost.SingleOrDefault(s => s.BlogPostId == updatedBlogPost.BlogPostId);
-                ctx.BlogPost.Remove(editThis);
-                ctx.BlogPost.Add(updatedBlogPost);
+                editThis.Title = updatedBlogPost.Title;
+                editThis.BlogContent = updatedBlogPost.BlogContent;
+                editThis.EventDate = updatedBlogPost.EventDate;
+                editThis.DateStart = updatedBlogPost.DateStart;
+                editThis.DateEnd = updatedBlogPost.DateEnd;
+                editThis.BlogCategoryId = updatedBlogPost.BlogCategoryId;
+                editThis.BlogStatusId = updatedBlogPost.BlogStatusId;
+                editThis.IsFeatured = updatedBlogPost.IsFeatured;
+                editThis.IsStaticPage = updatedBlogPost.IsStaticPage;
+                editThis.IsRemoved = updatedBlogPost.IsRemoved;
+
+                ctx.SaveChanges();
             }
         }
 
