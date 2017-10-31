@@ -32,7 +32,7 @@ namespace TechTruffleShuffle.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View();
+                return View(model);
             }
 
             var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<ApplicationUser>>();
