@@ -281,7 +281,6 @@ namespace TechTruffleShuffle.UI.Controllers
                 BlogStatusId = newblogPost.BlogStatusId,
                 IsFeatured = newblogPost.IsFeatured,
                 IsStaticPage = newblogPost.IsStaticPage,
-                IsRemoved = newblogPost.IsRemoved,
                 Hashtags = newblogPost.Hashtags,
 
                 User = newblogPost.User,
@@ -318,7 +317,6 @@ namespace TechTruffleShuffle.UI.Controllers
             blogPost.BlogStatusId = newBlogPost.BlogStatusId;
             blogPost.IsFeatured = newBlogPost.IsFeatured;
             blogPost.IsStaticPage = newBlogPost.IsStaticPage;
-            blogPost.IsRemoved = newBlogPost.IsRemoved;
             blogPost.Hashtags = newBlogPost.Hashtags;
             
             blogPost.User = newBlogPost.User;

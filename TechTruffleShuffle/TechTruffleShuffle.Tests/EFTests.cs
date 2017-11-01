@@ -40,7 +40,7 @@ namespace TechTruffleShuffle.Tests
 
             var blogPosts = repo.GetAllPosts();
 
-            Assert.AreEqual(3, blogPosts.Count);
+            Assert.AreEqual(5, blogPosts.Count);
             Assert.AreEqual(4, blogPosts[1].BlogCategoryId);
             Assert.AreEqual(3, blogPosts[1].BlogStatusId);
             Assert.IsTrue(blogPosts[1].IsFeatured);
@@ -62,11 +62,10 @@ namespace TechTruffleShuffle.Tests
             newBlogPost.BlogStatusId = 2;
             newBlogPost.IsFeatured = false;
             newBlogPost.IsStaticPage = false;
-            newBlogPost.IsRemoved = false;
  
             repo.CreateNewBlogPost(newBlogPost);
 
-            Assert.AreEqual(4, newBlogPost.BlogPostId);
+            Assert.AreEqual(6, newBlogPost.BlogPostId);
         }
 
         [Test]
@@ -86,18 +85,17 @@ namespace TechTruffleShuffle.Tests
             newBlogPost.BlogStatusId = 2;
             newBlogPost.IsFeatured = false;
             newBlogPost.IsStaticPage = false;
-            newBlogPost.IsRemoved = false;
 
             //check to make sure it added ok
             repo.CreateNewBlogPost(newBlogPost);
             var addBlog = repo.GetAllPosts();
 
-            Assert.AreEqual(4, addBlog.Count);
+            Assert.AreEqual(6, addBlog.Count);
 
             //check to make sure that it deleted ok
             repo.DeleteBlogPost(4);
             var deleteThis = repo.GetAllPosts();
-            Assert.AreEqual(3, deleteThis.Count);
+            Assert.AreEqual(5, deleteThis.Count);
         }
 
         [Test]
@@ -118,7 +116,6 @@ namespace TechTruffleShuffle.Tests
             newBlogPost.BlogStatusId = 2;
             newBlogPost.IsFeatured = false;
             newBlogPost.IsStaticPage = false;
-            newBlogPost.IsRemoved = false;
 
             repo.CreateNewBlogPost(newBlogPost);
 
@@ -131,11 +128,10 @@ namespace TechTruffleShuffle.Tests
             newBlogPost.BlogStatusId = 2;
             newBlogPost.IsFeatured = true;
             newBlogPost.IsStaticPage = false;
-            newBlogPost.IsRemoved = false;
 
             repo.EditBlogPost(newBlogPost);
 
-            var editedBlogPost = repo.GetBlogPostById(4);
+            var editedBlogPost = repo.GetBlogPostById(newBlogPost.BlogPostId);
 
             Assert.AreEqual("Hey, This Post Was Updated!", editedBlogPost.Title);
             Assert.AreEqual(2, editedBlogPost.BlogCategoryId);
@@ -183,7 +179,7 @@ namespace TechTruffleShuffle.Tests
 
             var pendingPosts = repo.GetAllPendingPosts();
 
-            Assert.AreEqual(0, pendingPosts.Count);
+            Assert.AreEqual(1, pendingPosts.Count);
         }
 
         [Test]
@@ -191,11 +187,10 @@ namespace TechTruffleShuffle.Tests
         {
             var repo = TechTruffleRepositoryFactory.Create();
 
-            var pendingPosts = repo.GetAllPendingPostsByOneAuthor("AJ");
+            var pendingPosts = repo.GetAllPendingPostsByOneAuthor("Parlow");
 
             Assert.AreEqual(1, pendingPosts.Count);
-            Assert.AreEqual(3, pendingPosts[0].BlogPostId);
-            Assert.AreEqual("Tech Beers and Cheers", pendingPosts[0].Title);
+            Assert.AreEqual(5, pendingPosts[0].BlogPostId);
 
             var pendingPosts2 = repo.GetAllPendingPostsByOneAuthor("Judy");
 
@@ -218,11 +213,15 @@ namespace TechTruffleShuffle.Tests
         {
             var repo = TechTruffleRepositoryFactory.Create();
 
-            var publishedPostsByOneAuthor = repo.GetAllPublishedPostsByAuthor("Judy Thao");
+            var publishedPostsByOneAuthor = repo.GetAllPublishedPostsByAuthor("Judy");
 
             Assert.AreEqual(1, publishedPostsByOneAuthor.Count);
             Assert.AreEqual(2, publishedPostsByOneAuthor[0].BlogPostId);
-            Assert.AreEqual("Guide to Getting the Job", publishedPostsByOneAuthor[0].Title);
+
+            var publishedPostsByOneAuthor2 = repo.GetAllPublishedPostsByAuthor("Thao");
+
+            Assert.AreEqual(1, publishedPostsByOneAuthor2.Count);
+            Assert.AreEqual(2, publishedPostsByOneAuthor2[0].BlogPostId);
         }
 
         [Test]
@@ -271,7 +270,6 @@ namespace TechTruffleShuffle.Tests
 
             Assert.AreEqual(1, removedPosts.Count);
             Assert.AreEqual(4, removedPosts[0].BlogPostId);
-            Assert.AreEqual("Let's Get Together and Code", removedPosts[0].Title);
         }
 
         [Test]

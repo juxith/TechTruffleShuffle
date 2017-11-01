@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
@@ -30,15 +31,18 @@ namespace TechTruffleShuffle.UI.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<ApplicationUser>>();
-            var authManager = HttpContext.GetOwinContext().Authentication;
+            var ctx = HttpContext.GetOwinContext();
+            //var userManager = ctx.GetUserManager<UserManager<ApplicationUser>>();
+            var userManager = ctx.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = userManager.Find(model.Email, model.Password);
+            var authManager = ctx.Authentication;
+
+            var user = userManager.Find(model.UserName, model.Password);
 
             if(user == null)
             {
@@ -61,6 +65,17 @@ namespace TechTruffleShuffle.UI.Controllers
                     return RedirectToAction("Index");
                 }          
             }
+        }
+
+        [HttpGet]
+        public ActionResult LogOff()
+        {
+            var ctx = Request.GetOwinContext();
+            var authMgr = ctx.Authentication;
+
+            authMgr.SignOut("ApplicationCookie");
+
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
