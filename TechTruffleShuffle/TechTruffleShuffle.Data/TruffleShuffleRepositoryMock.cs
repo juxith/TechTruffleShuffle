@@ -116,6 +116,11 @@ namespace TechTruffleShuffle.Data
                     BlogStatusId = 3,
                     BlogStatusDescription = "Published"
                 },
+                    new BlogStatus
+                {
+                    BlogStatusId = 4,
+                    BlogStatusDescription = "Removed"
+                }
             };
 
             _blogposts = new List<BlogPost>()
@@ -132,7 +137,6 @@ namespace TechTruffleShuffle.Data
                     BlogStatusId = 1,
                     IsFeatured = false,
                     IsStaticPage = false,
-                    IsRemoved = false,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 5).ToList(),
 
                     User = _appUsers[2],
@@ -151,7 +155,6 @@ namespace TechTruffleShuffle.Data
                     BlogStatusId = 3,
                     IsFeatured = true,
                     IsStaticPage = false,
-                    IsRemoved = false,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList(),
 
                     User = _appUsers[0],
@@ -170,7 +173,6 @@ namespace TechTruffleShuffle.Data
                     BlogStatusId = 2,
                     IsFeatured = false,
                     IsStaticPage = false,
-                    IsRemoved = false,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 1 || h.HashtagId == 3).ToList(),
 
                     User = _appUsers[1],
@@ -189,12 +191,30 @@ namespace TechTruffleShuffle.Data
                     BlogStatusId = 1,
                     IsFeatured = false,
                     IsStaticPage = false,
-                    IsRemoved = true,
                     Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList(),
 
                     User = _appUsers[1],
                     BlogCategory = _blogcategories[0],
                     BlogStatus = _blogstatuses[0]
+
+                },
+                new BlogPost
+                {
+                    BlogPostId = 5,
+                    Title = "Testing to see if I'm removed",
+                    BlogContent = "Lindsey, Aj and Judy quest to complete their final group project.",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 4,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 5 || h.HashtagId == 6).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[3]
 
                 }
             };
@@ -289,7 +309,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllRemovedPosts()
         {
-            return _blogposts.Where(b => b.IsRemoved == true).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Removed").ToList();
         }
 
         public List<BlogPost> GetAllStaticPages()
