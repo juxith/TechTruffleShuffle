@@ -19,7 +19,6 @@ namespace TechTruffleShuffle.Models
         public int BlogStatusId { get; set; }
         public bool IsFeatured { get; set; }
         public bool IsStaticPage { get; set; }
-        public bool IsRemoved { get; set; }
 
         public ICollection<Hashtag> Hashtags { get; set; }
 

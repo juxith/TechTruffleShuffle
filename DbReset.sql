@@ -38,15 +38,18 @@ Begin
 		insert into BlogStatus(BlogStatusId, BlogStatusDescription)
 		Values(1, 'Draft'),
 		(2, 'Pending'),
-		(3, 'Published')
+		(3, 'Published'),
+		(4, 'Removed')
 	Set Identity_Insert BlogStatus off;
 
 	DBCC CHECKIDENT ('BlogPosts', reseed, 1)
 	Set Identity_Insert BlogPosts on;
-		insert into BlogPosts(BlogPostId,  Title, EventDate, BlogContent, DateStart, DateEnd, BlogCategoryId, BlogStatusId, IsFeatured, IsStaticPage, IsRemoved, User_Id )
-		Values(1, 'JavaScriptMn, Monthly Meet Up', '10/27/2017', 'At tonights event we learned about Angular Universal and server side rendering', '10/26/2017', '10/26/2018', 1, 1, 1, 0, 0, 'a615c0c5-8f36-421a-b6d4-e7a227a2fb88' ),
-		(2, 'Hack-o-Thon', '10/31/017', 'A haunting night with the annual Hack-o-Thon hostsed by Target Virtual Reality department. We were able to tour a haunting house', '11/01/2017', '02/28/2018', 4, 3, 1, 0, 0, '82bc7f6a-95e8-4c57-b6f7-a1a7af7f7e16'),
-		(3, 'Grace Hopper Viewing party','10/27/2017', 'At tonights events we learned about Angular Universal and server side rendering', '10/26/2017', '10/26/2018', 1, 1, 1, 0, 0, '82bc7f6a-95e8-4c57-b6f7-a1a7af7f7e16' )
+		insert into BlogPosts(BlogPostId,  Title, EventDate, BlogContent, DateStart, DateEnd, BlogCategoryId, BlogStatusId, IsFeatured, IsStaticPage, User_Id )
+		Values(1, 'JavaScriptMn, Monthly Meet Up', '10/27/2017', 'At tonights event we learned about Angular Universal and server side rendering', '10/26/2017', '10/26/2018', 1, 1, 1, 0,'2f6ba198-8fe5-406f-b18a-efe460ae099b' ),
+		(2, 'Hack-o-Thon', '10/31/017', 'A haunting night with the annual Hack-o-Thon hostsed by Target Virtual Reality department. We were able to tour a haunting house', '11/01/2017', '02/28/2018', 4, 3, 1, 0, 'a3bb6335-a034-4530-932a-e9d71aabc76d'),
+		(3, 'Grace Hopper Viewing party','10/27/2017', 'At tonights events we learned about Angular Universal and server side rendering', '10/26/2017', '10/26/2018', 1, 1, 1, 0,'a3bb6335-a034-4530-932a-e9d71aabc76d' ),
+		(4, 'Ruby Rails', '08/01/2017','Tonights workshoped some of the new features of Ruby Rails. Guest speaker Aj Rhode gave an in depth view of these tools', '08/02/2017', '10/31/2017', 1, 4, 0, 0, '2f6ba198-8fe5-406f-b18a-efe460ae099b'),
+		(5, 'People who Truffle Shuffles', '11/01/2017','Tonights workshop was hosted by us. In this even we spoil fellow shufflers with our delicate truffles', '11/02/2017', '11/03/2018', 1, 2, 0, 0, '2f6ba198-8fe5-406f-b18a-efe460ae099b')
 	Set Identity_Insert BlogPosts off;
 
 	--DBCC CHECKIDENT ('HashtagBlogPosts', reseed, 1)

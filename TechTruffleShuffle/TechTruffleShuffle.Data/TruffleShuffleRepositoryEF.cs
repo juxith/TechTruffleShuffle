@@ -42,7 +42,6 @@ namespace TechTruffleShuffle.Data
                 editThis.BlogStatusId = updatedBlogPost.BlogStatusId;
                 editThis.IsFeatured = updatedBlogPost.IsFeatured;
                 editThis.IsStaticPage = updatedBlogPost.IsStaticPage;
-                editThis.IsRemoved = updatedBlogPost.IsRemoved;
 
                 ctx.SaveChanges();
             }
@@ -91,7 +90,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPendingByAuthor = ctx.BlogPost.Where(u => (u.User.FirstName + u.User.LastName).Contains(userName)).Where(s => s.BlogStatus.BlogStatusDescription == "Pending");
+                var getPendingByAuthor = ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
 
                 return getPendingByAuthor.ToList();
             }
@@ -118,7 +117,8 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPublishedPostsByAuthor = ctx.BlogPost.Where(s => s.BlogStatus.BlogStatusDescription == "Published").Where((u => (u.User.FirstName + u.User.LastName).Contains(userName)));
+                var getPublishedPostsByAuthor = ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+
                 return getPublishedPostsByAuthor.ToList();
             }
         }
@@ -159,7 +159,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getRemovedPosts = ctx.BlogPost.Where(i => i.IsRemoved == true);
+                var getRemovedPosts = ctx.BlogPost.Where(i => i.BlogStatus.BlogStatusDescription == "Removed");
                 return getRemovedPosts.ToList();
             }
         }
