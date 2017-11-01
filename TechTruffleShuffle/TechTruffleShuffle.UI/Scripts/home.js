@@ -1,20 +1,33 @@
-﻿$(document).ready(function () {
-	loadFeaturedBlogs();
-});
+﻿//$(document).ready(function () {
+//	loadFeaturedBlogs();
+//	//makeItDoStuff();
+//});
 
-function loadFeaturedBlogs() {
-	$.ajax({
-		type: "GET",
-		url: "http://localhost:6245/blogs/featured",
-		success: function (blogArray) {
-			var blogPosts = $("#featuredBlogs");
-			$.each(itemArray, function (index, blog) {
+//function loadFeaturedBlogs() {
+//	$.ajax({
+//		type: "GET",
+//		url: "http://localhost:62645/blogs/featured",
+//		success: function (blogArray) {
+//			//var featuredBlogs = $("#featuredBlogs");
+//			//$.each(blogArray, function (index, blog) {
 
-				var featuredBlogInfo = '<div class="col-md-12 blogToGrab" data-id="' + blog.id + '"><p>' + blog.title + "</p>" +
-					"<p>" + blog.hashtags + "</p>" +
-					"<p>" + blog.blogContent + "</p>" +
-					"</p></div";
+//			//	var featuredBlogInfo = "<p>" + blog.title + "</p>";
 
-				blogPosts.append(featuredBlogInfo)
-			});
-}
+
+//			//	featuredBlogs.append(featuredBlogInfo)
+//			//});
+//			alert("success")
+//		},
+//		error: function () {
+//			alert("error")
+//		}
+//	});
+//}
+
+
+//function makeItDoStuff() {
+//	var featured = "this is some featured stuff";
+//	$("#needToClickThis").on("click", function () {
+//		$("#featuredBlogPosts").val(featured);
+//	})
+//}

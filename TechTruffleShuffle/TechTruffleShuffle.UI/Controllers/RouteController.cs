@@ -30,7 +30,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //I feel like i need to do something here with modifying the method so that true is passed in somehow?
-        [Route("blogs/isRemoved/true")]
+        [Route("blogs/isRemoved")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllRemovedPosts()
         {
@@ -46,7 +46,6 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        //Same thing here with the published part
         [Route("blogs/blogStatus/published")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPublishedPosts()
@@ -63,7 +62,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
         
-        //same here
+        
         [Route("blogs/featured")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllFeaturedPosts()
@@ -229,7 +228,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //idk
-        [Route("blogs/blogstatus/pending/author/{userName}")]
+        [Route("blogs/blogstatus/drafts/author/{userName}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllDraftsByOneAuthor(string userName)
         {
@@ -246,7 +245,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //same here
-        [Route("blogs/isStatic/true")]
+        [Route("blogs/isStatic")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllStaticPages()
         {
