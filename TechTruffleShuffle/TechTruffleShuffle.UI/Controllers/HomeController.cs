@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TechTruffleShuffle.Data;
 
 namespace TechTruffleShuffle.UI.Controllers
 {
@@ -29,9 +30,11 @@ namespace TechTruffleShuffle.UI.Controllers
 
         public ActionResult Blogs()
         {
-            ViewBag.Message = "Our blog page.";
+            var repo = TechTruffleRepositoryFactory.Create();
 
-            return View();
+            var model = repo.GetAllPublishedPosts();
+
+            return View(model);
         }
 
         public ActionResult CreateBlog()

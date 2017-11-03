@@ -324,7 +324,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetPublishedPostsByTitle(string title)
         {
-            return _blogposts.Where(b => b.Title.Contains(title)).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && b.Title.Contains(title)).ToList();
         }
     }
 }

@@ -1,24 +1,44 @@
-﻿
+﻿@model IEnumerable<TechTruffleShuffle.Models.BlogPost>
 @{
-    ViewBag.Title = "Blogs";
+	ViewBag.Title = "Blogs";
 }
 
 <div class="container" align="left">
-    <h2>Blog Title</h2>
-    <p>
-        <button class="btn btn-primary" id="search-blog-button">Search</button>
-        <select alight="right" id="searchCategoryDropList" required>
-            <option value="" disabled="disabled" selected="selected">Search </option>
-            <option value="title">Title</option>
-            <option value="datePosted">DatePosted</option>
-            <option value="authorName">Author Name </option>
-            <option value="hashtag">#Hashtag</option>
-        </select>
-        <input type="text" />
-    </p>
+	<h2>Blogs</h2>
+	<p>
+		<button class="btn btn-primary" id="search-blog-button">Search</button>
+		<select id="searchCategoryDropList" required>
+			<option value="none" disabled="disabled" selected="selected">Search </option>
+			<option value="title">Title</option>
+			<option value="date">DatePosted</option>
+			<option value="author">Author Name </option>
+			<option value="hashtag">#Hashtag</option>
+		</select>
+		<input type="text" id="thisThing" />
+		<button class="btn btn-primary" id="clear-filters-button">Clear Filters</button>
+	</p>
 </div>
-<div class="container" align="right">
-    <!--each blog post should come up with these buttons when they load. They may have to add these buttons when they list-->
-    <p><button class="btn btn-danger" id="adminEditBlogPostBtn">Admin: Edit Blog Post</button></p>
-    <p><button class="btn btn-danger" id="adminDeleteBlogoPostBtn">Admin: Delete Blog Post</button></p>
+<div class="container">
+	<div class="allBlogs">
+		@foreach (var blogPost in Model)
+		{
+			<p>@blogPost.Title</p>
+			<p>By 
+				@blogPost.User.FirstName
+				@blogPost.User.LastName
+				@blogPost.DateStart.ToShortDateString()
+			</p>
+			<p>
+				@foreach (var hashtag in blogPost.Hashtags)
+				{
+					@hashtag.HashtagName
+					@:&nbsp;
+				}
+			</p>
+			<p>@blogPost.BlogContent</p>
+			<p><button class="btn btn-danger" id="adminEditBlogPost @blogPost.BlogPostId Btn'">Edit Blog Post</button></p>
+			<p><button class="btn btn-danger" id="adminDeleteBlogoPost @blogPost.BlogPostId Btn">Delete Blog Post</button></p>
+		}
+	</div>
+	<div class="filteredBlogs"></div>
 </div>
