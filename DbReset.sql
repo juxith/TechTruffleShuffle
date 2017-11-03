@@ -21,7 +21,9 @@ Begin
 		Values(1, '#VirtualReality'),
 		(2, '#MobileDevelopment'),
 		(3, '#Angular'),
-		(4, '#Hack')
+		(4, '#Hack'),
+		(5, '#TallBoys'),
+		(6, '#SoftSkills')
 	Set Identity_Insert Hashtags off;
 
 	DBCC CHECKIDENT ('BlogCategories', reseed, 1)
@@ -52,11 +54,13 @@ Begin
 		(5, 'People who Truffle Shuffles', '11/01/2017','Tonights workshop was hosted by us. In this even we spoil fellow shufflers with our delicate truffles', '11/02/2017', '11/03/2018', 1, 2, 0, 0, '2f6ba198-8fe5-406f-b18a-efe460ae099b')
 	Set Identity_Insert BlogPosts off;
 
-	--DBCC CHECKIDENT ('HashtagBlogPosts', reseed, 1)
+	----DBCC CHECKIDENT ('HashtagBlogPosts', reseed, 1)
 	--Set Identity_Insert HashtagBlogPosts on;
 		insert into HashTagBlogPosts(Hashtag_HashtagId, BlogPost_BlogPostId)
 		Values(1, 1),
 		(1, 2),
-		(1, 3)
-	--Set Identity_Insert HashtagBlogPosts off;
+		(1, 3),
+		(2, 4),
+		(3, 4)
+	----Set Identity_Insert HashtagBlogPosts off;
 End

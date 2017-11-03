@@ -168,8 +168,8 @@ namespace TechTruffleShuffle.Tests
 
             var featuredPosts = repo.GetAllFeaturedPosts();
 
-            Assert.AreEqual(3, featuredPosts.Count);
-            Assert.AreEqual(1, featuredPosts[0].BlogPostId);
+            Assert.AreEqual(1, featuredPosts.Count);
+            Assert.AreEqual(2, featuredPosts[0].BlogPostId);
         }
 
         [Test]

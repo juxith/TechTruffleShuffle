@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TechTruffleShuffle.Data;
 
 namespace TechTruffleShuffle.UI.Controllers
 {
@@ -10,7 +11,11 @@ namespace TechTruffleShuffle.UI.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var repo = TechTruffleRepositoryFactory.Create();
+
+            var model = repo.GetAllFeaturedPosts();
+
+            return View(model);
         }
 
         public ActionResult About()
