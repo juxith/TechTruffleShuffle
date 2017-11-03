@@ -11,7 +11,11 @@ namespace TechTruffleShuffle.UI.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var repo = TechTruffleRepositoryFactory.Create();
+
+            var model = repo.GetAllFeaturedPosts();
+
+            return View(model);
         }
 
         public ActionResult About()

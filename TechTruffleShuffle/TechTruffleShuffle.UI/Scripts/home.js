@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
 	//loadFilteredBlogs();
 	//makeItDoStuff();
 	searchBySomething();
@@ -6,11 +6,6 @@
 });
 
 function loadFilteredBlogs() {
-
-
-
-
-
 	$("#search-blog-button").on("click", function () {
 		if ($("#searchCategoryDropList").val() == "title") {
 			$(".allBlogs").hide();

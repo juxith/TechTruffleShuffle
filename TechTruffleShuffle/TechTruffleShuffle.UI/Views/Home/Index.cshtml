@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<TechTruffleShuffle.Models.BlogPost>
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -16,13 +17,37 @@
         @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
     </div>
     <div class="col-md-8">
-        <h2>Featured Blogs Here</h2>
-        <p></p>
-        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
+        <h2 id="needToClickThis">Featured Blogs Here</h2>
+        <p id="featuredBlogs">
+            <table>
+                @foreach (var blogPost in Model)
+                {
+                    <tr>
+                        <td>@blogPost.Title</td>
+                    </tr>
+                    <tr>
+                        <td>@blogPost.EventDate.ToString("MM/dd/yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td>
+                        @foreach (var hashtag in blogPost.Hashtags)
+                        {
+                            @hashtag.HashtagName
+                        }                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@blogPost.BlogContent</td>
+                    </tr>
+                }
+            </table>
+            </p>
+            @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
+        </div>
+        @*<div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>*@
     </div>
-    @*<div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>*@
-</div>
+    <script src="~/home.js"></script>
