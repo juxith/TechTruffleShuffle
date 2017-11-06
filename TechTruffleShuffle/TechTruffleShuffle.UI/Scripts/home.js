@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	//makeItDoStuff();
+	getAllBlogPosts();
 	searchBySomething();
 	clearFilters();
 	deleteStuff();
@@ -14,12 +15,54 @@ function clearFilters() {
 	});
 }
 
+function getAllBlogPosts() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:62645/blogs",
+		success: function (blogPostArray) {
+			//alert("success")
+			$(".allBlogs").show();
+			$(".filteredBlogs").hide();
+
+			var allBlogPosts = $(".allBlogs");
+
+			$.each(blogPostArray, function (index, blogPost) {
+
+				var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
+
+
+				allBlogPosts.append(blogPostInfo)
+
+				$.each(blogPost.hashtags, function (index, hashtags) {
+					var hashtagInfo = hashtags.hashtagName + " "
+
+					allBlogPosts.append(hashtagInfo)
+				})
+
+				var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
+					'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p>'
+
+				allBlogPosts.append(moreBlogPostInfo)
+
+			});
+
+		},
+		error: function () {
+			alert("error")
+		}
+	});
+}
+
+
+
 function searchBySomething() {
 	$("#search-blog-button").on("click", function () {
 		
 		var searchTermInput = $("#searchCategoryInput").val();
 		var searchTermCategory = $("#searchCategoryDropList").val();
-		//if ($("#searchCategoryDropList").val() != "") {
+
 		$(".allBlogs").hide();
 		$(".filteredBlogs").show();
 			$(".filteredBlogs").text("");
@@ -27,6 +70,7 @@ function searchBySomething() {
 				type: "GET",
 				url: "http://localhost:62645/blogs/" + searchTermCategory + "/" + searchTermInput,
 				success: function (blogPostArray) {
+
 					var blogsBySearchFilter = $(".filteredBlogs");
 					var clearTheDiv = "";
 					$.each(blogPostArray, function (index, blogPost) {
@@ -46,7 +90,7 @@ function searchBySomething() {
 						})
 
 						var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
-							'<p><button class="btn btn-danger" id="EditBlogPostBtn">Edit Blog Post</button></p>' +
+							'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
 							'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="'+ blogPost.blogPostId +'">Delete Blog Post</button></p>'
 
 						blogsBySearchFilter.append(moreBlogPostInfo)
