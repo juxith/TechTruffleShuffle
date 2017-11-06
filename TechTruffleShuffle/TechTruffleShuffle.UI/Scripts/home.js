@@ -46,15 +46,18 @@ function searchBySomething() {
 					$.each(blogPostArray, function (index, blogPost) {
 
 				
-
+						
 						var blogPostInfo = '<p>' + blogPost.title + '</p>' +
 							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>' +
 							'<p>' + blogPost.blogContent + '</p>' +
 							'<p><button class="btn btn-danger" id="adminEditBlogPostBtn">Edit Blog Post</button></p>' +
-							'<p><button class="btn btn-danger" id="adminDeleteBlogoPostBtn">Delete Blog Post</button></p>' +
+							'<p><button class="btn btn-danger" id="adminDeleteBlogoPostBtn">Delete Blog Post</button></p>'
 
-							$.each(blogPostArray.hashtags, function (index, hashtags) {
+
+							$.each(blogPost.hashtags, function (index, hashtags) {
 								var hashtagInfo = '<p>' + hashtags.hashtagName + '<p>'
+
+								blogsBySearchFilter.append(hashtagInfo)
 							})
 						
 						blogsBySearchFilter.append(blogPostInfo)

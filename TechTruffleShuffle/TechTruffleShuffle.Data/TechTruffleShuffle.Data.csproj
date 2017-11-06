@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201711011511277_removedIsRemoved.Designer.cs">
       <DependentUpon>201711011511277_removedIsRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711031915182_seedDataPleaseWork.cs" />
+    <Compile Include="Migrations\201711031915182_seedDataPleaseWork.Designer.cs">
+      <DependentUpon>201711031915182_seedDataPleaseWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.Auth.cs" />
@@ -118,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711011511277_removedIsRemoved.resx">
       <DependentUpon>201711011511277_removedIsRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711031915182_seedDataPleaseWork.resx">
+      <DependentUpon>201711031915182_seedDataPleaseWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
