@@ -190,5 +190,20 @@ namespace TechTruffleShuffle.Data
                 return getPublishedByTitle.ToList();
             }
         }
+
+        public List<BlogStatus> GetAllBlogStatuses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BlogCategory> GetAllBlogCategories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Hashtag> GetAllHashTags()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

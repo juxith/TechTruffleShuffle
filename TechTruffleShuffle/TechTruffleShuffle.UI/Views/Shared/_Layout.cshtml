@@ -9,7 +9,10 @@
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     <script>
         tinymce.init({
-            selector: '#blogtextarea'
+            selector: '#blogtextarea',
+              plugin: 'a_tinymce_plugin',
+            a_plugin_option: true,
+            a_configuration_option: 400
         });
     </script>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>

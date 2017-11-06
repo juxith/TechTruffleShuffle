@@ -326,5 +326,20 @@ namespace TechTruffleShuffle.Data
         {
             return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && b.Title.Contains(title)).ToList();
         }
+
+        public List<BlogStatus> GetAllBlogStatuses()
+        {
+            return _blogstatuses.ToList();
+        }
+
+        public List<BlogCategory> GetAllBlogCategories()
+        {
+            return _blogcategories.ToList();
+        }
+
+        public List<Hashtag> GetAllHashTags()
+        {
+            return _hashtags.ToList();
+        }
     }
 }
