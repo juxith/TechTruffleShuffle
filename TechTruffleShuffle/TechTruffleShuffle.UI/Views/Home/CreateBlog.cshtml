@@ -11,7 +11,7 @@
     <div>
         @using (Html.BeginForm("CreateBlog", "Home"))
         {
-            @Html.HiddenFor(m => m.User.Id)
+            @Html.HiddenFor(m => m.BlogPost.User.Id)
             <div class="col-xs-12 col-sm-7">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -19,29 +19,29 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @placeholder="Enter Title Here" })
-                            @Html.ValidationMessageFor(c => c.Title, null, new { @class = "error" })
+                            @Html.TextBoxFor(m => m.BlogPost.Title, new { @class = "form-control", @placeholder="Enter Title Here" })
+                            @Html.ValidationMessageFor(c => c.BlogPost.Title, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control", @placeholder = "Event Date (MM/DD/YYYY)" })
-                            @Html.ValidationMessageFor(c => c.EventDate, null, new { @class = "error" })
+                            @Html.TextBoxFor(m => m.BlogPost.EventDate, new { @class = "form-control", @placeholder = "Event Date (MM/DD/YYYY)" })
+                            @Html.ValidationMessageFor(c => c.BlogPost.EventDate, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.Hashtags, new { @class = "form-control", @placeholder = "#Hashtags"})
-                            @Html.ValidationMessageFor(c => c.Hashtags, null, new { @class = "error" })
+                            @Html.TextBoxFor(m => m.StringHashtags, new { @class = "form-control", @placeholder = "#Hashtags"})
+                            @Html.ValidationMessageFor(c => c.StringHashtags, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
-                            @Html.TextAreaFor(m => m.BlogContent, new { @class = "form-control", @id = "blogtextarea"})
-                            @Html.ValidationMessageFor(c => c.BlogContent, null, new { @class = "error" })
-                        </div>
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.BlogCategory, new { @class = "form-control", @placeholder = "Needs to be drop down at some point"})
-                            @Html.ValidationMessageFor(c => c.EventDate, null, new { @class = "error" })
+                            @Html.TextAreaFor(m => m.BlogPost.BlogContent, new { @class = "form-control", @id = "blogtextarea"})
+                            @Html.ValidationMessageFor(c => c.BlogPost.BlogContent, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
                             <label>Featured</label>
-                            @Html.RadioButtonFor(m => m.IsFeatured, "true")
-                            @Html.ValidationMessageFor(c => c.EventDate, null, new { @class = "error" })
+                            @Html.RadioButtonFor(m => m.BlogPost.IsFeatured, "true")
+                            @Html.ValidationMessageFor(c => c.BlogPost.IsFeatured, null, new { @class = "error" })
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.BlogPost.BlogCategory.BlogCategoryId, Model.BlogCategories, "-Choose One-", new { @class = "form-control", @placeholder = "Needs to be drop down at some point"})
+                            @Html.ValidationMessageFor(c => c.BlogPost.BlogCategory.BlogCategoryId, null, new { @class = "error" })
                         </div>
                         <input type="submit" name="submit" value="Save" class="btn btn-warning"/>
                         <input type="submit" name="submit" value="Post" class="btn btn-warning"/>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TechTruffleShuffle.Data;
 using TechTruffleShuffle.Models;
 
@@ -9,13 +10,26 @@ namespace TechTruffleShuffle.UI.Models
 {
     public class BlogPostViewModel
     {
-        public string Title { get; set; }
-        public DateTime EventDate { get; set; }
-        public string Hashtags { get; set; }
-        public bool IsFeatured { get; set; }
-        public string BlogContent { get; set; }
-        public BlogCategory BlogCategory { get; set; }
-        public BlogStatus BlogStatus {get; set;}
-        public ApplicationUser User { get; set; }
+        public BlogPost BlogPost { get; set; }
+        public List<SelectListItem> BlogCategories { get; set; }
+        public string StringHashtags { get; set; }
+
+        public BlogPostViewModel()
+        {
+            BlogCategories = new List<SelectListItem>();
+            BlogPost = new BlogPost();
+        }
+
+        public void SetCategoryItems(IEnumerable<BlogCategory> categories)
+        {
+            foreach (var category in categories)
+            {
+                BlogCategories.Add(new SelectListItem()
+                {
+                    Value = category.BlogCategoryId.ToString(),
+                    Text = category.BlogCategoryName
+                });
+            }
+        }
     }
 }
