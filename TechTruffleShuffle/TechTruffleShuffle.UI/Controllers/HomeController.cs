@@ -45,8 +45,9 @@ namespace TechTruffleShuffle.UI.Controllers
 
         public ActionResult CreateBlog()
         {
-            var model = new BlogPostViewModel();
-            return View(model);
+            var viewModel = new BlogPostViewModel();
+            viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -57,13 +58,13 @@ namespace TechTruffleShuffle.UI.Controllers
             {
                 var model = new BlogPost();
 
-                model.Title = viewModel.Title;
-                model.EventDate = viewModel.EventDate;
-                model.BlogContent = viewModel.BlogContent;
-                model.IsFeatured = viewModel.IsFeatured;
-                model.User = viewModel.User;
+                model.Title = viewModel.BlogPost.Title;
+                model.EventDate = viewModel.BlogPost.EventDate;
+                model.BlogContent = viewModel.BlogPost.BlogContent;
+                model.IsFeatured = viewModel.BlogPost.IsFeatured;
+                model.User = viewModel.BlogPost.User;
 
-                string[] hashTag = viewModel.Hashtags.Split(' ');
+                string[] hashTag = viewModel.StringHashtags.Split(' ');
 
                 var hashTagRepo = TechTruffleRepositoryFactory.Create().GetAllHashTags();
 
