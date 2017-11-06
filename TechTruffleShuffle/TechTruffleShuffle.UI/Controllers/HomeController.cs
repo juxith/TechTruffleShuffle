@@ -48,6 +48,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Admin()
         {
             ViewBag.Message = "Admin";
