@@ -82,13 +82,9 @@
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ITruffleShuffleRepository.cs" />
-    <Compile Include="Migrations\201710311523293_init.cs" />
-    <Compile Include="Migrations\201710311523293_init.Designer.cs">
-      <DependentUpon>201710311523293_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711011511277_removedIsRemoved.cs" />
-    <Compile Include="Migrations\201711011511277_removedIsRemoved.Designer.cs">
-      <DependentUpon>201711011511277_removedIsRemoved.cs</DependentUpon>
+    <Compile Include="Migrations\201711032047597_init.cs" />
+    <Compile Include="Migrations\201711032047597_init.Designer.cs">
+      <DependentUpon>201711032047597_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711031915182_seedDataPleaseWork.cs" />
     <Compile Include="Migrations\201711031915182_seedDataPleaseWork.Designer.cs">
@@ -117,11 +113,8 @@
     <Folder Include="Repos\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710311523293_init.resx">
-      <DependentUpon>201710311523293_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711011511277_removedIsRemoved.resx">
-      <DependentUpon>201711011511277_removedIsRemoved.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711032047597_init.resx">
+      <DependentUpon>201711032047597_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711031915182_seedDataPleaseWork.resx">
       <DependentUpon>201711031915182_seedDataPleaseWork.cs</DependentUpon>

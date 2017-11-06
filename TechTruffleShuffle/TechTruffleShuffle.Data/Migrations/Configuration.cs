@@ -312,7 +312,8 @@ namespace TechTruffleShuffle.Data.Migrations
             {
                 BlogPost toAdd = new BlogPost
                 {
-                    Title = "Grace Hopper Viewing party",
+
+                    Title = "Ruby Rails",
                     EventDate = new DateTime(2017, 08, 01),
                     BlogContent = "Tonights workshoped some of the new features of Ruby Rails. Guest speaker Aj Rhode gave an in depth view of these tools",
                     DateStart = new DateTime(2017, 08, 02),
@@ -327,7 +328,8 @@ namespace TechTruffleShuffle.Data.Migrations
                 context.SaveChanges();
             }
 
-            BlogPost workingPost4 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Grace Hopper Viewing party");
+
+            BlogPost workingPost4 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Ruby Rails");
 
             if (workingPost4.Hashtags == null)
             {
@@ -385,7 +387,7 @@ namespace TechTruffleShuffle.Data.Migrations
 
             if (!roleMgr.RoleExists("author"))
             {
-                roleMgr.Create(new ApplicationRole() { Name = "author" });  
+                roleMgr.Create(new ApplicationRole() { Name = "author" });
             }
 
             var authorUser = new ApplicationUser()
@@ -394,8 +396,8 @@ namespace TechTruffleShuffle.Data.Migrations
                 FirstName = "Judy",
                 LastName = "Thao",
                 Email = "juxith23@gmail.com",
-                EmailConfirmed = true    
-             };
+                EmailConfirmed = true
+            };
 
 
             var user = new ApplicationUser()
@@ -407,7 +409,7 @@ namespace TechTruffleShuffle.Data.Migrations
                 EmailConfirmed = true
             };
 
-            if(!userMgr.Users.Any(u => u.UserName == "JudyThao"))
+            if (!userMgr.Users.Any(u => u.UserName == "JudyThao"))
             {
                 userMgr.Create(authorUser, "testing123");
 
@@ -423,11 +425,11 @@ namespace TechTruffleShuffle.Data.Migrations
                 context.SaveChanges();
 
                 userMgr.AddToRole(user.Id, "admin");
-            }       
+            }
 
             context.SaveChanges();
-            return;
-
+            //return;
         }
     }
+
 }
