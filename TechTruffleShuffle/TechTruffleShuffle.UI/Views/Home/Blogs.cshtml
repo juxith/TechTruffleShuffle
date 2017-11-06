@@ -14,7 +14,7 @@
 			<option value="author">Author Name </option>
 			<option value="hashtag">#Hashtag</option>
 		</select>
-		<input type="text" id="thisThing" />
+		<input type="text" id="searchCategoryInput" />
 		<button class="btn btn-primary" id="clear-filters-button">Clear Filters</button>
 	</p>
 </div>
@@ -36,8 +36,8 @@
 				}
 			</p>
 			<p>@blogPost.BlogContent</p>
-			<p><button class="btn btn-danger" id="adminEditBlogPost @blogPost.BlogPostId Btn'">Edit Blog Post</button></p>
-			<p><button class="btn btn-danger" id="adminDeleteBlogoPost @blogPost.BlogPostId Btn">Delete Blog Post</button></p>
+			<p><button class="btn btn-danger" id="adminEditBlogPost(@blogPost.BlogPostId)Btn">Edit Blog Post</button></p>
+			<p><button class="btn btn-danger" id="adminDeleteBlogPost(@blogPost.BlogPostId)Btn">Delete Blog Post</button></p>
 		}
 	</div>
 	<div class="filteredBlogs"></div>

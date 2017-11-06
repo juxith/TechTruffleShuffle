@@ -1,41 +1,27 @@
 $(document).ready(function () {
-	//loadFilteredBlogs();
 	//makeItDoStuff();
 	searchBySomething();
-	//formatDate()
+	clearFilters();
+	deleteStuff();
 });
 
-function loadFilteredBlogs() {
-	$("#search-blog-button").on("click", function () {
-		if ($("#searchCategoryDropList").val() == "title") {
-			$(".allBlogs").hide();
-			$(".filteredBlogs").text();
-		}
+function clearFilters() {
+	$("#clear-filters-button").on("click", function () { 
+		$(".filteredBlogs").hide();
+		$(".allBlogs").show();
+		$("#searchCategoryDropList").val('none');
+		$("#searchCategoryInput").val("");		
 	});
-}
-
-function formatDate(date) {
-	var monthNames = [
-		"January", "February", "March",
-		"April", "May", "June", "July",
-		"August", "September", "October",
-		"November", "December"
-	];
-
-	var day = date.getDate();
-	var monthIndex = date.getMonth();
-	var year = date.getFullYear();
-
-	return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 
 function searchBySomething() {
 	$("#search-blog-button").on("click", function () {
 		
-		var searchTermInput = $("#thisThing").val();
+		var searchTermInput = $("#searchCategoryInput").val();
 		var searchTermCategory = $("#searchCategoryDropList").val();
 		//if ($("#searchCategoryDropList").val() != "") {
-			$(".allBlogs").hide();
+		$(".allBlogs").hide();
+		$(".filteredBlogs").show();
 			$(".filteredBlogs").text("");
 			$.ajax({
 				type: "GET",
@@ -48,19 +34,22 @@ function searchBySomething() {
 				
 						
 						var blogPostInfo = '<p>' + blogPost.title + '</p>' +
-							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>' +
-							'<p>' + blogPost.blogContent + '</p>' +
-							'<p><button class="btn btn-danger" id="adminEditBlogPostBtn">Edit Blog Post</button></p>' +
-							'<p><button class="btn btn-danger" id="adminDeleteBlogoPostBtn">Delete Blog Post</button></p>'
+							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>' 
+							
 
-
-							$.each(blogPost.hashtags, function (index, hashtags) {
-								var hashtagInfo = '<p>' + hashtags.hashtagName + '<p>'
-
-								blogsBySearchFilter.append(hashtagInfo)
-							})
-						
 						blogsBySearchFilter.append(blogPostInfo)
+
+						$.each(blogPost.hashtags, function (index, hashtags) {
+							var hashtagInfo = hashtags.hashtagName + " "
+
+							blogsBySearchFilter.append(hashtagInfo)
+						})
+
+						var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+							'<p><button class="btn btn-danger" id="EditBlogPostBtn">Edit Blog Post</button></p>' +
+							'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="'+ blogPost.blogPostId +'">Delete Blog Post</button></p>'
+
+						blogsBySearchFilter.append(moreBlogPostInfo)
 
 					});
 					//alert("success")
@@ -73,6 +62,24 @@ function searchBySomething() {
 	);
 }		
 
+function deleteStuff() {
+
+	$(document).on("click", "#DeleteBlogPostBtn", function () {
+		var blogPostId = $(this).data('blogpostid');
+
+		$.ajax({
+			type: "DELETE",
+			url: "http://localhost:62645/blog/" + blogPostId,
+			success: function () {
+				alert("success")
+				searchBySomething();
+			},
+			error: function () {
+				alert("error")
+			}
+		});
+	})
+}
 
 function makeItDoStuff() {
 	
