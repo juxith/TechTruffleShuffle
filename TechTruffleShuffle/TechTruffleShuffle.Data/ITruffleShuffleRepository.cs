@@ -32,5 +32,10 @@ namespace TechTruffleShuffle.Data
         List<BlogStatus> GetAllBlogStatuses();
         List<Hashtag> GetAllHashTags();
         List<BlogCategory> GetAllBlogCategories();
+
+        BlogCategory GetBlogCategory(int id);
+        BlogStatus GetBlogStatus(string status);
+        Hashtag GetHashtag(string hashtagName);
+        void AddHashTag(Hashtag newHash);
     }
 }

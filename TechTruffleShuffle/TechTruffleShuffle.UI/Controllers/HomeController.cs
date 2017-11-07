@@ -56,51 +56,51 @@ namespace TechTruffleShuffle.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = new BlogPost();
+                var repo = TechTruffleRepositoryFactory.Create();
+                //handles users
+                
 
-                model.Title = viewModel.BlogPost.Title;
-                model.EventDate = viewModel.BlogPost.EventDate;
-                model.BlogContent = viewModel.BlogPost.BlogContent;
-                model.IsFeatured = viewModel.BlogPost.IsFeatured;
-                model.User = viewModel.BlogPost.User;
-
+                //handles the hashtags
                 string[] hashTag = viewModel.StringHashtags.Split(' ');
 
-                var hashTagRepo = TechTruffleRepositoryFactory.Create().GetAllHashTags();
+                var hashTagRepo = repo.GetAllHashTags();
 
-                foreach(var hash in hashTag)
+                foreach (var hash in hashTag)
                 {
-                    if(hashTagRepo.Any(h => h.HashtagName == hash))
+                    if (!hashTagRepo.Any(h => h.HashtagName == hash))
                     {
                         var newHash = new Hashtag();
                         newHash.HashtagName = hash;
-                        hashTagRepo.Add(newHash);
-                        model.Hashtags.Add(newHash);
+                        repo.AddHashTag(newHash);
                     }
-                    else
-                    {
-                        model.Hashtags.Add(hashTagRepo.SingleOrDefault(h => h.HashtagName == hash));
-                    }
+                    var hashToAdd = repo.GetAllHashTags().SingleOrDefault(h => h.HashtagName == hash);
+
+                    viewModel.BlogPost.Hashtags = new List<Hashtag>();
+                    viewModel.BlogPost.Hashtags.Add(hashToAdd);
                 }
-                
+
+                //handles the blogcategory
+                viewModel.BlogPost.BlogCategory = repo.GetBlogCategory(viewModel.BlogPost.BlogCategory.BlogCategoryId);
+
+                //handles the Blog Status
                 switch (submit)
                 {
                     case "Save":
-                        model.BlogStatus.BlogStatusDescription = "Draft";
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Draft");
                         break;
                     case "Post":
-                        model.BlogStatus.BlogStatusDescription = "Pending";
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Pending");
                         break;
                     case "Publish":
-                        model.BlogStatus.BlogStatusDescription = "Published";
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Published");
                         break;
                     default:
                         break;
                 }
 
-                TechTruffleRepositoryFactory.Create().CreateNewBlogPost(model);
+                TechTruffleRepositoryFactory.Create().CreateNewBlogPost(viewModel.BlogPost);
 
-                return RedirectToAction("Home");
+                return RedirectToAction("Blogs");
             }
             else
             {

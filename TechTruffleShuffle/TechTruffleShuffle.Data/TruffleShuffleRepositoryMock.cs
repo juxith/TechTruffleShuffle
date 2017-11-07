@@ -520,5 +520,35 @@ namespace TechTruffleShuffle.Data
         {
             return _hashtags.ToList();
         }
+
+        public BlogCategory GetBlogCategory(int id)
+        {
+            var blogCategory = _blogcategories.SingleOrDefault(i => i.BlogCategoryId == id);
+            return blogCategory;
+        }
+
+        public BlogStatus GetBlogStatus(string status)
+        {
+            var blogStatus = _blogstatuses.SingleOrDefault(i => i.BlogStatusDescription == status);
+            return blogStatus;
+        }
+
+        Hashtag GetHashtag(string hashtagName)
+        {
+            var hashtag = _hashtags.SingleOrDefault(i => i.HashtagName == hashtagName);
+            return hashtag;
+        }
+
+        public void AddHashTag(Hashtag newHash)
+        {
+            var id = _hashtags.Max(m => m.HashtagId);
+            newHash.HashtagId = id + 1;
+            _hashtags.Add(newHash);
+        }
+
+        Hashtag ITruffleShuffleRepository.GetHashtag(string hashtagName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

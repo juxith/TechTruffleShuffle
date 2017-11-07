@@ -70,7 +70,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var isFeaturedPost = ctx.BlogPost.Include("Hashtags").Where(i => i.IsFeatured).Where(p => p.BlogStatus.BlogStatusDescription == "Published");
+                var isFeaturedPost = ctx.BlogPost.Include("Hashtags").Where(i => i.IsFeatured == true).Where(p => p.BlogStatus.BlogStatusDescription == "Published");
 
                 return isFeaturedPost.ToList();
             }
@@ -193,15 +193,73 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogStatus> GetAllBlogStatuses()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getAllBlogStatuses = ctx.BlogStatus;
+
+                return getAllBlogStatuses.ToList();
+            }
         }
 
         public List<BlogCategory> GetAllBlogCategories()
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getAllBlogCategories = ctx.BlogCategory;
+
+                return getAllBlogCategories.ToList();
+            }
         }
 
         public List<Hashtag> GetAllHashTags()
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var getAllHashtags = ctx.Hashtag;
+
+                return getAllHashtags.ToList();
+            }
+        }
+
+        public BlogCategory GetBlogCategory(int id)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var blogCategory = ctx.BlogCategory.SingleOrDefault(c => c.BlogCategoryId == id);
+
+                return blogCategory;
+            }
+        }
+
+        public BlogStatus GetBlogStatus(string status)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var blogStatus = ctx.BlogStatus.SingleOrDefault(c => c.BlogStatusDescription == status);
+
+                return blogStatus;
+            }
+        }
+       
+        Hashtag GetHashtag(string hashtagName)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                var hashtag = ctx.Hashtag.SingleOrDefault(c => c.HashtagName == hashtagName);
+
+                return hashtag;
+            }
+        }
+
+        public void AddHashTag(Hashtag newHash)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+               ctx.Hashtag.Add(newHash);
+            }
+        }
+
+        Hashtag ITruffleShuffleRepository.GetHashtag(string hashtagName)
         {
             throw new NotImplementedException();
         }
