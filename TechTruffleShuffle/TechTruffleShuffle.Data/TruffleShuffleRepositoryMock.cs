@@ -201,7 +201,7 @@ namespace TechTruffleShuffle.Data
                 new BlogPost
                 {
                     BlogPostId = 5,
-                    Title = "Testing to see if I'm removed",
+                    Title = "Anoother blog to test",
                     BlogContent = "Lindsey, Aj and Judy quest to complete their final group project.",
                     EventDate = new DateTime(2017, 10, 31),
                     DateStart = new DateTime(2017, 9, 01),
@@ -215,7 +215,186 @@ namespace TechTruffleShuffle.Data
                     User = _appUsers[1],
                     BlogCategory = _blogcategories[0],
                     BlogStatus = _blogstatuses[3]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 6,
+                    Title = "We are Getting Close to the End!",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 3,
+                    BlogStatusId = 1,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList(),
 
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[2],
+                    BlogStatus = _blogstatuses[0]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 7,
+                    Title = "Let's Bust a Move",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 2,
+                    BlogStatusId = 2,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 6).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[1],
+                    BlogStatus = _blogstatuses[1]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 8,
+                    Title = "Tech it with your best shot",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 3,
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 3 || h.HashtagId == 5).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[2]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 9,
+                    Title = "C# is Awesome. We are Awesome.",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 4,
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 5).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[3]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 10,
+                    Title = "Just keep swimming, just keep swimming",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 2,
+                    BlogStatusId = 1,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 2 || h.HashtagId == 6).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[1],
+                    BlogStatus = _blogstatuses[0]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 11,
+                    Title = "Networking tips for newbies",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 3,
+                    BlogStatusId = 4,
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4 || h.HashtagId == 2).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[2],
+                    BlogStatus = _blogstatuses[3]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 12,
+                    Title = "Get all the jobs!!!",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 3,
+                    BlogStatusId = 2,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 4).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[2],
+                    BlogStatus = _blogstatuses[1]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 13,
+                    Title = "Learn a new language with Lindsey",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 3,
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 2 || h.HashtagId == 3 || h.HashtagId == 5).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[2]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 14,
+                    Title = "Angular. The Next Frontier",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. .",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 1,
+                    BlogStatusId = 3,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 5).ToList(),
+
+                    User = _appUsers[1],
+                    BlogCategory = _blogcategories[0],
+                    BlogStatus = _blogstatuses[2]
+                },
+                new BlogPost
+                {
+                    BlogPostId = 15,
+                    Title = "Social Time!",
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    EventDate = new DateTime(2017, 10, 31),
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategoryId = 2,
+                    BlogStatusId = 3,
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    Hashtags = _hashtags.Where(h => h.HashtagId == 6).ToList(),
+
+                    User = _appUsers[2],
+                    BlogCategory = _blogcategories[1],
+                    BlogStatus = _blogstatuses[2]
                 }
             };
         }
@@ -324,7 +503,22 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetPublishedPostsByTitle(string title)
         {
-            return _blogposts.Where(b => b.Title.Contains(title)).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Published" && b.Title.Contains(title)).ToList();
+        }
+
+        public List<BlogStatus> GetAllBlogStatuses()
+        {
+            return _blogstatuses.ToList();
+        }
+
+        public List<BlogCategory> GetAllBlogCategories()
+        {
+            return _blogcategories.ToList();
+        }
+
+        public List<Hashtag> GetAllHashTags()
+        {
+            return _hashtags.ToList();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace TechTruffleShuffle.UI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RouteController : ApiController
     {
-        [Route("blogs")]
+        [Route("blogs/admin")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPosts()
         {
@@ -46,7 +46,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        [Route("blogs/blogStatus/published")]
+        [Route("blogs")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPublishedPosts()
         {
@@ -177,7 +177,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //this one too
-        [Route("blogs/blogStatus/pending")]
+        [Route("blogs/pending")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPendingPosts()
         {
@@ -194,7 +194,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //don't even know....
-        [Route("blogs/blogstatus/pending/author/{userName}")]
+        [Route("blogs/pending/author/{userName}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPendingPostsByOneAuthor(string userName)
         {
@@ -211,7 +211,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //and this one too
-        [Route("blogs/blogstatus/drafts")]
+        [Route("blogs/drafts")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllDrafts()
         {
@@ -228,7 +228,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //idk
-        [Route("blogs/blogstatus/drafts/author/{userName}")]
+        [Route("blogs/drafts/author/{userName}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllDraftsByOneAuthor(string userName)
         {

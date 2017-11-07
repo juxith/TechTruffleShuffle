@@ -9,10 +9,14 @@
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     <script>
         tinymce.init({
-            selector: '#blogtextarea'
+            selector: '#blogtextarea',
+              plugin: 'a_tinymce_plugin',
+            a_plugin_option: true,
+            a_configuration_option: 400
         });
     </script>
-
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,7 +32,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("TechTruffleShuffle", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Blogs", "Blogs", "Home")</li>
+                    <li>@Html.ActionLink("Blogs", "Blogs", "API", "Route")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Create Blog", "CreateBlog", "Home")</li>
@@ -46,13 +50,12 @@
             <p>&copy; @DateTime.Now.Year - Tech Truffle Shuffle Inc.</p>
         </footer>
     </div>
+	<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<script src="~/Scripts/home.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    
-	<script src="~/jquery-3.2.1.min.js"></script>
-	<script src="~/bootstrap.js"></script>
-	<script src="~/home.js"></script>
 	@RenderSection("scripts", required: false)
 </body>
 </html>

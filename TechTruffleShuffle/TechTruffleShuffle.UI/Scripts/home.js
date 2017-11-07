@@ -1,33 +1,136 @@
-﻿//$(document).ready(function () {
-//	loadFeaturedBlogs();
-//	//makeItDoStuff();
-//});
+$(document).ready(function () {
+	//makeItDoStuff();
+	getAllBlogPosts();
+	searchBySomething();
+	clearFilters();
+	deleteStuff();
+});
 
-//function loadFeaturedBlogs() {
-//	$.ajax({
-//		type: "GET",
-//		url: "http://localhost:62645/blogs/featured",
-//		success: function (blogArray) {
-//			//var featuredBlogs = $("#featuredBlogs");
-//			//$.each(blogArray, function (index, blog) {
+function clearFilters() {
+	$("#clear-filters-button").on("click", function () { 
+		$(".filteredBlogs").hide();
+		$(".allBlogs").show();
+		$("#searchCategoryDropList").val('none');
+		$("#searchCategoryInput").val("");		
+	});
+}
 
-//			//	var featuredBlogInfo = "<p>" + blog.title + "</p>";
+function getAllBlogPosts() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:62645/blogs",
+		success: function (blogPostArray) {
+			//alert("success")
+			$(".allBlogs").show();
+			$(".filteredBlogs").hide();
+
+			var allBlogPosts = $(".allBlogs");
+
+			$.each(blogPostArray, function (index, blogPost) {
+
+				var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
 
 
-//			//	featuredBlogs.append(featuredBlogInfo)
-//			//});
-//			alert("success")
-//		},
-//		error: function () {
-//			alert("error")
-//		}
-//	});
-//}
+				allBlogPosts.append(blogPostInfo)
+
+				$.each(blogPost.hashtags, function (index, hashtags) {
+					var hashtagInfo = hashtags.hashtagName + " "
+
+					allBlogPosts.append(hashtagInfo)
+				})
+
+				var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
+					'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p>'
+
+				allBlogPosts.append(moreBlogPostInfo)
+
+			});
+
+		},
+		error: function () {
+			alert("error")
+		}
+	});
+}
 
 
-//function makeItDoStuff() {
-//	var featured = "this is some featured stuff";
-//	$("#needToClickThis").on("click", function () {
-//		$("#featuredBlogPosts").val(featured);
-//	})
-//}
+
+function searchBySomething() {
+	$("#search-blog-button").on("click", function () {
+		
+		var searchTermInput = $("#searchCategoryInput").val();
+		var searchTermCategory = $("#searchCategoryDropList").val();
+
+		$(".allBlogs").hide();
+		$(".filteredBlogs").show();
+			$(".filteredBlogs").text("");
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:62645/blogs/" + searchTermCategory + "/" + searchTermInput,
+				success: function (blogPostArray) {
+
+					var blogsBySearchFilter = $(".filteredBlogs");
+					var clearTheDiv = "";
+					$.each(blogPostArray, function (index, blogPost) {
+
+				
+						
+						var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>' 
+							
+
+						blogsBySearchFilter.append(blogPostInfo)
+
+						$.each(blogPost.hashtags, function (index, hashtags) {
+							var hashtagInfo = hashtags.hashtagName + " "
+
+							blogsBySearchFilter.append(hashtagInfo)
+						})
+
+						var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+							'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
+							'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="'+ blogPost.blogPostId +'">Delete Blog Post</button></p>'
+
+						blogsBySearchFilter.append(moreBlogPostInfo)
+
+					});
+					//alert("success")
+				},
+				error: function () {
+					//alert("error")
+				}
+			});
+		}
+	);
+}		
+
+function deleteStuff() {
+
+	$(document).on("click", "#DeleteBlogPostBtn", function () {
+		var blogPostId = $(this).data('blogpostid');
+
+		$.ajax({
+			type: "DELETE",
+			url: "http://localhost:62645/blog/" + blogPostId,
+			success: function () {
+				alert("success")
+				searchBySomething();
+			},
+			error: function () {
+				alert("error")
+			}
+		});
+	})
+}
+
+function makeItDoStuff() {
+	
+	$("#search-blog-button").on("click", function () {
+		$("#thisThing").val("hello");
+	})
+}
+
+//" " + date.getDate() +
+//var date = new Date(blogPost.dateStart);

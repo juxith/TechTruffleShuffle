@@ -30,7 +30,6 @@ namespace TechTruffleShuffle.Data.Migrations
                         BlogStatusId = c.Int(nullable: false),
                         IsFeatured = c.Boolean(nullable: false),
                         IsStaticPage = c.Boolean(nullable: false),
-                        IsRemoved = c.Boolean(nullable: false),
                         User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.BlogPostId)
