@@ -1,24 +1,17 @@
 $(document).ready(function () {
 	//makeItDoStuff();
 	getAllBlogPosts();
-	searchBySomething();
-	clearFilters();
-	deleteStuff();
-});
+	getAllBlogPostsFiltered();
+	clearFiltersForAllBlogs();
+	//deleteStuff();
+	getBlogPostsByOneAuthor();
 
-function clearFilters() {
-	$("#clear-filters-button").on("click", function () { 
-		$(".filteredBlogs").hide();
-		$(".allBlogs").show();
-		$("#searchCategoryDropList").val('none');
-		$("#searchCategoryInput").val("");		
-	});
-}
+});
 
 function getAllBlogPosts() {
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:62645/blogs",
+		url: "http://localhost:62645/blogs/published",
 		success: function (blogPostArray) {
 			//alert("success")
 			$(".allBlogs").show();
@@ -55,9 +48,7 @@ function getAllBlogPosts() {
 	});
 }
 
-
-
-function searchBySomething() {
+function getAllBlogPostsFiltered() {
 	$("#search-blog-button").on("click", function () {
 		
 		var searchTermInput = $("#searchCategoryInput").val();
@@ -75,12 +66,9 @@ function searchBySomething() {
 					var clearTheDiv = "";
 					$.each(blogPostArray, function (index, blogPost) {
 
-				
-						
 						var blogPostInfo = '<p>' + blogPost.title + '</p>' +
 							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>' 
 							
-
 						blogsBySearchFilter.append(blogPostInfo)
 
 						$.each(blogPost.hashtags, function (index, hashtags) {
@@ -94,7 +82,6 @@ function searchBySomething() {
 							'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="'+ blogPost.blogPostId +'">Delete Blog Post</button></p>'
 
 						blogsBySearchFilter.append(moreBlogPostInfo)
-
 					});
 					//alert("success")
 				},
@@ -104,16 +91,28 @@ function searchBySomething() {
 			});
 		}
 	);
-}		
+}
 
+function clearFiltersForAllBlogs() {
+	$("#clear-filters-button").on("click", function () {
+		$(".filteredBlogs").hide();
+		$(".allBlogs").show();
+		$("#searchCategoryDropList").val('none');
+		$("#searchCategoryInput").val("");
+	});
+}
+
+//need to work with this more
 function deleteStuff() {
+
+	//by delete, we actually mean change status to removed
 
 	$(document).on("click", "#DeleteBlogPostBtn", function () {
 		var blogPostId = $(this).data('blogpostid');
 
 		$.ajax({
-			type: "DELETE",
-			url: "http://localhost:62645/blog/" + blogPostId,
+			type: "PUT",
+			url: "http://localhost:62645/blog/" + "remove/" + blogPostId,
 			success: function () {
 				alert("success")
 				searchBySomething();
@@ -125,6 +124,51 @@ function deleteStuff() {
 	})
 }
 
+function getBlogPostsByOneAuthor() {
+
+	var searchTermCategory = $("#searchCategoryDropList").val();
+
+	$(".allBlogsByAuthor").show();
+	$(".filteredBlogsByAuthor").hide();
+	$(".filteredBlogsByAuthor").text("");
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:62645/blogs/author/" + "LindseyParlow" + "/" + searchPostStatus,
+		success: function (blogPostArray) {
+			alert("success")
+			var blogsBySearchFilter = $(".filteredBlogsByAuthor");
+
+			$.each(blogPostArray, function (index, blogPost) {
+
+				var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
+
+				blogsBySearchFilter.append(blogPostInfo)
+
+				$.each(blogPost.hashtags, function (index, hashtags) {
+					var hashtagInfo = hashtags.hashtagName + " "
+
+					blogsBySearchFilter.append(hashtagInfo)
+				})
+
+				var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
+					'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p>'
+
+				blogsBySearchFilter.append(moreBlogPostInfo)
+			});
+		},
+		error: function () {
+			alert("error")
+		}
+	});
+}
+
+
+
+
+
+
 function makeItDoStuff() {
 	
 	$("#search-blog-button").on("click", function () {
@@ -132,5 +176,4 @@ function makeItDoStuff() {
 	})
 }
 
-//" " + date.getDate() +
-//var date = new Date(blogPost.dateStart);
+

@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TechTruffleShuffle.Data;
@@ -22,14 +23,17 @@ namespace TechTruffleShuffle.UI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            var model = new LoginViewModel();
+            var model = new LoginViewModel()
+            {
+                ReturnlUrl = returnUrl
+            };
             return View(model);
         }
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +45,6 @@ namespace TechTruffleShuffle.UI.Controllers
             var userManager = ctx.GetUserManager<ApplicationUserManager>();
 
             var authManager = ctx.Authentication;
-
             var user = userManager.Find(model.UserName, model.Password);
 
             if(user == null)
@@ -56,9 +59,9 @@ namespace TechTruffleShuffle.UI.Controllers
 
                 authManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe }, identity);
 
-                if (!string.IsNullOrEmpty(returnUrl))
+                if (!string.IsNullOrEmpty(model.ReturnlUrl))
                 {
-                    return Redirect(returnUrl);
+                    return Redirect(model.ReturnlUrl);
                 }
                 else
                 {
@@ -70,13 +73,18 @@ namespace TechTruffleShuffle.UI.Controllers
         [HttpGet]
         public ActionResult LogOff()
         {
-            var ctx = Request.GetOwinContext();
-            var authMgr = ctx.Authentication;
+           
+            var authMgr = Request.GetOwinContext().Authentication;
 
             authMgr.SignOut("ApplicationCookie");
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
+        //[HttpPost]
+        //public ActionResult LogOff()
+        //{
+        //    return RedirectToAction("Login");
+        //}
 
         [HttpGet]
         public ActionResult ConfirmEmail()
@@ -111,14 +119,65 @@ namespace TechTruffleShuffle.UI.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            var context = new TechTruffleShuffleEntities();
+            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            var context = new TechTruffleShuffleEntities();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
+            UserStore<ApplicationUser> Store = new UserStore<ApplicationUser>(new TechTruffleShuffleEntities());
+            ApplicationUserManager userManager = new ApplicationUserManager(Store);
+            var result = userManager.Create(user, model.Password);
+            
+
+            if (result.Succeeded)
+            {
+                userManager.AddToRole(user.Id, model.UserRoles);
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+
             return View();
         }
 
         [HttpGet]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public async Task <ActionResult> ResetPassword(string userName, string userId, string newPassword, ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            IdentityDbContext context = new IdentityDbContext();
+            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(context);
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(store);
+            ApplicationUser applicationUser = new ApplicationUser();
+            userName = applicationUser.UserName;
+            userId = applicationUser.Id;
+            //userId = User.Identity.GetUserId();//"<YourLogicAssignsRequestedUserId>";
+
+            newPassword = model.ConfirmPassword; //"<PasswordAsTypedByUser>";
+            string hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+            ApplicationUser cUser = await store.FindByIdAsync(userId);
+            await store.SetPasswordHashAsync(cUser, hashedNewPassword);
+            await store.UpdateAsync(cUser);
             return View();
         }
+
         public ActionResult ResetPasswordConfirmation()
         {
             return View();

@@ -6,8 +6,8 @@
 <div class="container" align="left">
 	<h2>My Blogs</h2>
 	<p>
-		<button class="btn btn-primary" id="search-blog-button">Search</button>
-		<select alight="right" id="searchCategoryDropList" required>
+		<button class="btn btn-primary" id="search-blogByAuthor-button">Search</button>
+		<select id="searchPostStatus" required>
 			<option value="" disabled="disabled" selected="selected">Search </option>
 			<option value="allMyPosts">All Posts</option>
 			<option value="myPublishedPosts">Published Posts</option>
@@ -16,8 +16,11 @@
 		</select>
 	</p>
 </div>
-<div class="container" align="right">
-	<!--each blog post should come up with these buttons when they load. They may have to add these buttons when they list-->
-	<p><button class="btn btn-warning" id="editMyDraftBtn">Edit Draft</button></p>
-	<p><button class="btn btn-warning" id="deleteMyDraftBtn">Delete Draft</button></p>
+<div class="container">
+	<div class="allBlogsByAuthor">
+		@*all blogs by one author go here*@
+	</div>
+	<div class="filteredBlogsByAuthor">
+		@*filtered blogs by status by one author go here*@
+	</div>
 </div>
