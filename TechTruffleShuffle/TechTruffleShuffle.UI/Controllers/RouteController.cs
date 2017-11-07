@@ -13,7 +13,7 @@ namespace TechTruffleShuffle.UI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RouteController : ApiController
     {
-        [Route("blogs/admin")]
+        [Route("blogs")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPosts()
         {
@@ -46,7 +46,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        [Route("blogs")]
+        [Route("blogs/published")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPublishedPosts()
         {
@@ -144,7 +144,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        [Route("blogs/author/{userName}")]
+        [Route("blogs/author/{userName}/published")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPublishedPostsByAuthor(string userName)
         {
@@ -194,7 +194,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //don't even know....
-        [Route("blogs/pending/author/{userName}")]
+        [Route("blogs/author/{userName}/pending")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPendingPostsByOneAuthor(string userName)
         {
@@ -228,7 +228,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //idk
-        [Route("blogs/drafts/author/{userName}")]
+        [Route("blogs/author/{userName}/drafts")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllDraftsByOneAuthor(string userName)
         {
@@ -327,24 +327,57 @@ namespace TechTruffleShuffle.UI.Controllers
             return Ok(blogPost);
         }
 
-        [Route("blog/{blogPostId}")]
-        [AcceptVerbs("DELETE")]
-        public IHttpActionResult DeleteBlogPost(int blogPostId)
+        //need to fix this
+        [Route("blog/remove/{blogPostId}")]
+        [AcceptVerbs("PUT")]
+        public IHttpActionResult RemoveBlogPost(BlogPost removedBlogPost)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
+            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(removedBlogPost.BlogPostId);
 
             if (blogPost == null)
             {
                 return NotFound();
             }
 
-            TechTruffleRepositoryFactory.Create().DeleteBlogPost(blogPostId);
-            return Ok();
+            blogPost.Title = removedBlogPost.Title;
+            blogPost.BlogContent = removedBlogPost.BlogContent;
+            blogPost.EventDate = removedBlogPost.EventDate;
+            blogPost.DateStart = removedBlogPost.DateStart;
+            blogPost.DateEnd = removedBlogPost.DateEnd;
+            blogPost.BlogCategoryId = removedBlogPost.BlogCategoryId;
+            blogPost.BlogStatusId = 4;
+            blogPost.BlogStatusId = removedBlogPost.BlogStatusId;
+            blogPost.IsFeatured = removedBlogPost.IsFeatured;
+            blogPost.IsStaticPage = removedBlogPost.IsStaticPage;
+            blogPost.Hashtags = removedBlogPost.Hashtags;
+
+            blogPost.User = removedBlogPost.User;
+            blogPost.BlogCategory = removedBlogPost.BlogCategory;
+            blogPost.BlogStatus = removedBlogPost.BlogStatus;
+
+            TechTruffleRepositoryFactory.Create().EditBlogPost(removedBlogPost);
+            return Ok(blogPost);
         }
+
+        //if (!ModelState.IsValid)
+        //{
+        //    return BadRequest(ModelState);
+        //}
+
+        //BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
+
+        //if (blogPost == null)
+        //{
+        //    return NotFound();
+        //}
+
+        //TechTruffleRepositoryFactory.Create().DeleteBlogPost(blogPostId);
+        //return Ok();
+    
     }
 }

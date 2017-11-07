@@ -413,8 +413,12 @@ namespace TechTruffleShuffle.Data
             _blogposts.Add(newPost);
         }
 
+        //need to look at this. we aren't deleting posts. we are changing their status to removed. make use of edit logic?
         public void DeleteBlogPost(int postId)
         {
+            //need to mess with this because idk right now
+            //var blogToRempve = _blogposts.SingleOrDefault(b => b.BlogPostId == postId);
+
             _blogposts.RemoveAll(b => b.BlogPostId == postId);
         }
 
