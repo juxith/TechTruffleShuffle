@@ -524,5 +524,10 @@ namespace TechTruffleShuffle.Data
         {
             return _hashtags.ToList();
         }
+
+        public List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string userName)
+        {
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+        }
     }
 }

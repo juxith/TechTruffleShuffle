@@ -144,7 +144,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        [Route("blogs/author/{userName}/published")]
+        [Route("blogs/author/{userName}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPublishedPostsByAuthor(string userName)
         {
@@ -233,6 +233,22 @@ namespace TechTruffleShuffle.UI.Controllers
         public IHttpActionResult GetAllDraftsByOneAuthor(string userName)
         {
             List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllDraftsByOneAuthor(userName);
+
+            if (blogPosts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(blogPosts);
+            }
+        }
+
+        [Route("blogs/author/{userName}/all")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllPostsByOneAuthor(string userName)
+        {
+            List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllBlogsNonRemovedBlogsByAuthor(userName);
 
             if (blogPosts == null)
             {

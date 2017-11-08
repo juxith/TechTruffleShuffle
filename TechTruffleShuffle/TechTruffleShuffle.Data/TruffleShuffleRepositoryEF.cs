@@ -205,5 +205,13 @@ namespace TechTruffleShuffle.Data
         {
             throw new NotImplementedException();
         }
+
+        public List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string userName)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                return ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+            }
+        }
     }
 }

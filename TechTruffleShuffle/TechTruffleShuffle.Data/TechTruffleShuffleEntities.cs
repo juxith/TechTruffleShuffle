@@ -19,7 +19,8 @@ namespace TechTruffleShuffle.Data
 
         public TechTruffleShuffleEntities() : base("TechTruffleShuffle")
         {
-
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
         
         

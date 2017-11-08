@@ -32,5 +32,10 @@ namespace TechTruffleShuffle.Data
         List<BlogStatus> GetAllBlogStatuses();
         List<Hashtag> GetAllHashTags();
         List<BlogCategory> GetAllBlogCategories();
+
+        //will need to modify this at some point so it isn't taking in a string but is
+        //    figuring out who is logged in and using that.
+        List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string authorName);
+
     }
 }
