@@ -13,6 +13,7 @@ namespace TechTruffleShuffle.UI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RouteController : ApiController
     {
+        [AllowAnonymous]
         [Route("blogs")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllPosts()

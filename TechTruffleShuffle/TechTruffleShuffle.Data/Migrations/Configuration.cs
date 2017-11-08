@@ -27,6 +27,54 @@ namespace TechTruffleShuffle.Data.Migrations
             //    System.Diagnostics.Debugger.Launch();
             //}
 
+            // have we loaded roles already?
+            if (!roleMgr.RoleExists("admin"))
+            {
+                roleMgr.Create(new ApplicationRole() { Name = "admin" });
+            }
+
+            if (!roleMgr.RoleExists("author"))
+            {
+                roleMgr.Create(new ApplicationRole() { Name = "author" });
+            }
+
+            var authorUser = new ApplicationUser()
+            {
+                UserName = "JudyThao",
+                FirstName = "Judy",
+                LastName = "Thao",
+                Email = "juxith23@gmail.com",
+                EmailConfirmed = true
+            };
+
+
+            var user = new ApplicationUser()
+            {
+                UserName = "LindseyParlow",
+                FirstName = "Lindsey",
+                LastName = "Parlow",
+                Email = "lindsey.parlow@gmail.com",
+                EmailConfirmed = true
+            };
+
+            if (!userMgr.Users.Any(u => u.UserName == "JudyThao"))
+            {
+                userMgr.Create(authorUser, "testing123");
+
+                context.SaveChanges();
+
+                userMgr.AddToRole(authorUser.Id, "author");
+            }
+
+            if (!userMgr.Users.Any(u => u.UserName == "LindseyParlow"))
+            {
+                userMgr.Create(user, "testing123");
+
+                context.SaveChanges();
+
+                userMgr.AddToRole(user.Id, "admin");
+            }
+
             // #this is where the hashtags are seeded. 
             if (!context.Hashtag.Any(t => t.HashtagName == "#VirtualReality"))
             {
@@ -210,7 +258,7 @@ namespace TechTruffleShuffle.Data.Migrations
                     BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Draft"),
                     IsFeatured = true,
                     IsStaticPage = false,
-                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                    User = context.Users.SingleOrDefault(n => n.UserName == "LindseyParlow")
                 };
                 context.BlogPost.Add(toAdd);
                 context.SaveChanges();
@@ -379,53 +427,7 @@ namespace TechTruffleShuffle.Data.Migrations
             }
 
 
-            // have we loaded roles already?
-            if (!roleMgr.RoleExists("admin"))
-            {
-                roleMgr.Create(new ApplicationRole() { Name = "admin" });
-            }
-
-            if (!roleMgr.RoleExists("author"))
-            {
-                roleMgr.Create(new ApplicationRole() { Name = "author" });
-            }
-
-            var authorUser = new ApplicationUser()
-            {
-                UserName = "JudyThao",
-                FirstName = "Judy",
-                LastName = "Thao",
-                Email = "juxith23@gmail.com",
-                EmailConfirmed = true
-            };
-
-
-            var user = new ApplicationUser()
-            {
-                UserName = "LindseyParlow",
-                FirstName = "Lindsey",
-                LastName = "Parlow",
-                Email = "lindsey.parlow@gmail.com",
-                EmailConfirmed = true
-            };
-
-            if (!userMgr.Users.Any(u => u.UserName == "JudyThao"))
-            {
-                userMgr.Create(authorUser, "testing123");
-
-                context.SaveChanges();
-
-                userMgr.AddToRole(authorUser.Id, "author");
-            }
-
-            if (!userMgr.Users.Any(u => u.UserName == "LindseyParlow"))
-            {
-                userMgr.Create(user, "testing123");
-
-                context.SaveChanges();
-
-                userMgr.AddToRole(user.Id, "admin");
-            }
+         
 
             context.SaveChanges();
             //return;
