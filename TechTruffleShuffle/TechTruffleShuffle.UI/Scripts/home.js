@@ -5,7 +5,7 @@ $(document).ready(function () {
 	clearFiltersForAllBlogs();
 	//deleteStuff();
 	getBlogPostsByOneAuthor();
-
+	getFilteredBlogPostsByOneAuthor();
 });
 
 function getAllBlogPosts() {
@@ -126,36 +126,37 @@ function deleteStuff() {
 
 function getBlogPostsByOneAuthor() {
 
-	var searchTermCategory = $("#searchCategoryDropList").val();
-
 	$(".allBlogsByAuthor").show();
 	$(".filteredBlogsByAuthor").hide();
 	$(".filteredBlogsByAuthor").text("");
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:62645/blogs/author/" + "LindseyParlow" + "/" + searchPostStatus,
+
+		//need to change this URL path to reflect the user signed in at some point
+		url: "http://localhost:62645/blogs/author/" + "Lindsey" + "/all",
 		success: function (blogPostArray) {
 			alert("success")
-			var blogsBySearchFilter = $(".filteredBlogsByAuthor");
+			var allBlogsHere = $(".allBlogsByAuthor");
 
 			$.each(blogPostArray, function (index, blogPost) {
 
-				var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+				var blogPostInfo = '<p>' + blogPost.blogStatus.blogStatusDescription + '</p>' +
+					'<p>' + blogPost.title + '</p>' +
 					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
 
-				blogsBySearchFilter.append(blogPostInfo)
+				allBlogsHere.append(blogPostInfo)
 
 				$.each(blogPost.hashtags, function (index, hashtags) {
 					var hashtagInfo = hashtags.hashtagName + " "
 
-					blogsBySearchFilter.append(hashtagInfo)
+					allBlogsHere.append(hashtagInfo)
 				})
 
 				var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
 					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
 					'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p>'
 
-				blogsBySearchFilter.append(moreBlogPostInfo)
+				allBlogsHere.append(moreBlogPostInfo)
 			});
 		},
 		error: function () {
@@ -164,6 +165,59 @@ function getBlogPostsByOneAuthor() {
 	});
 }
 
+function getFilteredBlogPostsByOneAuthor() {
+	$("#search-blogByAuthor-button").on("click", function () {
+		var searchPostStatus = $("#searchPostStatus").val();
+
+		if (searchPostStatus == "myPublished") {
+			var status = ""
+		}
+		if (searchPostStatus == "myPending") {
+			var status = "pending"
+		}
+		if (searchPostStatus == "myDraft") {
+			var status = "drafts"
+		}
+
+		$(".allBlogsByAuthor").hide();
+		$(".filteredBlogsByAuthor").show();
+		$(".filteredBlogsByAuthor").text("");
+		$.ajax({
+			type: "GET",
+
+			//need to change this URL path to reflect the user signed in at some point
+			url: "http://localhost:62645/blogs/author/" + "Lindsey" + status,
+			success: function (blogPostArray) {
+				alert("success")
+				var filteredBlogsHere = $(".filteredBlogsByAuthor");
+
+				$.each(blogPostArray, function (index, blogPost) {
+
+					var blogPostInfo = '<p>' + blogPost.blogStatus.blogStatusDescription + '</p>' +
+						'<p>' + blogPost.title + '</p>' +
+						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
+
+					filteredBlogsHere.append(blogPostInfo)
+
+					$.each(blogPost.hashtags, function (index, hashtags) {
+						var hashtagInfo = hashtags.hashtagName + " "
+
+						filteredBlogsHere.append(hashtagInfo)
+					})
+
+					var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
+						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +
+						'<p><button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p>'
+
+					filteredBlogsHere.append(moreBlogPostInfo)
+				});
+			},
+			error: function () {
+				alert("error")
+			}
+		});
+	})
+}
 
 
 

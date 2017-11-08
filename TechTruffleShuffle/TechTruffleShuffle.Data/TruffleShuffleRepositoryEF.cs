@@ -241,7 +241,7 @@ namespace TechTruffleShuffle.Data
             }
         }
        
-        Hashtag GetHashtag(string hashtagName)
+        public Hashtag GetHashtag(string hashtagName)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
@@ -258,10 +258,13 @@ namespace TechTruffleShuffle.Data
                ctx.Hashtag.Add(newHash);
             }
         }
-
-        Hashtag ITruffleShuffleRepository.GetHashtag(string hashtagName)
+   
+        public List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string userName)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                return ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+            }
         }
     }
 }

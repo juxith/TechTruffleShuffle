@@ -537,7 +537,7 @@ namespace TechTruffleShuffle.Data
             return blogStatus;
         }
 
-        Hashtag GetHashtag(string hashtagName)
+        public Hashtag GetHashtag(string hashtagName)
         {
             var hashtag = _hashtags.SingleOrDefault(i => i.HashtagName == hashtagName);
             return hashtag;
@@ -550,9 +550,11 @@ namespace TechTruffleShuffle.Data
             _hashtags.Add(newHash);
         }
 
-        Hashtag ITruffleShuffleRepository.GetHashtag(string hashtagName)
+        public List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string userName)
         {
-            throw new NotImplementedException();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+
         }
     }
 }
+    
