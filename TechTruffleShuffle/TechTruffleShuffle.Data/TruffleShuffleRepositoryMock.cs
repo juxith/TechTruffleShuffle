@@ -441,7 +441,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllFeaturedPosts()
         {
-            return _blogposts.Where(b => b.IsFeatured == true).ToList();
+            return _blogposts.Where(b => b.IsFeatured == true && b.BlogStatus.BlogStatusDescription == "Published").ToList();
         }
 
         public List<BlogPost> GetAllPendingPosts()
@@ -552,8 +552,22 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string userName)
         {
-            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+            return _blogposts.Where(b => (b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+        }
 
+        public List<BlogPost> GetAllBlogsRemovedBlogsByAuthor(string userName)
+        {
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Removed" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+        }
+
+        public List<BlogPost> GetAllNonDraftBlogsByAuthor(string userName)
+        {
+            return _blogposts.Where(b => (b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Pending") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+        }
+
+        public List<BlogPost> GetAllNonDraftBlogs()
+        {
+            return _blogposts.Where(b => (b.BlogStatus.BlogStatusDescription != "Draft")).ToList();
         }
     }
 }
