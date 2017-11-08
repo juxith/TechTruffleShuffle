@@ -21,17 +21,17 @@ function getAllBlogPosts() {
 
 			$.each(blogPostArray, function (index, blogPost) {
 
-				var blogPostInfo = '<p>' + blogPost.title + '</p>' +
-					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>'
+                var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
 
 
-				allBlogPosts.append(blogPostInfo)
+                allBlogPosts.append(blogPostInfo);
 
-				$.each(blogPost.hashtags, function (index, hashtags) {
-					var hashtagInfo = hashtags.hashtagName + " "
+                $.each(blogPost.hashtags, function (index, hashtags) {
+                    var hashtagInfo = hashtags.hashtagName + " ";
 
-					allBlogPosts.append(hashtagInfo)
-				})
+                    allBlogPosts.append(hashtagInfo);
+                });
 
 				var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>' +
 					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button></p>' +

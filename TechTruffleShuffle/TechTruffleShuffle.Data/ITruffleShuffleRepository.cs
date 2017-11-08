@@ -33,6 +33,12 @@ namespace TechTruffleShuffle.Data
         List<Hashtag> GetAllHashTags();
         List<BlogCategory> GetAllBlogCategories();
 
+
+        BlogCategory GetBlogCategory(int id);
+        BlogStatus GetBlogStatus(string status);
+        Hashtag GetHashtag(string hashtagName);
+        void AddHashTag(Hashtag newHash);
+
         //will need to modify this at some point so it isn't taking in a string but is
         //    figuring out who is logged in and using that.
         List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string authorName);
