@@ -153,6 +153,50 @@ namespace TechTruffleShuffle.Data.Migrations
                 context.SaveChanges();
             }
 
+            if (!context.Hashtag.Any(t => t.HashtagName == "#Learning"))
+            {
+                Hashtag toAdd = new Hashtag
+                {
+                    HashtagName = "#Learning"
+                };
+
+                context.Hashtag.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            if (!context.Hashtag.Any(t => t.HashtagName == "#OOP"))
+            {
+                Hashtag toAdd = new Hashtag
+                {
+                    HashtagName = "#OOP"
+                };
+
+                context.Hashtag.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            if (!context.Hashtag.Any(t => t.HashtagName == "#InIt2WinIt"))
+            {
+                Hashtag toAdd = new Hashtag
+                {
+                    HashtagName = "#InIt2WinIt"
+                };
+
+                context.Hashtag.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            if (!context.Hashtag.Any(t => t.HashtagName == "#CodeMaster"))
+            {
+                Hashtag toAdd = new Hashtag
+                {
+                    HashtagName = "#CodeMaster"
+                };
+
+                context.Hashtag.Add(toAdd);
+                context.SaveChanges();
+            }
+
             // #this is where BlogCategories 
             if (!context.BlogCategory.Any(t => t.BlogCategoryName == "Technical"))
             {
@@ -617,6 +661,202 @@ namespace TechTruffleShuffle.Data.Migrations
             if (!workingPost10.Hashtags.Any(t => t.HashtagName == "#TallBoys"))
             {
                 workingPost10.Hashtags.Add(hashtag10b);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Networking Tips for Newbies"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Networking Tips for Newbies",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Networking"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Removed"),
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Judy")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost11 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Networking Tips for Newbies");
+
+            if (workingPost11.Hashtags == null)
+            {
+                workingPost11.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag11 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#Learning");
+            if (!workingPost11.Hashtags.Any(t => t.HashtagName == "#Learning"))
+            {
+                workingPost11.Hashtags.Add(hashtag11);
+                context.SaveChanges();
+            }
+            var hashtag11b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#InIt2WinIt");
+            if (!workingPost11.Hashtags.Any(t => t.HashtagName == "#InIt2WinIt"))
+            {
+                workingPost11.Hashtags.Add(hashtag11b);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Get all the jobs!!!"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Get all the jobs!!!",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Networking"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Pending"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost12 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Get all the jobs!!!");
+
+            if (workingPost12.Hashtags == null)
+            {
+                workingPost12.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag12 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#InIt2WinIt");
+            if (!workingPost12.Hashtags.Any(t => t.HashtagName == "#InIt2WinIt"))
+            {
+                workingPost12.Hashtags.Add(hashtag12);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Learn a new language with Lindsey"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Learn a new language with Lindsey",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Technical"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Published"),
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost13 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Learn a new language with Lindsey");
+
+            if (workingPost13.Hashtags == null)
+            {
+                workingPost13.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag13 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#Learning");
+            if (!workingPost13.Hashtags.Any(t => t.HashtagName == "#Learning"))
+            {
+                workingPost13.Hashtags.Add(hashtag13);
+                context.SaveChanges();
+            }
+
+            var hashtag13b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#OOP");
+            if (!workingPost13.Hashtags.Any(t => t.HashtagName == "#OOP"))
+            {
+                workingPost13.Hashtags.Add(hashtag13b);
+                context.SaveChanges();
+            }
+
+            var hashtag13c = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#CodeMaster");
+            if (!workingPost13.Hashtags.Any(t => t.HashtagName == "#CodeMaster"))
+            {
+                workingPost13.Hashtags.Add(hashtag13c);
+                context.SaveChanges();
+            }
+
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Angular. The Next Frontier"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Angular. The Next Frontier",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Technical"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Published"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Judy")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost14 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Angular. The Next Frontier");
+
+            if (workingPost14.Hashtags == null)
+            {
+                workingPost14.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag14 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#CodeMaster");
+            if (!workingPost14.Hashtags.Any(t => t.HashtagName == "#CodeMaster"))
+            {
+                workingPost14.Hashtags.Add(hashtag14);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Social Time!"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Social Time!",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Social"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Published"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Judy")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost15 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Social Time!");
+
+            if (workingPost15.Hashtags == null)
+            {
+                workingPost15.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag15 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#TallBoys");
+            if (!workingPost15.Hashtags.Any(t => t.HashtagName == "#TallBoys"))
+            {
+                workingPost15.Hashtags.Add(hashtag15);
                 context.SaveChanges();
             }
 

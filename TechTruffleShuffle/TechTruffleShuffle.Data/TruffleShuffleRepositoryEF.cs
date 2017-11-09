@@ -267,7 +267,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Where(b => (b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
             }
         }
 
@@ -275,7 +275,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Where(b => b.BlogStatus.BlogStatusDescription == "Removed" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Removed" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
             }
         }
 
@@ -283,7 +283,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Where(b => (b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
             }
         }
 
@@ -291,7 +291,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Where(b => (b.BlogStatus.BlogStatusDescription != "Draft")).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription != "Draft")).ToList();
             }
         }
     }

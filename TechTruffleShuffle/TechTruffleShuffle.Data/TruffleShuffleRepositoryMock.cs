@@ -63,6 +63,11 @@ namespace TechTruffleShuffle.Data
                     BlogCategoryId = 3,
                     BlogCategoryName = "Networking"
                 },
+                new BlogCategory
+                {
+                    BlogCategoryId = 4,
+                    BlogCategoryName = "Other"
+                }
             };
 
             _hashtags = new List<Hashtag>()
@@ -309,7 +314,7 @@ namespace TechTruffleShuffle.Data
                 new BlogPost
                 {
                     BlogPostId = 11,
-                    Title = "Networking tips for newbies",
+                    Title = "Networking Tips for Newbies",
                     BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
                     EventDate = new DateTime(2017, 10, 31),
                     DateStart = new DateTime(2017, 9, 01),

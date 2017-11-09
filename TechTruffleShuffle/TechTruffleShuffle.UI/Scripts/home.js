@@ -210,19 +210,21 @@ function getBlogPostsByOneAuthor() {
 
 function getFilteredBlogPostsByOneAuthor() {
 	$("#search-blogByAuthor-button").on("click", function () {
+
 		var searchPostStatus = $("#searchPostStatus").val();
+		var status = ""
 
 		if (searchPostStatus == "myPublished") {
-			var status = ""
+			status = ""
 		}
 		if (searchPostStatus == "myPending") {
-			var status = "/pending"
+			status = "/pending"
 		}
 		if (searchPostStatus == "myDraft") {
-			var status = "/drafts"
+			status = "/drafts"
 		}
 		if (searchPostStatus == "allMyPosts") {
-			var status = "/all"
+			status = "/all"
 		}
 
 		$(".allBlogsByAuthor").hide();
