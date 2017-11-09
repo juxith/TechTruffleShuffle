@@ -13,8 +13,8 @@ namespace TechTruffleShuffle.Models
         public string Title { get; set; }
         public string BlogContent { get; set; }
         public DateTime EventDate { get; set; }
-        public DateTime DateStart { get; set; }
-        public DateTime DateEnd { get; set; }
+        public DateTime? DateStart { get; set; }
+        public DateTime? DateEnd { get; set; }
         public int BlogCategoryId { get; set; }
         public int BlogStatusId { get; set; }
         public bool IsFeatured { get; set; }

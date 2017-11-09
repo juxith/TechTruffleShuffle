@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	//makeItDoStuff();
+    GetAllFeaturedPosts();
 	getAllBlogPosts();
 	getAllBlogPostsFiltered();
 	clearFiltersForAllBlogs();
@@ -10,6 +11,45 @@ $(document).ready(function () {
 	getAllFilteredAuthorBlogs();
 	clearFiltersForAdminSearch();
 });
+
+function GetAllFeaturedPosts()
+{
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:62645/blogs/featured",
+        success: function (blogPostArray) {
+            //alert("success")
+            $(".allBlogs").show();
+            $(".filteredBlogs").hide();
+
+            var allBlogPosts = $("#featuredBlogs");
+
+            $.each(blogPostArray, function (index, blogPost) {
+
+                var blogPostInfo = '<p>' + blogPost.title + '</p>' +
+                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+
+
+                allBlogPosts.append(blogPostInfo);
+
+                $.each(blogPost.hashtags, function (index, hashtags) {
+                    var hashtagInfo = hashtags.hashtagName + " ";
+
+                    allBlogPosts.append(hashtagInfo);
+                });
+
+                var moreBlogPostInfo = '<p>' + blogPost.blogContent + '</p>';
+
+                             allBlogPosts.append(moreBlogPostInfo)
+
+            });
+
+        },
+        error: function () {
+            //alert("error")
+        }
+    });
+}
 
 function getAllBlogPosts() {
 	$.ajax({
@@ -46,7 +86,7 @@ function getAllBlogPosts() {
 
 		},
 		error: function () {
-			alert("error")
+			//alert("error")
 		}
 	});
 }
@@ -117,11 +157,11 @@ function deleteStuff() {
 			type: "PUT",
 			url: "http://localhost:62645/blog/" + "remove/" + blogPostId,
 			success: function () {
-				alert("success")
+				//alert("success")
 				searchBySomething();
 			},
 			error: function () {
-				alert("error")
+				//alert("error")
 			}
 		});
 	})
