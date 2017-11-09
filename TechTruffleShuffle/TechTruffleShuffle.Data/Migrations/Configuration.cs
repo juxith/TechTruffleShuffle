@@ -611,9 +611,9 @@ namespace TechTruffleShuffle.Data.Migrations
 
             BlogPost workingPost9 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "C# is Awesome. We are Awesome.");
 
-            if (workingPost6.Hashtags == null)
+            if (workingPost9.Hashtags == null)
             {
-                workingPost6.Hashtags = new List<Hashtag>();
+                workingPost9.Hashtags = new List<Hashtag>();
             }
 
             var hashtag9 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#CodeMaster");
