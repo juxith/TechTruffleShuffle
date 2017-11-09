@@ -42,6 +42,9 @@ namespace TechTruffleShuffle.Data
         //will need to modify this at some point so it isn't taking in a string but is
         //    figuring out who is logged in and using that.
         List<BlogPost> GetAllBlogsNonRemovedBlogsByAuthor(string authorName);
+        List<BlogPost> GetAllBlogsRemovedBlogsByAuthor(string userName);
+        List<BlogPost> GetAllNonDraftBlogsByAuthor(string userName);
+        List<BlogPost> GetAllNonDraftBlogs();
 
     }
 }
