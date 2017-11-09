@@ -23,6 +23,7 @@ namespace TechTruffleShuffle.UI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string returnUrl)
         {
             var model = new LoginViewModel()
@@ -33,6 +34,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -65,12 +67,13 @@ namespace TechTruffleShuffle.UI.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }          
             }
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
            
@@ -162,20 +165,34 @@ namespace TechTruffleShuffle.UI.Controllers
             {
                 return View(model);
             }
-            IdentityDbContext context = new IdentityDbContext();
+            var context = new TechTruffleShuffleEntities();
             UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(context);
             UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(store);
-            ApplicationUser applicationUser = new ApplicationUser();
-            userName = applicationUser.UserName;
-            userId = applicationUser.Id;
+            //ApplicationUser applicationUser = new ApplicationUser();
+            userName = model.UserName;
+            //userId = model. applicationUser.Id;
+            var findUser = context.Users.SingleOrDefault(u=> u.UserName == userName);
+
+            userId = findUser.Id;
+
+
+
             //userId = User.Identity.GetUserId();//"<YourLogicAssignsRequestedUserId>";
 
             newPassword = model.ConfirmPassword; //"<PasswordAsTypedByUser>";
             string hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
-            ApplicationUser cUser = await store.FindByIdAsync(userId);
-            await store.SetPasswordHashAsync(cUser, hashedNewPassword);
-            await store.UpdateAsync(cUser);
+            ApplicationUser cUser = UserManager.FindById(userId);
+            store.SetPasswordHashAsync(cUser, hashedNewPassword);
+            store.UpdateAsync(cUser);
             return View();
+
+            //ApplicationDbContext = new ApplicationDbContext()
+            //String userId = "<YourLogicAssignsRequestedUserId>";
+            //String newPassword = "<PasswordAsTypedByUser>";
+            //ApplicationUser cUser = UserManager.FindById(userId);
+            //String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+            //UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
+            //store.SetPasswordHashAsync(cUser, hashedNewPassword);
         }
 
         public ActionResult ResetPasswordConfirmation()

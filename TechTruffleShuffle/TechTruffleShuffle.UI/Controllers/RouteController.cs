@@ -31,7 +31,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //I feel like i need to do something here with modifying the method so that true is passed in somehow?
-        [Route("blogs/isRemoved")]
+        [Route("blogs/removed")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetAllRemovedPosts()
         {
@@ -46,6 +46,55 @@ namespace TechTruffleShuffle.UI.Controllers
                 return Ok(blogPosts);
             }
         }
+
+        [Route("blogs/author/{author}/removed")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllBlogsRemovedBlogsByAuthor(string author)
+        {
+            List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllBlogsRemovedBlogsByAuthor(author);
+
+            if (blogPosts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(blogPosts);
+            }
+        }
+
+        [Route("blogs/author/{author}/nondraft")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllNonPendingBlogsByAuthor(string author)
+        {
+            List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllNonDraftBlogsByAuthor(author);
+
+            if (blogPosts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(blogPosts);
+            }
+        }
+
+        [Route("blogs/nondraft")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllNonDraftBlogs()
+        {
+            List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllNonDraftBlogs();
+
+            if (blogPosts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(blogPosts);
+            }
+        }
+
 
         [Route("blogs/published")]
         [AcceptVerbs("GET")]

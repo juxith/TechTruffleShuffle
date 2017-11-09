@@ -312,10 +312,10 @@ namespace TechTruffleShuffle.Data.Migrations
                 context.SaveChanges();
             }
 
-            var hashtag21 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#HashBrowns");
+            var hashtag2b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#HashBrowns");
             if (!workingPost2.Hashtags.Any(t => t.HashtagName == "#HashBrowns"))
             {
-                workingPost2.Hashtags.Add(hashtag21);
+                workingPost2.Hashtags.Add(hashtag2b);
                 context.SaveChanges();
             }
 
@@ -427,7 +427,199 @@ namespace TechTruffleShuffle.Data.Migrations
             }
 
 
-         
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "We are Getting Close to the End!"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "We are Getting Close to the End!",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Networking"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Draft"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost6 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "We are Getting Close to the End!");
+
+            if (workingPost6.Hashtags == null)
+            {
+                workingPost6.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag6 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#Learning");
+            if (!workingPost6.Hashtags.Any(t => t.HashtagName == "#Learning"))
+            {
+                workingPost6.Hashtags.Add(hashtag6);
+                context.SaveChanges();
+            }
+            var hashtag6b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#InIt2WinIt");
+            if (!workingPost6.Hashtags.Any(t => t.HashtagName == "#InIt2WinIt"))
+            {
+                workingPost6.Hashtags.Add(hashtag6b);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Let's Bust a Move"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Let's Bust a Move",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Social"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Pending"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost7 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Let's Bust a Move");
+
+            if (workingPost7.Hashtags == null)
+            {
+                workingPost7.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag7 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#TallBoys");
+            if (!workingPost7.Hashtags.Any(t => t.HashtagName == "#TallBoys"))
+            {
+                workingPost7.Hashtags.Add(hashtag7);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Tech it with your best shot"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Tech it with your best shot",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Technical"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Published"),
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Judy")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost8 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Tech it with your best shot");
+
+            if (workingPost8.Hashtags == null)
+            {
+                workingPost8.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag8 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#OOP");
+            if (!workingPost8.Hashtags.Any(t => t.HashtagName == "#OOP"))
+            {
+                workingPost8.Hashtags.Add(hashtag8);
+                context.SaveChanges();
+            }
+            var hashtag8b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#CodeMaster");
+            if (!workingPost8.Hashtags.Any(t => t.HashtagName == "#CodeMaster"))
+            {
+                workingPost8.Hashtags.Add(hashtag8b);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "C# is Awesome. We are Awesome."))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "C# is Awesome. We are Awesome.",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Technical"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Removed"),
+                    IsFeatured = true,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost9 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "C# is Awesome. We are Awesome.");
+
+            if (workingPost6.Hashtags == null)
+            {
+                workingPost6.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag9 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#CodeMaster");
+            if (!workingPost9.Hashtags.Any(t => t.HashtagName == "#CodeMaster"))
+            {
+                workingPost9.Hashtags.Add(hashtag9);
+                context.SaveChanges();
+            }
+
+            //=============================================================================
+
+            if (!context.BlogPost.Any(t => t.Title == "Just keep swimming, just keep swimming"))
+            {
+                BlogPost toAdd = new BlogPost
+                {
+                    Title = "Just keep swimming, just keep swimming",
+                    EventDate = new DateTime(2017, 10, 31),
+                    BlogContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ",
+                    DateStart = new DateTime(2017, 9, 01),
+                    DateEnd = new DateTime(2018, 9, 01),
+                    BlogCategory = context.BlogCategory.SingleOrDefault(b => b.BlogCategoryName == "Social"),
+                    BlogStatus = context.BlogStatus.SingleOrDefault(s => s.BlogStatusDescription == "Draft"),
+                    IsFeatured = false,
+                    IsStaticPage = false,
+                    User = context.Users.SingleOrDefault(n => n.FirstName == "Lindsey")
+                };
+                context.BlogPost.Add(toAdd);
+                context.SaveChanges();
+            }
+
+            BlogPost workingPost10 = context.BlogPost.Include(p => p.Hashtags).SingleOrDefault(p => p.Title == "Just keep swimming, just keep swimming");
+
+            if (workingPost6.Hashtags == null)
+            {
+                workingPost6.Hashtags = new List<Hashtag>();
+            }
+
+            var hashtag10 = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#Learning");
+            if (!workingPost10.Hashtags.Any(t => t.HashtagName == "#Learning"))
+            {
+                workingPost10.Hashtags.Add(hashtag10);
+                context.SaveChanges();
+            }
+            var hashtag10b = context.Hashtag.SingleOrDefault(h => h.HashtagName == "#TallBoys");
+            if (!workingPost10.Hashtags.Any(t => t.HashtagName == "#TallBoys"))
+            {
+                workingPost10.Hashtags.Add(hashtag10b);
+                context.SaveChanges();
+            }
+
 
             context.SaveChanges();
             //return;

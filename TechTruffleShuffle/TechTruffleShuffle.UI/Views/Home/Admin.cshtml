@@ -5,26 +5,31 @@
 
 <div class="container" align="left">
 	<h2>Admin</h2>
+	<hr /><br />
 	<p>
-		<button class="btn btn-primary" id="search-blog-button">Search</button>
-		<select alight="right" id="searchCategoryDropList" required>
-			<option value="" disabled="disabled" selected="selected">Post Type</option>
+		<button class="btn btn-primary" id="adminSearch-blog-button">Search</button>
+		<select alight="right" id="searchStatusList" required>
 			<option value="allAuthorPosts">All Posts</option>
 			<option value="AuthorPublishedPosts">Published Posts</option>
 			<option value="AuthorPendingPosts">Pending Posts</option>
+			<option value="AuthorRemovedPosts">Removed Posts</option>
 		</select>
-		<select alight="right" id="filterCategoryDropList">
-			<option value="" selected="selected">Search By</option>
-			<option value="blogTitle">Title</option>
-			<option value="blogDatePosted">DatePosted</option>
+		<select alight="right" id="filterByList">
+			<option value="blogAllAuthors">All Authors</option>
 			<option value="blogAuthorName">Author Name </option>
-			<option value="blogHashtag">#Hashtag</option>
 		</select>
-		<input type="text" />
+		<input type="text" id="inputForAdminSearch" />
 	</p>
+	<p>
+		<button class="btn btn-primary" id="clear-adminFilters-button">Clear Filters</button>
+	</p>
+	<div><br /><hr /></div>
 </div>
-<div class="container" align="right">
-	<!--each blog post should come up with these buttons when they load. They may have to add these buttons when they list-->
-	<p><button class="btn btn-danger" id="editAuthorPostBtn">Edit Blog Post</button></p>
-	<p><button class="btn btn-danger" id="deleteAuthorPostBtn">Delete Blog Post</button></p>
+<div class="container">
+	<div class="allAuthorBlogs">
+		@*all blogs by one author go here*@
+	</div>
+	<div class="filteredAuthorBlogs">
+		@*filtered blogs by status by one author go here*@
+	</div>
 </div>
