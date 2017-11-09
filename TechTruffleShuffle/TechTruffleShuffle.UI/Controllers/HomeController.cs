@@ -11,6 +11,7 @@ namespace TechTruffleShuffle.UI.Controllers
 {
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var repo = TechTruffleRepositoryFactory.Create();
@@ -20,6 +21,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -27,6 +29,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -34,6 +37,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin,author")]
         public ActionResult Blogs()
         {
             var repo = TechTruffleRepositoryFactory.Create();
@@ -43,6 +47,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin,author")]
         public ActionResult CreateBlog()
         {
             var viewModel = new BlogPostViewModel();
@@ -52,6 +57,7 @@ namespace TechTruffleShuffle.UI.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Authorize(Roles = "admin,author")]
         public ActionResult CreateBlog(BlogPostViewModel viewModel, string submit)
         {
             if (ModelState.IsValid)
@@ -108,6 +114,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,author")]
         public ActionResult MyBlogs()
         {
             ViewBag.Message = "My Blogs";
