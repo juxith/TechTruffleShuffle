@@ -13,6 +13,9 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
+                var thisUser = ctx.Users.SingleOrDefault(u => u.UserName == newPost.User.UserName);
+                newPost.User = thisUser;
+               
                 ctx.BlogPost.Add(newPost);
                 ctx.SaveChanges();
             }
@@ -256,6 +259,7 @@ namespace TechTruffleShuffle.Data
             using (var ctx = new TechTruffleShuffleEntities())
             {
                ctx.Hashtag.Add(newHash);
+                ctx.SaveChanges();
             }
         }
    

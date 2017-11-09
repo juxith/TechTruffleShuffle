@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -52,18 +53,30 @@ namespace TechTruffleShuffle.UI.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [AllowAnonymous]
         public ActionResult CreateBlog(BlogPostViewModel viewModel, string submit)
         {
             if (ModelState.IsValid)
             {
                 var repo = TechTruffleRepositoryFactory.Create();
-                //handles users
-                
 
+                var thisUserName =  User.Identity.GetUserName();
+                viewModel.BlogPost.User = new ApplicationUser();
+                viewModel.BlogPost.User.UserName = thisUserName;
+
+                //handles user
+                //using (var content = new TechTruffleShuffleEntities())
+                //{
+                //    var addThisUserToBlogPost = content.Users.SingleOrDefault(u => u.UserName == thisUserName);
+                //    viewModel.BlogPost.User = addThisUserToBlogPost;
+                //}
+            
                 //handles the hashtags
                 string[] hashTag = viewModel.StringHashtags.Split(' ');
 
                 var hashTagRepo = repo.GetAllHashTags();
+
+                viewModel.BlogPost.Hashtags = new List<Hashtag>();
 
                 foreach (var hash in hashTag)
                 {
@@ -73,9 +86,9 @@ namespace TechTruffleShuffle.UI.Controllers
                         newHash.HashtagName = hash;
                         repo.AddHashTag(newHash);
                     }
+
                     var hashToAdd = repo.GetAllHashTags().SingleOrDefault(h => h.HashtagName == hash);
 
-                    viewModel.BlogPost.Hashtags = new List<Hashtag>();
                     viewModel.BlogPost.Hashtags.Add(hashToAdd);
                 }
 
@@ -104,6 +117,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
             else
             {
+                viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
                 return View(viewModel);
             }
         }
