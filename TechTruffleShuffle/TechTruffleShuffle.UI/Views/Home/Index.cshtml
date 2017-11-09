@@ -8,14 +8,21 @@
     <p class="lead">Shuffle through the Tech Truffle for the lastest events.</p>
 </div>
 
-<div class="row">
-    @*<div class="col-md-4">
+<div class="container">
+    <div id="featuredBlogs"></div>
+</div>
+
+
+    <script src="~/home.js"></script>
+
+@*<div class="row">
+    <div class="col-md-4">
         <h2>Upcoming events!</h2>
         <p>
             Upcoming events here.
         </p>
-        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
-    @*</div>*@
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
     <div class="col-md-8">
         <h2 id="needToClickThis">Featured Blogs Here</h2>
         <p id="featuredBlogs">
@@ -30,10 +37,10 @@
                     </tr>
                     <tr>
                         <td>
-                        @foreach (var hashtag in blogPost.Hashtags)
-                        {
-                            @hashtag.HashtagName
-                        }                        
+                            @foreach (var hashtag in blogPost.Hashtags)
+                            {
+                                @hashtag.HashtagName
+                            }
                         </td>
                     </tr>
                     <tr>
@@ -41,13 +48,12 @@
                     </tr>
                 }
             </table>
-            </p>
-            @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
-        </div>
-        @*<div class="col-md-4">
-                <h2>Web Hosting</h2>
-                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-            </div>*@
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
     </div>
-    <script src="~/home.js"></script>
+    <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+</div>*@

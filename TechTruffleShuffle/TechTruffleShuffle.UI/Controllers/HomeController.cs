@@ -37,7 +37,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin,author")]
+        //[Authorize(Roles = "admin,author")]
         public ActionResult Blogs()
         {
             var repo = TechTruffleRepositoryFactory.Create();
