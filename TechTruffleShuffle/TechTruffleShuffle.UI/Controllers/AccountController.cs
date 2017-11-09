@@ -23,6 +23,7 @@ namespace TechTruffleShuffle.UI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string returnUrl)
         {
             var model = new LoginViewModel()
@@ -33,6 +34,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -71,6 +73,7 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
            
