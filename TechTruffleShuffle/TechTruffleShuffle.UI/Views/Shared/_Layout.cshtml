@@ -39,7 +39,7 @@
 @if (Request.IsAuthenticated)
 {
                     <li>@Html.ActionLink("Create Blog", "CreateBlog", "Home")</li>
-                    <li>@Html.ActionLink("My Blogs", "MyBlogs", "Home")</li>
+                    <li>@Html.ActionLink("My Blogs", "MyBlogs", "API", "Route")</li>
 }           
 @if (Request.IsAuthenticated && User.IsInRole("admin"))
 {

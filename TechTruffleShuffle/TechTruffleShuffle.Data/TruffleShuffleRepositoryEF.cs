@@ -21,7 +21,7 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public void DeleteBlogPost(int postId)
+        public void DeleteBlogPostDraft(int postId)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
