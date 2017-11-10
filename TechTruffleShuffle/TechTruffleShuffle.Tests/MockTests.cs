@@ -82,7 +82,7 @@ namespace TechTruffleShuffle.Tests
             Assert.IsNotNull(loaded);
 
             //check to make sure that it deleted ok
-            repo.DeleteBlogPost(5);
+            repo.DeleteBlogPostDraft(5);
             loaded = repo.GetBlogPostById(5);
             Assert.IsNull(loaded);
         }

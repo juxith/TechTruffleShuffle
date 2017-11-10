@@ -29,7 +29,7 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public void DeleteBlogPost(int postId)
+        public void DeleteBlogPostDraft(int postId)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
@@ -97,7 +97,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getDraftsByAuthor = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(u => (u.User.FirstName + u.User.LastName).Contains(userName));
+                var getDraftsByAuthor = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(u => (u.User.FirstName + " " + u.User.LastName).Contains(userName));
                 return getDraftsByAuthor.ToList();
             }
         }

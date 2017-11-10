@@ -182,7 +182,7 @@ namespace TechTruffleShuffle.UI.Controllers
             ApplicationUser cUser = UserManager.FindById(userId);
             store.SetPasswordHashAsync(cUser, hashedNewPassword);
             store.UpdateAsync(cUser);
-            return View();
+            return RedirectToAction("ResetPasswordConfirmation", "Account");
 
             //ApplicationDbContext = new ApplicationDbContext()
             //String userId = "<YourLogicAssignsRequestedUserId>";

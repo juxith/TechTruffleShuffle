@@ -3,12 +3,12 @@
 	ViewBag.Title = "My Blogs";
 }
 
-<div class="container" align="left">
-	<h2>My Blogs</h2>
+<div class="container">
+	<h1 align="center" style="font-size:45px; font-weight:bolder">My Blogs</h1>
 	<hr /><br />
-	<p>
-		<button class="btn btn-primary" id="search-blogByAuthor-button">Search</button>
-		<select id="searchPostStatus" required>
+	<p align="center">
+		<button class="btn btn-primary" id="search-blogByAuthor-button" style="width:100px">Search</button>
+		<select id="searchPostStatus" required style="height:30px; width:150px">
 			<option value="" disabled="disabled" selected="selected">Search </option>
 			<option value="allMyPosts">All Posts</option>
 			<option value="myPublished">Published Posts</option>
@@ -19,6 +19,8 @@
 	<div><br /><hr /></div>
 </div>
 <div class="container">
+	<input type="hidden" id="forTheLoveOfGodWork" value="@HttpContext.Current.User.Identity.Name"/>
+	
 	<div class="allBlogsByAuthor">
 		@*all blogs by one author go here*@
 	</div>

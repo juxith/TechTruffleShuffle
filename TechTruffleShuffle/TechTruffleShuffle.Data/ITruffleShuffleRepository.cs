@@ -27,7 +27,7 @@ namespace TechTruffleShuffle.Data
         //void CreatePublishPostAdmin(BlogPost newPostToPublish);
         void CreateNewBlogPost(BlogPost newPost);
         void EditBlogPost(BlogPost updatedBlogPost);
-        void DeleteBlogPost(int postId);
+        void DeleteBlogPostDraft(int postId);
 
         List<BlogStatus> GetAllBlogStatuses();
         List<Hashtag> GetAllHashTags();

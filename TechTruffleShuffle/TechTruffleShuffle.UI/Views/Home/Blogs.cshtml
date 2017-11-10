@@ -3,24 +3,25 @@
 	ViewBag.Title = "Blogs";
 }
 
-<div class="container" align="left">
-	<h2>Blogs</h2>
+<div class="container">
+	<h1 align="center" style="font-size:45px; font-weight:bolder">Tech Truffle Shuffle: It's What We Do</h1>
 	<hr /><br />
-	<p>
-		<button class="btn btn-primary" id="search-blog-button">Search</button>
-		<select id="searchCategoryDropList" required>
+	<p align="center">
+		<select id="searchCategoryDropList" required  style="height:30px; width:150px">
 			<option value="none" disabled="disabled" selected="selected">Search </option>
 			<option value="title">Title</option>
-			<option value="date">DatePosted</option>
 			<option value="author">Author Name </option>
 			<option value="hashtag">#Hashtag</option>
 		</select>
-		<input type="text" id="searchCategoryInput" />
+		<input type="text" id="searchCategoryInput" style="height:30px; width:200px" />
 	</p>
-	<p>
-		<button class="btn btn-primary" id="clear-filters-button">Clear Filters</button>
+	<p align="center">
+		<button class="btn btn-primary" id="search-blog-button" style="width:100px">Search</button>
 	</p>
-	<div><br/><hr/></div>
+	<p align="center">
+		<button class="btn btn-link" id="clear-filters-button" style="width:100px">Clear Filters</button>
+	</p>
+	<div><hr/></div>
 </div>
 <div class="container">
 	<div class="allBlogs">
