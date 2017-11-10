@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -64,7 +65,9 @@ namespace TechTruffleShuffle.UI.Controllers
             {
                 var repo = TechTruffleRepositoryFactory.Create();
                 //handles users
-                
+                var authUserName = User.Identity.GetUserName();
+                viewModel.BlogPost.User = new ApplicationUser();
+                viewModel.BlogPost.User.UserName = authUserName;
 
                 //handles the hashtags
                 string[] hashTag = viewModel.StringHashtags.Split(' ');
