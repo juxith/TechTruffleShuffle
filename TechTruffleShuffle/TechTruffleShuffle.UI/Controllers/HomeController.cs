@@ -47,6 +47,74 @@ namespace TechTruffleShuffle.UI.Controllers
 
             return View(model);
         }
+        public ActionResult CreateStaticPage()
+        {
+            var viewModel = new BlogPostViewModel();
+            viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Authorize(Roles = "admin,author")]
+        public ActionResult CreateStaticPage(BlogPostViewModel viewModel, string submit)
+        {
+            if (ModelState.IsValid)
+            {
+                var repo = TechTruffleRepositoryFactory.Create();
+                //handles users
+
+                var authUserName = User.Identity.GetUserName();
+                viewModel.BlogPost.User = new ApplicationUser();
+                viewModel.BlogPost.User.UserName = authUserName;
+
+                //handles the hashtags
+                string[] hashTag = viewModel.StringHashtags.Split(' ');
+
+                var hashTagRepo = repo.GetAllHashTags();
+
+                foreach (var hash in hashTag)
+                {
+                    if (!hashTagRepo.Any(h => h.HashtagName == hash))
+                    {
+                        var newHash = new Hashtag();
+                        newHash.HashtagName = hash;
+                        repo.AddHashTag(newHash);
+                    }
+                    var hashToAdd = repo.GetAllHashTags().SingleOrDefault(h => h.HashtagName == hash);
+
+                    viewModel.BlogPost.Hashtags = new List<Hashtag>();
+                    viewModel.BlogPost.Hashtags.Add(hashToAdd);
+                }
+
+                //handles the blogcategory
+                viewModel.BlogPost.BlogCategory = repo.GetBlogCategory(viewModel.BlogPost.BlogCategory.BlogCategoryId);
+
+                //handles the Blog Status
+                switch (submit)
+                {
+                    case "Save":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Draft");
+                        break;
+                    case "Post":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Pending");
+                        break;
+                    case "Publish":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Published");
+                        break;
+                    default:
+                        break;
+                }
+
+                TechTruffleRepositoryFactory.Create().CreateNewBlogPost(viewModel.BlogPost);
+
+                return RedirectToAction("Blogs");
+            }
+            else
+            {
+                return View(viewModel);
+            }
+        }
 
         [Authorize(Roles = "admin,author")]
         public ActionResult CreateBlog()
