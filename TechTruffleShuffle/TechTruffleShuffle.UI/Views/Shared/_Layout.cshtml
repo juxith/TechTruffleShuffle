@@ -36,9 +36,16 @@
                     <li>@Html.ActionLink("Blogs", "Blogs", "API", "Route")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    
+@if (Request.IsAuthenticated)
+{
                     <li>@Html.ActionLink("Create Blog", "CreateBlog", "Home")</li>
                     <li>@Html.ActionLink("My Blogs", "MyBlogs", "Home")</li>
+}           
+@if (Request.IsAuthenticated && User.IsInRole("admin"))
+{
 					<li>@Html.ActionLink("Admin", "Admin", "Home")</li>
+}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

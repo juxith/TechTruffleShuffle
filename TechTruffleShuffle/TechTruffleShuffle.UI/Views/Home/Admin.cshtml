@@ -5,6 +5,16 @@
 
 <div class="container" align="left">
 	<h2>Admin</h2>
+    <p>
+        @Html.ActionLink("Register a new User", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+
+    </p>
+    <p>
+        @Html.ActionLink("Reset user password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+    </p>
+    <p>
+        @Html.ActionLink("Create static page", "CreateStaticPage", "Home", routeValues: null, htmlAttributes: new { id = "registerLink"})
+    </p>
 	<hr /><br />
 	<p>
 		<button class="btn btn-primary" id="adminSearch-blog-button">Search</button>
@@ -33,9 +43,10 @@
 		@*filtered blogs by status by one author go here*@
 	</div>
     <p>
-        @Html.ActionLink("Register a new user", "Register")
+        @Html.ActionLink("Register a new User", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        
     </p>
     <p>
-        @Html.ActionLink("Reset users password", "ResetPassword")
+        @Html.ActionLink("Reset user password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
     </p>
 </div>
