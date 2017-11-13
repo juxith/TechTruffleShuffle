@@ -98,9 +98,11 @@
     <Compile Include="Migrations\201711081854115_handleSqlDateExcept.Designer.cs">
       <DependentUpon>201711081854115_handleSqlDateExcept.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711131529218_nulledAllDates.cs" />
-    <Compile Include="Migrations\201711131529218_nulledAllDates.Designer.cs">
-      <DependentUpon>201711131529218_nulledAllDates.cs</DependentUpon>
+
+    <Compile Include="Migrations\201711102125548_reset.cs" />
+    <Compile Include="Migrations\201711102125548_reset.Designer.cs">
+      <DependentUpon>201711102125548_reset.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,8 +139,8 @@
     <EmbeddedResource Include="Migrations\201711081854115_handleSqlDateExcept.resx">
       <DependentUpon>201711081854115_handleSqlDateExcept.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711131529218_nulledAllDates.resx">
-      <DependentUpon>201711131529218_nulledAllDates.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711102125548_reset.resx">
+      <DependentUpon>201711102125548_reset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

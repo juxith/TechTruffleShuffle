@@ -47,6 +47,7 @@ namespace TechTruffleShuffle.UI.Controllers
 
             return View(model);
         }
+        [HttpGet]
         public ActionResult CreateStaticPage()
         {
             var viewModel = new BlogPostViewModel();
@@ -95,14 +96,17 @@ namespace TechTruffleShuffle.UI.Controllers
                 //handles the Blog Status
                 switch (submit)
                 {
-                    case "Save":
-                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Draft");
-                        break;
-                    case "Post":
-                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Pending");
-                        break;
-                    case "Publish":
-                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Published");
+                    //case "Save":
+                    //    viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Draft");
+                    //    break;
+                    //case "Post":
+                    //    viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Pending");
+                    //    break;
+                    //case "Publish":
+                    //    viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Published");
+                    //    break;
+                    case "CreateStatic":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Static");
                         break;
                     default:
                         break;
