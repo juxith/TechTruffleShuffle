@@ -136,6 +136,7 @@ namespace TechTruffleShuffle.UI.Controllers
             if (ModelState.IsValid)
             {
                 var repo = TechTruffleRepositoryFactory.Create();
+
                 //handles users
                 var authUserName = User.Identity.GetUserName();
                 viewModel.BlogPost.User = new ApplicationUser();
@@ -144,24 +145,30 @@ namespace TechTruffleShuffle.UI.Controllers
                 //handles the hashtags
                 string[] hashTag = viewModel.StringHashtags.Split(' ');
 
-                var hashTagRepo = repo.GetAllHashTags();
+                var hashTagEntity = repo.GetAllHashTags();
+
+                viewModel.BlogPost.Hashtags = new List<Hashtag>();
 
                 foreach (var hash in hashTag)
                 {
-                    if (!hashTagRepo.Any(h => h.HashtagName == hash))
+                    var ht = hashTagEntity.FirstOrDefault( i =>i.HashtagName == hash);
+
+                    if (ht == null)
                     {
                         var newHash = new Hashtag();
                         newHash.HashtagName = hash;
-                        repo.AddHashTag(newHash);
+                        viewModel.BlogPost.Hashtags.Add(newHash);
                     }
-                    var hashToAdd = repo.GetAllHashTags().SingleOrDefault(h => h.HashtagName == hash);
-
-                    viewModel.BlogPost.Hashtags = new List<Hashtag>();
-                    viewModel.BlogPost.Hashtags.Add(hashToAdd);
+                    else
+                    {
+                        viewModel.BlogPost.Hashtags.Add(ht);
+                    }
                 }
 
                 //handles the blogcategory
                 viewModel.BlogPost.BlogCategory = repo.GetBlogCategory(viewModel.BlogPost.BlogCategory.BlogCategoryId);
+
+                //handles date
 
                 //handles the Blog Status
                 switch (submit)
@@ -179,7 +186,7 @@ namespace TechTruffleShuffle.UI.Controllers
                         break;
                 }
 
-                TechTruffleRepositoryFactory.Create().CreateNewBlogPost(viewModel.BlogPost);
+                repo.CreateNewBlogPost(viewModel.BlogPost);
 
                 return RedirectToAction("Blogs");
             }
@@ -203,6 +210,89 @@ namespace TechTruffleShuffle.UI.Controllers
             ViewBag.Message = "Admin";
 
             return View();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var thisBlogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(id);
+            var convertHashToString = string.Empty;
+
+            foreach (var hash in thisBlogPost.Hashtags)
+            {
+                convertHashToString += hash.HashtagName.ToString() + " ";
+            }
+            var viewModel = new BlogPostViewModel();
+
+            viewModel.StringHashtags = convertHashToString;
+            viewModel.BlogPost = thisBlogPost;
+            viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Authorize(Roles = "admin,author")]
+        public ActionResult Edit(BlogPostViewModel viewModel, string submit)
+        {
+            if (ModelState.IsValid)
+            {
+                var repo = TechTruffleRepositoryFactory.Create();
+
+                //handles the hashtags
+                string[] hashTag = viewModel.StringHashtags.Split(' ');
+
+                var hashTagRepo = repo.GetAllHashTags();
+
+                foreach (var hash in hashTag)
+                {
+                    if (!hashTagRepo.Any(h => h.HashtagName == hash))
+                    {
+                        var newHash = new Hashtag();
+                        newHash.HashtagName = hash;
+                        repo.AddHashTag(newHash);
+                    }
+
+                    var hashToAdd = repo.GetAllHashTags().SingleOrDefault(h => h.HashtagName == hash);
+
+                    if (viewModel.BlogPost.Hashtags == null)
+                    {
+                        viewModel.BlogPost.Hashtags = new List<Hashtag>();
+                        viewModel.BlogPost.Hashtags.Add(hashToAdd);
+                    }
+                    else
+                    {
+                        viewModel.BlogPost.Hashtags.Add(hashToAdd);
+                    }
+                }
+
+                //handles the blogcategory
+                viewModel.BlogPost.BlogCategory = repo.GetBlogCategory(viewModel.BlogPost.BlogCategory.BlogCategoryId);
+
+                //handles the Blog Status
+                switch (submit)
+                {
+                    case "Save":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Draft");
+                        break;
+                    case "Post":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Pending");
+                        break;
+                    case "Publish":
+                        viewModel.BlogPost.BlogStatus = repo.GetBlogStatus("Published");
+                        break;
+                    default:
+                        break;
+                }
+
+                repo.EditBlogPost(viewModel.BlogPost);
+
+                return RedirectToAction("Blogs");
+            }
+            else
+            {
+                return View(viewModel);
+            }
         }
     }
 }

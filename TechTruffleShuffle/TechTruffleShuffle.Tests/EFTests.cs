@@ -93,7 +93,7 @@ namespace TechTruffleShuffle.Tests
             Assert.AreEqual(6, addBlog.Count);
 
             //check to make sure that it deleted ok
-            repo.DeleteBlogPost(4);
+            repo.DeleteBlogPostDraft(4);
             var deleteThis = repo.GetAllPosts();
             Assert.AreEqual(5, deleteThis.Count);
         }

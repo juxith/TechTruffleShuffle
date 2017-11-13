@@ -1,17 +1,19 @@
 $(document).ready(function () {
-	//makeItDoStuff();
     GetAllFeaturedPosts();
 	getAllBlogPosts();
 	getAllBlogPostsFiltered();
 	clearFiltersForAllBlogs();
-	//deleteStuff();
-	getBlogPostsByOneAuthor();
-	getFilteredBlogPostsByOneAuthor();
+	deleteADrraft();
 	getAllAuthorBlogs();
 	getAllFilteredAuthorBlogs();
 	clearFiltersForAdminSearch();
+	//removeABlogPost();
+	getBlogPostsByOneAuthor();
+	getFilteredBlogPostsByOneAuthor();
 });
 
+
+//INDEX/HOME PAGE!
 function GetAllFeaturedPosts()
 {
     $.ajax({
@@ -51,6 +53,8 @@ function GetAllFeaturedPosts()
     });
 }
 
+
+//BLOGS PAGE WHEN LOADED!
 function getAllBlogPosts() {
 	$.ajax({
 		type: "GET",
@@ -64,7 +68,7 @@ function getAllBlogPosts() {
 
 			$.each(blogPostArray, function (index, blogPost) {
 
-                var blogPostInfo = '<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
+				var blogPostInfo = '<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
                     '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
 
 
@@ -75,6 +79,7 @@ function getAllBlogPosts() {
 
                     allBlogPosts.append(hashtagInfo);
                 });
+
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p><hr />'; 
 
@@ -89,6 +94,7 @@ function getAllBlogPosts() {
 	});
 }
 
+//BLOGS PAGE WHEN FILTERED!
 function getAllBlogPostsFiltered() {
 	$("#search-blog-button").on("click", function () {
 		
@@ -126,6 +132,7 @@ function getAllBlogPostsFiltered() {
 							'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
 							'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
 
+
 						blogsBySearchFilter.append(moreBlogPostInfo);
 					});
 					//alert("success")
@@ -138,6 +145,7 @@ function getAllBlogPostsFiltered() {
 	);
 }
 
+//BLOGS PAGE WHEN CLEARING!
 function clearFiltersForAllBlogs() {
 	$("#clear-filters-button").on("click", function () {
 		$(".filteredBlogs").hide();
@@ -147,44 +155,23 @@ function clearFiltersForAllBlogs() {
 	});
 }
 
-//need to work with this more
-function deleteStuff() {
-
-	//by delete, we actually mean change status to removed
-
-	$(document).on("click", "#DeleteBlogPostBtn", function () {
-		var blogPostId = $(this).data('blogpostid');
-
-		$.ajax({
-			type: "PUT",
-			url: "http://localhost:62645/blog/" + "remove/" + blogPostId,
-			success: function () {
-				//alert("success")
-				searchBySomething();
-			},
-			error: function () {
-				//alert("error")
-			}
-		});
-	});
-}
-
+//MY BLOGS PAGE WHEN LOADED!
 function getBlogPostsByOneAuthor() {
 
 	$(".allBlogsByAuthor").show();
 	$(".filteredBlogsByAuthor").hide();
 	$(".filteredBlogsByAuthor").text("");
 
-	//var authUserName = $("#forTheLoveOfGodWork").val();
+	var authUserName = $("#forTheLoveOfGodWork").val();
 
-	//authUserName = authUserName.replace(/([A-Z])/g, ' $1').trim();
+	authUserName = authUserName.replace(/([A-Z])/g, ' $1').trim();
 	
 
 	$.ajax({
 		type: "GET",
 
 		//need to change this URL path to reflect the user signed in at some point
-		url: "http://localhost:62645/blogs/author/" + "Lindsey" + "/all",
+		url: "http://localhost:62645/blogs/author/" + authUserName + "/all",
 		success: function (blogPostArray) {
 			//alert("success")
 			var allBlogsHere = $(".allBlogsByAuthor");
@@ -204,10 +191,21 @@ function getBlogPostsByOneAuthor() {
 				});
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
-					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
-					'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>'
+
+					'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
 
 				allBlogsHere.append(moreBlogPostInfo);
+
+				if (blogPost.blogStatus.blogStatusDescription == "Draft") {
+					var mooooreStuff = '<button class="btn btn-danger" id="DeleteMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
+					allBlogsHere.append(mooooreStuff);
+				}
+				if (blogPost.blogStatus.blogStatusDescription == "Published" || blogPost.blogStatus.blogStatusDescription == "Pending") {
+					var moooooreStuff = '</p><hr />'
+
+					allBlogsHere.append(moooooreStuff);
+				}
 			});
 		},
 		error: function () {
@@ -216,6 +214,7 @@ function getBlogPostsByOneAuthor() {
 	});
 }
 
+//MY BLOG PAGE WHEN FILTERED!
 function getFilteredBlogPostsByOneAuthor() {
 	$("#search-blogByAuthor-button").on("click", function () {
 
@@ -235,9 +234,6 @@ function getFilteredBlogPostsByOneAuthor() {
 			status = "/all";
 		}
 
-
-
-
 		$(".allBlogsByAuthor").hide();
 		$(".filteredBlogsByAuthor").show();
 		$(".filteredBlogsByAuthor").text("");
@@ -245,7 +241,6 @@ function getFilteredBlogPostsByOneAuthor() {
 		var authUserName = $("#forTheLoveOfGodWork").val();
 
 		authUserName = authUserName.replace(/([A-Z])/g, ' $1').trim();
-
 
 		$.ajax({
 			type: "GET",
@@ -271,10 +266,22 @@ function getFilteredBlogPostsByOneAuthor() {
 					});
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
-						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
-						'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
+						'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
 
 					filteredBlogsHere.append(moreBlogPostInfo);
+
+					if (blogPost.blogStatus.blogStatusDescription == "Draft") {
+						var mooooreStuff = '<button class="btn btn-danger" id="DeleteMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
+						filteredBlogsHere.append(mooooreStuff);
+					}
+					if (blogPost.blogStatus.blogStatusDescription == "Published" || blogPost.blogStatus.blogStatusDescription == "Pending") {
+						var moooooreStuff = '</p><hr />'
+
+						filteredBlogsHere.append(moooooreStuff);
+
+					}
 				});
 			},
 			error: function () {
@@ -284,6 +291,31 @@ function getFilteredBlogPostsByOneAuthor() {
 	});
 }
 
+//MY BLOGS PAGE WHEN DELETING A DRAFT (REAL DELETE) 
+function deleteADrraft() {
+
+	//by delete, we actually mean change status to removed
+
+	$(document).on("click", "#DeleteMyBlogPostBtn", function () {
+		var blogPostId = $(this).data('blogpostid');
+
+		$.ajax({
+			type: "DELETE",
+			url: "http://localhost:62645/blog/" + "delete/" + blogPostId,
+			success: function () {
+				alert("success")
+				$(".allBlogsByAuthor").text("");
+				$(".filteredBlogsByAuthor").text("");
+				getBlogPostsByOneAuthor();
+			},
+			error: function () {
+				alert("error")
+			}
+		});
+	});
+}
+
+//ADMIN PAGE WHEN LOADED!
 function getAllAuthorBlogs() {
 	var searchTermInput = $("#searchStatusList").val();
 	var searchTermCategory = $("#searchStatusList").val();
@@ -313,6 +345,7 @@ function getAllAuthorBlogs() {
 				});
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
+
 					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
 					'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
 
@@ -326,7 +359,7 @@ function getAllAuthorBlogs() {
 	});
 }
 
-//working on this section before lunch. come back to this after lunch
+//ADMIN PAGE WHEN FILTERED!
 function getAllFilteredAuthorBlogs() {
 	$("#adminSearch-blog-button").on("click", function () {
 
@@ -402,6 +435,7 @@ function getAllFilteredAuthorBlogs() {
 					});
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
+
 						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
 						'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
 
@@ -415,6 +449,7 @@ function getAllFilteredAuthorBlogs() {
 	})
 }
 
+//ADMIN PAGE WHEN CLEARING
 function clearFiltersForAdminSearch() {
 	$("#clear-adminFilters-button").on("click", function () {
 		$(".filteredAuthorBlogs").hide();
@@ -425,14 +460,24 @@ function clearFiltersForAdminSearch() {
 	});
 }
 
+//ADMIN PAGE WHEN REMOVING A BLOGPOST (SWITCHING STATUS TO REMOVED)
+function removeABlogPost() {
 
+	//by delete, we actually mean change status to removed
 
+	$(document).on("click", "#DeleteBlogPostBtn", function () {
+		var blogPostId = $(this).data('blogpostid');
 
-function makeItDoStuff() {
-	
-	$("#search-blog-button").on("click", function () {
-		$("#thisThing").val("hello");
+		$.ajax({
+			type: "PUT",
+			url: "http://localhost:62645/blog/" + "remove/" + blogPostId,
+			success: function () {
+				//alert("success")
+				searchBySomething();
+			},
+			error: function () {
+				//alert("error")
+			}
+		});
 	});
 }
-
-

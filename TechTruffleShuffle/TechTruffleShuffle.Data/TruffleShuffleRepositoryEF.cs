@@ -14,14 +14,22 @@ namespace TechTruffleShuffle.Data
             using (var ctx = new TechTruffleShuffleEntities())
             {
                 var thisUser = ctx.Users.SingleOrDefault(u => u.UserName == newPost.User.UserName);
+                var thisStatus = ctx.BlogStatus.SingleOrDefault(s => s.BlogStatusId == newPost.BlogStatusId);
                 newPost.User = thisUser;
-               
+
+                foreach (var hash in newPost.Hashtags.Where(i => i.HashtagId > 0))
+                {
+                    ctx.Hashtag.Attach(hash);
+                }
+
+                ctx.BlogStatus.Attach(newPost.BlogStatus);
+
                 ctx.BlogPost.Add(newPost);
                 ctx.SaveChanges();
             }
         }
 
-        public void DeleteBlogPost(int postId)
+        public void DeleteBlogPostDraft(int postId)
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
@@ -35,17 +43,43 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var editThis = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").SingleOrDefault(s => s.BlogPostId == updatedBlogPost.BlogPostId);
-                editThis.Title = updatedBlogPost.Title;
-                editThis.BlogContent = updatedBlogPost.BlogContent;
-                editThis.EventDate = updatedBlogPost.EventDate;
-                editThis.DateStart = updatedBlogPost.DateStart;
-                editThis.DateEnd = updatedBlogPost.DateEnd;
-                editThis.BlogCategoryId = updatedBlogPost.BlogCategoryId;
-                editThis.BlogStatusId = updatedBlogPost.BlogStatusId;
-                editThis.IsFeatured = updatedBlogPost.IsFeatured;
-                editThis.IsStaticPage = updatedBlogPost.IsStaticPage;
+                updatedBlogPost.User = ctx.Users.SingleOrDefault(u => u.Id == updatedBlogPost.UserId);
 
+                updatedBlogPost.BlogCategoryId = updatedBlogPost.BlogCategory.BlogCategoryId;
+                updatedBlogPost.BlogStatusId = updatedBlogPost.BlogStatus.BlogStatusId;
+
+            
+
+                var allTagsOnBlogPost = updatedBlogPost.Hashtags;
+                updatedBlogPost.Hashtags = new List<Hashtag>();
+                ctx.BlogPost.Attach(updatedBlogPost);
+                ctx.Entry(updatedBlogPost).State = System.Data.Entity.EntityState.Modified;
+                ctx.Entry(updatedBlogPost).Collection(i => i.Hashtags).Load();
+
+                var current = updatedBlogPost.Hashtags.ToList();
+
+                updatedBlogPost.Hashtags.Clear();
+
+                foreach (var hash in allTagsOnBlogPost)
+                {
+                    var currentHashTag = current.SingleOrDefault(i => i.HashtagId == hash.HashtagId);
+                    if (currentHashTag == null)
+                    {
+                        ctx.Hashtag.Attach(hash);
+                        updatedBlogPost.Hashtags.Add(hash);
+                    }
+                    else
+                    {
+                        updatedBlogPost.Hashtags.Add(currentHashTag);
+                    }
+                
+                }
+                                
+                ctx.BlogStatus.Attach(updatedBlogPost.BlogStatus);
+
+              
+
+  
                 ctx.SaveChanges();
             }
         }

@@ -395,40 +395,24 @@ namespace TechTruffleShuffle.UI.Controllers
         }
 
         //need to fix this
-        [Route("blog/remove/{blogPostId}")]
-        [AcceptVerbs("PUT")]
-        public IHttpActionResult RemoveBlogPost(BlogPost removedBlogPost)
+        [Route("blog/delete/{blogToDeleteId}")]
+        [AcceptVerbs("DELETE")]
+        public IHttpActionResult DeleteBlogPost(int blogToDeleteId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(removedBlogPost.BlogPostId);
+            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogToDeleteId);
 
             if (blogPost == null)
             {
                 return NotFound();
             }
 
-            blogPost.Title = removedBlogPost.Title;
-            blogPost.BlogContent = removedBlogPost.BlogContent;
-            blogPost.EventDate = removedBlogPost.EventDate;
-            blogPost.DateStart = removedBlogPost.DateStart;
-            blogPost.DateEnd = removedBlogPost.DateEnd;
-            blogPost.BlogCategoryId = removedBlogPost.BlogCategoryId;
-            blogPost.BlogStatusId = 4;
-            blogPost.BlogStatusId = removedBlogPost.BlogStatusId;
-            blogPost.IsFeatured = removedBlogPost.IsFeatured;
-            blogPost.IsStaticPage = removedBlogPost.IsStaticPage;
-            blogPost.Hashtags = removedBlogPost.Hashtags;
-
-            blogPost.User = removedBlogPost.User;
-            blogPost.BlogCategory = removedBlogPost.BlogCategory;
-            blogPost.BlogStatus = removedBlogPost.BlogStatus;
-
-            TechTruffleRepositoryFactory.Create().EditBlogPost(removedBlogPost);
-            return Ok(blogPost);
+            TechTruffleRepositoryFactory.Create().DeleteBlogPostDraft(blogToDeleteId);
+            return Ok();
         }
 
         //if (!ModelState.IsValid)

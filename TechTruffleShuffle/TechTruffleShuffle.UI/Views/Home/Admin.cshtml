@@ -4,35 +4,38 @@
 }
 
 <div class="container">
-	<h1 align="center" style="font-size:45px; font-weight:bolder">Admin</h1>
-	<p>
-		@Html.ActionLink("Register a new User", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-	</p>
-	<p>
+	<p align="right">
+		@Html.ActionLink("Register a new user", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+		&nbsp
+		&nbsp
 		@Html.ActionLink("Reset user password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+		&nbsp
+		&nbsp
+		@Html.ActionLink("Create a static page", "CreateStaticPage", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })
 	</p>
-	<p>
-		@Html.ActionLink("Create static page", "CreateStaticPage", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })
-	</p>
+	<h1 align="center" style="font-size:45px; font-weight:bolder">Admin</h1>
+
 	<hr /><br />
 	<p align="center">
-		<button class="btn btn-primary" id="adminSearch-blog-button">Search</button>
-		<select alight="right" id="searchStatusList" required>
+		<select alight="right" id="searchStatusList" required style="height:30px; width:150px">
 			<option value="allAuthorPosts">All Posts</option>
 			<option value="AuthorPublishedPosts">Published Posts</option>
 			<option value="AuthorPendingPosts">Pending Posts</option>
 			<option value="AuthorRemovedPosts">Removed Posts</option>
 		</select>
-		<select alight="right" id="filterByList">
+		<select alight="right" id="filterByList" style="height:30px; width:150px">
 			<option value="blogAllAuthors">All Authors</option>
 			<option value="blogAuthorName">Author Name </option>
 		</select>
-		<input type="text" id="inputForAdminSearch" />
+		<input type="text" id="inputForAdminSearch" style="height:30px; width:200px"/>
 	</p>
 	<p align="center">
-		<button class="btn btn-primary" id="clear-adminFilters-button">Clear Filters</button>
+		<button class="btn btn-primary" id="adminSearch-blog-button">Search</button>
 	</p>
-	<div><br /><hr /></div>
+	<p align="center">
+		<button class="btn btn-link" id="clear-adminFilters-button">Clear Filters</button>
+	</p>
+	<div><hr /></div>
 </div>
 <div class="container">
 	<div class="allAuthorBlogs">
