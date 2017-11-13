@@ -197,7 +197,7 @@ function getBlogPostsByOneAuthor() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 				allBlogsHere.append(moreBlogPostInfo);
 
@@ -273,7 +273,7 @@ function getFilteredBlogPostsByOneAuthor() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 					filteredBlogsHere.append(moreBlogPostInfo);
 
@@ -354,8 +354,10 @@ function getAllAuthorBlogs() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
-					'<button class="btn btn-danger" id="AdminDeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
+					'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
 
 				allAuthorBlogs.append(moreBlogPostInfo);
 			});
@@ -430,6 +432,7 @@ function getAllFilteredAuthorBlogs() {
 
 				$.each(blogPostArray, function (index, blogPost) {
 
+
 					var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
 
 					var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
@@ -446,8 +449,9 @@ function getAllFilteredAuthorBlogs() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
-						'<button class="btn btn-danger" id="AdminDeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
+						'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
 
 					filteredBlogsHere.append(moreBlogPostInfo);
 				});

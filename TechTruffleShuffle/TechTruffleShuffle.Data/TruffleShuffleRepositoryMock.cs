@@ -568,7 +568,7 @@ namespace TechTruffleShuffle.Data
 
         public List<BlogPost> GetAllNonDraftBlogs()
         {
-            return _blogposts.Where(b => (b.BlogStatus.BlogStatusDescription != "Draft")).ToList();
+            return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Pending").ToList();
         }
     }
 }

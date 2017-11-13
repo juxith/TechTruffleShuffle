@@ -275,17 +275,18 @@ namespace TechTruffleShuffle.Data.Migrations
                 context.BlogStatus.Add(toAdd);
                 context.SaveChanges();
             }
-
-            if (!context.BlogStatus.Any(t => t.BlogStatusDescription == "Removed"))
+            if (!context.BlogStatus.Any(t => t.BlogStatusDescription == "Static"))
             {
                 BlogStatus toAdd = new BlogStatus
                 {
-                    BlogStatusDescription = "Removed"
+                    BlogStatusDescription = "Static"
                 };
 
                 context.BlogStatus.Add(toAdd);
                 context.SaveChanges();
             }
+
+
 
             //this is where the seed BlogPosts are
 

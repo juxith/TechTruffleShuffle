@@ -22,7 +22,7 @@
                             @Html.ValidationMessageFor(c => c.BlogPost.Title, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.BlogPost.EventDate, new { @class = "form-control", @placeholder = "Event Date (MM/DD/YYYY)" })
+                            @Html.TextBoxFor(m => m.BlogPost.DateStart, new { @class = "form-control", @placeholder = "Date Start (MM/DD/YYYY)" })
                             @Html.ValidationMessageFor(c => c.BlogPost.EventDate, null, new { @class = "error" })
                         </div>
                         <div class="form-group">
