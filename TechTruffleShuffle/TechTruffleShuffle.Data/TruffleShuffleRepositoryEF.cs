@@ -9,6 +9,31 @@ namespace TechTruffleShuffle.Data
 {
     public class TruffleShuffleRepositoryEF : ITruffleShuffleRepository
     {
+        public void CreateStaticPage(StaticPage staticPage)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                ctx.StaticPage.Add(staticPage);
+                ctx.SaveChanges();
+            }
+        }
+
+        public StaticPage GetStaticPageByID(int ID)
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                return ctx.StaticPage.SingleOrDefault(i => i.StaticPageID == ID);
+            }
+        }
+
+        public List<StaticPage> GetAllStaticPages()
+        {
+            using (var ctx = new TechTruffleShuffleEntities())
+            {
+                return ctx.StaticPage.ToList();
+            }
+        }
+
         public void CreateNewBlogPost(BlogPost newPost)
         {
             using (var ctx = new TechTruffleShuffleEntities())
@@ -201,14 +226,6 @@ namespace TechTruffleShuffle.Data
             }
         }
 
-        public List<BlogPost> GetAllStaticPages()
-        {
-            using (var ctx = new TechTruffleShuffleEntities())
-            {
-                var getStaticPages = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(i => i.IsStaticPage == true);
-                return getStaticPages.ToList();
-            }
-        }
 
         public BlogPost GetBlogPostById(int blogpostId)
         {

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    loadStaticDropdown();
     GetAllFeaturedPosts();
 	getAllBlogPosts();
 	getAllBlogPostsFiltered();
@@ -9,10 +10,34 @@ $(document).ready(function () {
 	clearFiltersForAdminSearch();
 	//removeABlogPost();
 	getBlogPostsByOneAuthor();
-	getFilteredBlogPostsByOneAuthor();
+    getFilteredBlogPostsByOneAuthor();
+    
 });
 
+function loadStaticDropdown() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:62645/Api/StaticPages",
+        success: function (pagesArray) {
+            alert("success")
+            
+            var list = $("#PagesDropdown");
 
+
+            $.each(pagesArray, function (index, page) {
+                
+                var staticPageInfo = '<li><a href="/Home/StaticPages/'+page.staticPageID+'">'+page.title+'</a></li>';
+
+                list.append(staticPageInfo);
+            });
+
+        },
+        error: function () {
+            //alert("error")
+        }
+    });
+
+}
 //INDEX/HOME PAGE!
 function GetAllFeaturedPosts()
 {

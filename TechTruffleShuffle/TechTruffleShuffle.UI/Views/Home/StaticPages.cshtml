@@ -1,0 +1,13 @@
+﻿@model TechTruffleShuffle.Models.StaticPage
+@{
+    ViewBag.Title = "StaticPages";
+}
+
+<h2>@Model.Title</h2>
+<p>
+    @Model.Description
+</p>
+<div>
+   @Html.Raw(@Model.Content)
+</div>
+

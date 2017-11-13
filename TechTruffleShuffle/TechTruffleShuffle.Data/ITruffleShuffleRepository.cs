@@ -23,7 +23,7 @@ namespace TechTruffleShuffle.Data
         List<BlogPost> GetAllPendingPostsByOneAuthor(string userName);
         List<BlogPost> GetAllDrafts();
         List<BlogPost> GetAllDraftsByOneAuthor(string userName);
-        List<BlogPost> GetAllStaticPages();
+        List<StaticPage> GetAllStaticPages();
         //void CreatePublishPostAdmin(BlogPost newPostToPublish);
         void CreateNewBlogPost(BlogPost newPost);
         void EditBlogPost(BlogPost updatedBlogPost);
@@ -33,7 +33,8 @@ namespace TechTruffleShuffle.Data
         List<Hashtag> GetAllHashTags();
         List<BlogCategory> GetAllBlogCategories();
 
-
+        StaticPage GetStaticPageByID(int ID);
+        void CreateStaticPage(StaticPage model);
         BlogCategory GetBlogCategory(int id);
         BlogStatus GetBlogStatus(string status);
         Hashtag GetHashtag(string hashtagName);

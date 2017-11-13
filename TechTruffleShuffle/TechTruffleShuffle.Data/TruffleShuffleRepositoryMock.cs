@@ -404,6 +404,21 @@ namespace TechTruffleShuffle.Data
             };
         }
 
+        public void CreateStaticPage(StaticPage staticPage)
+        {
+            throw new NotImplementedException();
+            //using (var ctx = new TechTruffleShuffleEntities())
+            //{
+            //    ctx.StaticPage.Add(staticPage);
+            //    ctx.SaveChanges();
+            //}
+        }
+
+        public StaticPage GetStaticPageByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CreateNewBlogPost(BlogPost newPost)
         {
             if(_blogposts.Any())
@@ -496,9 +511,9 @@ namespace TechTruffleShuffle.Data
             return _blogposts.Where(b => b.BlogStatus.BlogStatusDescription == "Removed").ToList();
         }
 
-        public List<BlogPost> GetAllStaticPages()
+        public List<StaticPage> GetAllStaticPages()
         {
-            return _blogposts.Where(b => b.IsStaticPage == true).ToList();
+            throw new NotImplementedException();
         }
 
         public BlogPost GetBlogPostById(int blogpostId)

@@ -14,6 +14,7 @@ namespace TechTruffleShuffle.UI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RouteController : ApiController
     {
+
         [AllowAnonymous]
         [Route("blogs")]
         [AcceptVerbs("GET")]
@@ -311,22 +312,22 @@ namespace TechTruffleShuffle.UI.Controllers
             }
         }
 
-        //same here
-        [Route("blogs/isStatic")]
-        [AcceptVerbs("GET")]
-        public IHttpActionResult GetAllStaticPages()
-        {
-            List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllStaticPages();
+        ////same here
+        //[Route("blogs/isStatic")]
+        //[AcceptVerbs("GET")]
+        //public IHttpActionResult GetAllStaticPages()
+        //{
+        //    List<BlogPost> blogPosts = TechTruffleRepositoryFactory.Create().GetAllStaticPages();
 
-            if (blogPosts == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(blogPosts);
-            }
-        }
+        //    if (blogPosts == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        return Ok(blogPosts);
+        //    }
+        //}
 
         [Route("blog")]
         [AcceptVerbs("POST")]
@@ -415,6 +416,24 @@ namespace TechTruffleShuffle.UI.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [Route("Api/StaticPages")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllStaticPages()
+        {
+            List<StaticPage> staticPages = TechTruffleRepositoryFactory.Create().GetAllStaticPages();
+
+            if (staticPages == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(staticPages);
+            }
+        }
+
+
         //if (!ModelState.IsValid)
         //{
         //    return BadRequest(ModelState);
@@ -429,6 +448,6 @@ namespace TechTruffleShuffle.UI.Controllers
 
         //TechTruffleRepositoryFactory.Create().DeleteBlogPost(blogPostId);
         //return Ok();
-    
+
     }
 }
