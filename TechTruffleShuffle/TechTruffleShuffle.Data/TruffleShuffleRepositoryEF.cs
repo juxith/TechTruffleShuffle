@@ -76,10 +76,6 @@ namespace TechTruffleShuffle.Data
                 }
                                 
                 ctx.BlogStatus.Attach(updatedBlogPost.BlogStatus);
-
-              
-
-  
                 ctx.SaveChanges();
             }
         }
@@ -97,8 +93,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getDraftsByAuthor = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(s => s.BlogStatus.BlogStatusDescription == "Draft").Where(u => (u.User.FirstName + " " + u.User.LastName).Contains(userName));
-                return getDraftsByAuthor.ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Draft" && (((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName)))).ToList();
             }
         }
 
@@ -127,9 +122,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPendingByAuthor = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Pending" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
-
-                return getPendingByAuthor.ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Pending" && (((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName)))).ToList();
             }
         }
 
@@ -154,9 +147,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                var getPublishedPostsByAuthor = ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Published" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
-
-                return getPublishedPostsByAuthor.ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Published" && (((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName)))).ToList();
             }
         }
 
@@ -301,7 +292,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Pending" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName))).ToList();
             }
         }
 
@@ -309,7 +300,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Removed" && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => b.BlogStatus.BlogStatusDescription == "Removed" && (((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName)))).ToList();
             }
         }
 
@@ -317,7 +308,7 @@ namespace TechTruffleShuffle.Data
         {
             using (var ctx = new TechTruffleShuffleEntities())
             {
-                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Draft") && ((b.User.FirstName + " " + b.User.LastName).Contains(userName))).ToList();
+                return ctx.BlogPost.Include("Hashtags").Include("BlogCategory").Include("BlogStatus").Include("User").Where(b => (b.BlogStatus.BlogStatusDescription == "Removed" || b.BlogStatus.BlogStatusDescription == "Published" || b.BlogStatus.BlogStatusDescription == "Pending") && (((b.User.FirstName + " " + b.User.LastName).Contains(userName)) || ((b.User.FirstName + b.User.LastName).Contains(userName)))).ToList();
             }
         }
 

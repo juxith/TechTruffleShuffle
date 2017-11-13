@@ -415,20 +415,29 @@ namespace TechTruffleShuffle.UI.Controllers
             return Ok();
         }
 
-        //if (!ModelState.IsValid)
-        //{
-        //    return BadRequest(ModelState);
-        //}
+        [Route("blog/remove/{blogPostId}")]
+        [AcceptVerbs("PUT")]
+        public IHttpActionResult RemoveBlogPost(int blogPostId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
+            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
 
-        //if (blogPost == null)
-        //{
-        //    return NotFound();
-        //}
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
 
-        //TechTruffleRepositoryFactory.Create().DeleteBlogPost(blogPostId);
-        //return Ok();
-    
+            blogPost.BlogStatusId = 4;
+            blogPost.BlogStatus.BlogStatusId = 4;
+            blogPost.BlogStatus.BlogStatusDescription = "Removed";
+
+            TechTruffleRepositoryFactory.Create().EditBlogPost(blogPost);
+            return Ok(blogPost);
+        }
+
     }
 }
