@@ -148,6 +148,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
             else
             {
+                viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
                 return View(viewModel);
             }
         }
@@ -247,6 +248,7 @@ namespace TechTruffleShuffle.UI.Controllers
             }
             else
             {
+                viewModel.SetCategoryItems(TechTruffleRepositoryFactory.Create().GetAllBlogCategories());
                 return View(viewModel);
             }
         }

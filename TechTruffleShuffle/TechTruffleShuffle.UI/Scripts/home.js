@@ -8,7 +8,7 @@ $(document).ready(function () {
 	getAllAuthorBlogs();
 	getAllFilteredAuthorBlogs();
 	clearFiltersForAdminSearch();
-	//removeABlogPost();
+	removeABlogPost();
 	getBlogPostsByOneAuthor();
     getFilteredBlogPostsByOneAuthor();
     
@@ -51,10 +51,12 @@ function GetAllFeaturedPosts()
 
             var allBlogPosts = $("#featuredBlogs");
 
-            $.each(blogPostArray, function (index, blogPost) {
+			$.each(blogPostArray, function (index, blogPost) {
 
+				var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+				
 				var blogPostInfo = '<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 
                 allBlogPosts.append(blogPostInfo);
@@ -93,8 +95,10 @@ function getAllBlogPosts() {
 
 			$.each(blogPostArray, function (index, blogPost) {
 
+				var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 				var blogPostInfo = '<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+                    '<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 
                 allBlogPosts.append(blogPostInfo);
@@ -142,8 +146,10 @@ function getAllBlogPostsFiltered() {
 					var clearTheDiv = "";
 					$.each(blogPostArray, function (index, blogPost) {
 
+						var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 						var blogPostInfo = '<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+							'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 							
 						blogsBySearchFilter.append(blogPostInfo)
 
@@ -153,9 +159,7 @@ function getAllBlogPostsFiltered() {
 							blogsBySearchFilter.append(hashtagInfo);
 						});
 
-						var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
-							'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
-							'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+						var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p><hr/>';
 
 
 						blogsBySearchFilter.append(moreBlogPostInfo);
@@ -189,7 +193,6 @@ function getBlogPostsByOneAuthor() {
 
 	var authUserName = $("#forTheLoveOfGodWork").val();
 
-	authUserName = authUserName.replace(/([A-Z])/g, ' $1').trim();
 	
 
 	$.ajax({
@@ -203,9 +206,11 @@ function getBlogPostsByOneAuthor() {
 
 			$.each(blogPostArray, function (index, blogPost) {
 
+				var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 				var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
 					'<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 				allBlogsHere.append(blogPostInfo);
 
@@ -217,7 +222,7 @@ function getBlogPostsByOneAuthor() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 				allBlogsHere.append(moreBlogPostInfo);
 
@@ -265,7 +270,6 @@ function getFilteredBlogPostsByOneAuthor() {
 
 		var authUserName = $("#forTheLoveOfGodWork").val();
 
-		authUserName = authUserName.replace(/([A-Z])/g, ' $1').trim();
 
 		$.ajax({
 			type: "GET",
@@ -278,9 +282,11 @@ function getFilteredBlogPostsByOneAuthor() {
 
 				$.each(blogPostArray, function (index, blogPost) {
 
+					var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 					var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
 						'<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 					filteredBlogsHere.append(blogPostInfo);
 
@@ -292,7 +298,7 @@ function getFilteredBlogPostsByOneAuthor() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 					filteredBlogsHere.append(moreBlogPostInfo);
 
@@ -357,9 +363,11 @@ function getAllAuthorBlogs() {
 
 			$.each(blogPostArray, function (index, blogPost) {
 
+				var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 				var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
 					'<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+					'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 				allAuthorBlogs.append(blogPostInfo);
 
@@ -371,8 +379,10 @@ function getAllAuthorBlogs() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
+
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
 					'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
 
 				allAuthorBlogs.append(moreBlogPostInfo);
 			});
@@ -447,9 +457,12 @@ function getAllFilteredAuthorBlogs() {
 
 				$.each(blogPostArray, function (index, blogPost) {
 
+
+					var publishDate = (new Date(blogPost.dateStart)).toLocaleDateString('en-US');
+
 					var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
 						'<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + publishDate + '</p>';
 
 					filteredBlogsHere.append(blogPostInfo)
 
@@ -461,8 +474,9 @@ function getAllFilteredAuthorBlogs() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
 						'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
+
 
 					filteredBlogsHere.append(moreBlogPostInfo);
 				});
@@ -487,10 +501,8 @@ function clearFiltersForAdminSearch() {
 
 //ADMIN PAGE WHEN REMOVING A BLOGPOST (SWITCHING STATUS TO REMOVED)
 function removeABlogPost() {
-
-	//by delete, we actually mean change status to removed
-
-	$(document).on("click", "#DeleteBlogPostBtn", function () {
+	
+	$(document).on("click", "#AdminDeleteBlogPostBtn", function () {
 		var blogPostId = $(this).data('blogpostid');
 
 		$.ajax({
@@ -498,7 +510,12 @@ function removeABlogPost() {
 			url: "http://localhost:62645/blog/" + "remove/" + blogPostId,
 			success: function () {
 				//alert("success")
-				searchBySomething();
+				$(".filteredAuthorBlogs").text("");
+				$(".allAuthorBlogs").text("");
+				$("#searchStatusList").val("allAuthorPosts");
+				$("#filterByList").val("blogAllAuthors");
+				$("#inputForAdminSearch").val("");
+				getAllAuthorBlogs();
 			},
 			error: function () {
 				//alert("error")

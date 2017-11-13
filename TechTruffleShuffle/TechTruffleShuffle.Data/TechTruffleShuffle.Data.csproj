@@ -109,6 +109,7 @@
     <Compile Include="Migrations\201711131540211_staticPageID.cs" />
     <Compile Include="Migrations\201711131540211_staticPageID.Designer.cs">
       <DependentUpon>201711131540211_staticPageID.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,11 +149,13 @@
     <EmbeddedResource Include="Migrations\201711102125548_reset.resx">
       <DependentUpon>201711102125548_reset.cs</DependentUpon>
     </EmbeddedResource>
+
     <EmbeddedResource Include="Migrations\201711131519548_nullable EventDate.resx">
       <DependentUpon>201711131519548_nullable EventDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711131540211_staticPageID.resx">
       <DependentUpon>201711131540211_staticPageID.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

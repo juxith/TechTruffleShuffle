@@ -416,6 +416,7 @@ namespace TechTruffleShuffle.UI.Controllers
             return Ok();
         }
 
+
         [AllowAnonymous]
         [Route("Api/StaticPages")]
         [AcceptVerbs("GET")]
@@ -439,15 +440,30 @@ namespace TechTruffleShuffle.UI.Controllers
         //    return BadRequest(ModelState);
         //}
 
-        //BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
+        [Route("blog/remove/{blogPostId}")]
+        [AcceptVerbs("PUT")]
+        public IHttpActionResult RemoveBlogPost(int blogPostId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //if (blogPost == null)
-        //{
-        //    return NotFound();
-        //}
+            BlogPost blogPost = TechTruffleRepositoryFactory.Create().GetBlogPostById(blogPostId);
 
-        //TechTruffleRepositoryFactory.Create().DeleteBlogPost(blogPostId);
-        //return Ok();
+
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            blogPost.BlogStatusId = 4;
+            blogPost.BlogStatus.BlogStatusId = 4;
+            blogPost.BlogStatus.BlogStatusDescription = "Removed";
+
+            TechTruffleRepositoryFactory.Create().EditBlogPost(blogPost);
+            return Ok(blogPost);
+        }
 
     }
 }
