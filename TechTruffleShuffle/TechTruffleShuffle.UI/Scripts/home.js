@@ -19,7 +19,7 @@ function loadStaticDropdown() {
         type: "GET",
         url: "http://localhost:62645/Api/StaticPages",
         success: function (pagesArray) {
-            alert("success")
+            //alert("success")
             
             var list = $("#PagesDropdown");
 
