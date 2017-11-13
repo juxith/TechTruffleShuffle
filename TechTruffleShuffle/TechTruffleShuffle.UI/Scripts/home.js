@@ -131,7 +131,7 @@ function getAllBlogPostsFiltered() {
 						var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 							'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
 							'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
-
+                                              
 
 						blogsBySearchFilter.append(moreBlogPostInfo);
 					});
@@ -192,7 +192,7 @@ function getBlogPostsByOneAuthor() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 				allBlogsHere.append(moreBlogPostInfo);
 
@@ -267,7 +267,7 @@ function getFilteredBlogPostsByOneAuthor() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditMyBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " ";
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " ";
 
 					filteredBlogsHere.append(moreBlogPostInfo);
 
@@ -346,7 +346,7 @@ function getAllAuthorBlogs() {
 
 				var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-					'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
+                    '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
 					'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
 
 				allAuthorBlogs.append(moreBlogPostInfo);
@@ -422,9 +422,14 @@ function getAllFilteredAuthorBlogs() {
 
 				$.each(blogPostArray, function (index, blogPost) {
 
+                    var thisDate = blogPost.dateStart;
+                    var month = Date.prototype.getMonth(thisDate);
+                    var date = Date.prototype.getDate(thisDate);
+                    var year = Date.prototype.getFullYear(thisDate);
+
 					var blogPostInfo = '<p style="color:red; font-weight:bolder">' + blogPost.blogStatus.blogStatusDescription + '</p>' +
 						'<p style="font-weight:bolder; font-size:30px">' + blogPost.title + '</p>' +
-						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + blogPost.dateStart + '</p>';
+						'<p>' + "By " + blogPost.user.firstName + " " + blogPost.user.lastName + " " + date + '</p>';
 
 					filteredBlogsHere.append(blogPostInfo)
 
@@ -436,7 +441,7 @@ function getAllFilteredAuthorBlogs() {
 
 					var moreBlogPostInfo = '<div></br></div>' + '<p>' + blogPost.blogContent + '</p>' +
 
-						'<p><button class="btn btn-danger" id="EditBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Edit Blog Post</button>' + " " +
+                        '<p><input type="button" class="btn btn-primary" onClick="location.href=\'Edit/' + blogPost.blogPostId + '\'" value="Edit Post">' + " " +
 						'<button class="btn btn-danger" id="DeleteBlogPostBtn" data-blogpostid="' + blogPost.blogPostId + '">Delete Blog Post</button></p><hr/>';
 
 					filteredBlogsHere.append(moreBlogPostInfo);

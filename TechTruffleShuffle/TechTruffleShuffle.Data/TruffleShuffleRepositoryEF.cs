@@ -23,7 +23,6 @@ namespace TechTruffleShuffle.Data
                 }
 
                 ctx.BlogStatus.Attach(newPost.BlogStatus);
-
                 ctx.BlogPost.Add(newPost);
                 ctx.SaveChanges();
             }
@@ -72,7 +71,6 @@ namespace TechTruffleShuffle.Data
                     {
                         updatedBlogPost.Hashtags.Add(currentHashTag);
                     }
-                
                 }
                                 
                 ctx.BlogStatus.Attach(updatedBlogPost.BlogStatus);

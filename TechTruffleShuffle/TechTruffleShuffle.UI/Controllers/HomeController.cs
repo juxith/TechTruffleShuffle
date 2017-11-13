@@ -62,8 +62,10 @@ namespace TechTruffleShuffle.UI.Controllers
             if (ModelState.IsValid)
             {
                 var repo = TechTruffleRepositoryFactory.Create();
-                //handles users
+                //handles date
+             
 
+                //handles users
                 var authUserName = User.Identity.GetUserName();
                 viewModel.BlogPost.User = new ApplicationUser();
                 viewModel.BlogPost.User.UserName = authUserName;
